@@ -1,0 +1,26 @@
+{
+  "name": "despia-docs",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "sync": "node scripts/sync-content.mjs",
+    "compile": "node scripts/compile.mjs",
+    "build": "npm run compile && dsx build && node scripts/assemble.mjs",
+    "dev": "npm run compile && dsx dev",
+    "lint": "npm run compile && dsx lint --strict"
+  },
+  "dependencies": {
+    "@despia/compiler": "0.0.1",
+    "@despia/dom": "0.0.1",
+    "@despia/kernel": "0.0.1",
+    "@despia/server": "0.0.1"
+  },
+  "devDependencies": {
+    "@despia/cli": "0.0.1",
+    "wrangler": "^4.123.0"
+  }
+}
