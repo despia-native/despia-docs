@@ -1,0 +1,478 @@
+{
+  "name": "Despia Docs",
+  "entry": "PageIndex",
+  "outDir": "dist",
+  "routes": [
+    {
+      "path": "/",
+      "component": "docs.PageIndex",
+      "meta": {
+        "title": "Despia documentation",
+        "description": "One set of DSX documents, rendered as native iOS, native Android, an installable PWA and a server-rendered site."
+      }
+    },
+    {
+      "path": "/quickstart",
+      "component": "docs.PageQuickstart",
+      "meta": {
+        "title": "Quickstart",
+        "description": "From an empty directory to a running DSX app."
+      }
+    },
+    {
+      "path": "/framework/guides/README",
+      "component": "docs.PageFramework_Guides_README",
+      "meta": {
+        "title": "Building an app on DSX"
+      }
+    },
+    {
+      "path": "/framework/guides/adaptive-native-shells",
+      "component": "docs.PageFramework_Guides_AdaptiveNativeShells",
+      "meta": {
+        "title": "Adaptive large-screen shells"
+      }
+    },
+    {
+      "path": "/framework/guides/build-secrets-setup",
+      "component": "docs.PageFramework_Guides_BuildSecretsSetup",
+      "meta": {
+        "title": "Build secrets — simple setup guide"
+      }
+    },
+    {
+      "path": "/framework/guides/codemagic-build",
+      "component": "docs.PageFramework_Guides_CodemagicBuild",
+      "meta": {
+        "title": "Building an iOS app — Codemagic & the `iOS/` assets folder"
+      }
+    },
+    {
+      "path": "/framework/guides/despia-api",
+      "component": "docs.PageFramework_Guides_DespiaApi",
+      "meta": {
+        "title": "The `window.dsx` API"
+      }
+    },
+    {
+      "path": "/framework/guides/files-and-storage",
+      "component": "docs.PageFramework_Guides_FilesAndStorage",
+      "meta": {
+        "title": "Files & storage"
+      }
+    },
+    {
+      "path": "/framework/guides/getting-started",
+      "component": "docs.PageFramework_Guides_GettingStarted",
+      "meta": {
+        "title": "Getting started — the web app you already have"
+      }
+    },
+    {
+      "path": "/framework/guides/oauth-https-callback",
+      "component": "docs.PageFramework_Guides_OauthHttpsCallback",
+      "meta": {
+        "title": "OAuth HTTPS Callback — Cross-Platform Specification"
+      }
+    },
+    {
+      "path": "/framework/guides/packages/README",
+      "component": "docs.PageFramework_Guides_Packages_README",
+      "meta": {
+        "title": "Package catalog"
+      }
+    },
+    {
+      "path": "/framework/guides/patterns",
+      "component": "docs.PageFramework_Guides_Patterns",
+      "meta": {
+        "title": "Common patterns"
+      }
+    },
+    {
+      "path": "/framework/guides/quickstart",
+      "component": "docs.PageFramework_Guides_Quickstart",
+      "meta": {
+        "title": "Quickstart — a DSX app from nothing"
+      }
+    },
+    {
+      "path": "/framework/guides/staging-and-testing",
+      "component": "docs.PageFramework_Guides_StagingAndTesting",
+      "meta": {
+        "title": "Staging, testing & the dev center"
+      }
+    },
+    {
+      "path": "/framework/guides/state-and-events",
+      "component": "docs.PageFramework_Guides_StateAndEvents",
+      "meta": {
+        "title": "State & events"
+      }
+    },
+    {
+      "path": "/framework/guides/styling",
+      "component": "docs.PageFramework_Guides_Styling",
+      "meta": {
+        "title": "Styling DSX with CSS"
+      }
+    },
+    {
+      "path": "/framework/guides/transport-and-ota-integrity",
+      "component": "docs.PageFramework_Guides_TransportAndOtaIntegrity",
+      "meta": {
+        "title": "Transport & OTA integrity — HTTP/HTTPS and signed updates (the visual guide)"
+      }
+    },
+    {
+      "path": "/framework/skills/README",
+      "component": "docs.PageFramework_Skills_README",
+      "meta": {
+        "title": "Despia Module Skills"
+      }
+    },
+    {
+      "path": "/framework/skills/action-contracts",
+      "component": "docs.PageFramework_Skills_ActionContracts",
+      "meta": {
+        "title": "Action contracts — inputs in, events out"
+      }
+    },
+    {
+      "path": "/framework/skills/android/README",
+      "component": "docs.PageFramework_Skills_Android_README",
+      "meta": {
+        "title": "DespiaScript on Android"
+      }
+    },
+    {
+      "path": "/framework/skills/android/api-mapping",
+      "component": "docs.PageFramework_Skills_Android_ApiMapping",
+      "meta": {
+        "title": "API mapping - Swift ↔ Kotlin"
+      }
+    },
+    {
+      "path": "/framework/skills/android/containers",
+      "component": "docs.PageFramework_Skills_Android_Containers",
+      "meta": {
+        "title": "`dsx.container` on Android"
+      }
+    },
+    {
+      "path": "/framework/skills/android/js-core-parity",
+      "component": "docs.PageFramework_Skills_Android_JsCoreParity",
+      "meta": {
+        "title": "JS-core parity contract — iOS ⇄ Android, API by API"
+      }
+    },
+    {
+      "path": "/framework/skills/android/manifest-and-build",
+      "component": "docs.PageFramework_Skills_Android_ManifestAndBuild",
+      "meta": {
+        "title": "dsx.json → Android"
+      }
+    },
+    {
+      "path": "/framework/skills/attribute-classes",
+      "component": "docs.PageFramework_Skills_AttributeClasses",
+      "meta": {
+        "title": "Attribute classes — one classification for every DSX block"
+      }
+    },
+    {
+      "path": "/framework/skills/building",
+      "component": "docs.PageFramework_Skills_Building",
+      "meta": {
+        "title": "Building in Xcode directly (no Despia CI/CD)"
+      }
+    },
+    {
+      "path": "/framework/skills/component-props-and-state",
+      "component": "docs.PageFramework_Skills_ComponentPropsAndState",
+      "meta": {
+        "title": "Component props vs state — attributes vs variables"
+      }
+    },
+    {
+      "path": "/framework/skills/containers",
+      "component": "docs.PageFramework_Skills_Containers",
+      "meta": {
+        "title": "Containers (the shared App Group)"
+      }
+    },
+    {
+      "path": "/framework/skills/cookies",
+      "component": "docs.PageFramework_Skills_Cookies",
+      "meta": {
+        "title": "Cookies — `dsx.cookie`"
+      }
+    },
+    {
+      "path": "/framework/skills/cross-module-calls",
+      "component": "docs.PageFramework_Skills_CrossModuleCalls",
+      "meta": {
+        "title": "Cross-module calls"
+      }
+    },
+    {
+      "path": "/framework/skills/custom-ux",
+      "component": "docs.PageFramework_Skills_CustomUx",
+      "meta": {
+        "title": "Custom UX — the escape hatches"
+      }
+    },
+    {
+      "path": "/framework/skills/deploying",
+      "component": "docs.PageFramework_Skills_Deploying",
+      "meta": {
+        "title": "Deploying from Xcode (no Despia CI/CD)"
+      }
+    },
+    {
+      "path": "/framework/skills/despiascript",
+      "component": "docs.PageFramework_Skills_Despiascript",
+      "meta": {
+        "title": "DespiaScript"
+      }
+    },
+    {
+      "path": "/framework/skills/documenting-a-module",
+      "component": "docs.PageFramework_Skills_DocumentingAModule",
+      "meta": {
+        "title": "Documenting a module"
+      }
+    },
+    {
+      "path": "/framework/skills/dsx-best-practices",
+      "component": "docs.PageFramework_Skills_DsxBestPractices",
+      "meta": {
+        "title": "DSX best practices"
+      }
+    },
+    {
+      "path": "/framework/skills/dynamic-modules",
+      "component": "docs.PageFramework_Skills_DynamicModules",
+      "meta": {
+        "title": "Building dynamic, powerful modules"
+      }
+    },
+    {
+      "path": "/framework/skills/editor-catalog",
+      "component": "docs.PageFramework_Skills_EditorCatalog",
+      "meta": {
+        "title": "Editor catalog — the web-canvas element schema"
+      }
+    },
+    {
+      "path": "/framework/skills/extracting-a-module",
+      "component": "docs.PageFramework_Skills_ExtractingAModule",
+      "meta": {
+        "title": "Extracting a host feature into a module"
+      }
+    },
+    {
+      "path": "/framework/skills/global-state",
+      "component": "docs.PageFramework_Skills_GlobalState",
+      "meta": {
+        "title": "Global app state — `global.*`"
+      }
+    },
+    {
+      "path": "/framework/skills/js-core",
+      "component": "docs.PageFramework_Skills_JsCore",
+      "meta": {
+        "title": "The JS core globals in JSE — app logic, 1:1, no browser"
+      }
+    },
+    {
+      "path": "/framework/skills/lifecycle",
+      "component": "docs.PageFramework_Skills_Lifecycle",
+      "meta": {
+        "title": "Lifecycle guarantees — every resource × every transition"
+      }
+    },
+    {
+      "path": "/framework/skills/live-activities-and-widgets",
+      "component": "docs.PageFramework_Skills_LiveActivitiesAndWidgets",
+      "meta": {
+        "title": "Live Activities & widgets — authoring the OS surfaces"
+      }
+    },
+    {
+      "path": "/framework/skills/localization",
+      "component": "docs.PageFramework_Skills_Localization",
+      "meta": {
+        "title": "Localization"
+      }
+    },
+    {
+      "path": "/framework/skills/manifest-dsl",
+      "component": "docs.PageFramework_Skills_ManifestDsl",
+      "meta": {
+        "title": "dsx.json - the property DSL"
+      }
+    },
+    {
+      "path": "/framework/skills/module-content",
+      "component": "docs.PageFramework_Skills_ModuleContent",
+      "meta": {
+        "title": "`content` — bundled content folders (dsx.json) and the `dsx.content` primitive"
+      }
+    },
+    {
+      "path": "/framework/skills/module-frameworks",
+      "component": "docs.PageFramework_Skills_ModuleFrameworks",
+      "meta": {
+        "title": "Module build artifacts — binary dependencies without committing binaries"
+      }
+    },
+    {
+      "path": "/framework/skills/module-permissions",
+      "component": "docs.PageFramework_Skills_ModulePermissions",
+      "meta": {
+        "title": "Permissions — `Config/permissions.json`"
+      }
+    },
+    {
+      "path": "/framework/skills/module-secrets",
+      "component": "docs.PageFramework_Skills_ModuleSecrets",
+      "meta": {
+        "title": "Module secrets — build-time SDK credentials, dynamic across every app"
+      }
+    },
+    {
+      "path": "/framework/skills/module-state",
+      "component": "docs.PageFramework_Skills_ModuleState",
+      "meta": {
+        "title": "Module context — `dsx.module.<scheme>.context.*`"
+      }
+    },
+    {
+      "path": "/framework/skills/module-system",
+      "component": "docs.PageFramework_Skills_ModuleSystem",
+      "meta": {
+        "title": "Module system architecture"
+      }
+    },
+    {
+      "path": "/framework/skills/module-weights",
+      "component": "docs.PageFramework_Skills_ModuleWeights",
+      "meta": {
+        "title": "Module weights — bundling large ML blobs without committing them"
+      }
+    },
+    {
+      "path": "/framework/skills/mounting-components",
+      "component": "docs.PageFramework_Skills_MountingComponents",
+      "meta": {
+        "title": "Mounting components — `dsx.component.mount`"
+      }
+    },
+    {
+      "path": "/framework/skills/native-components",
+      "component": "docs.PageFramework_Skills_NativeComponents",
+      "meta": {
+        "title": "Native components — the custom-coded component primitive"
+      }
+    },
+    {
+      "path": "/framework/skills/native-languages",
+      "component": "docs.PageFramework_Skills_NativeLanguages",
+      "meta": {
+        "title": "Native languages — the polyglot-module primitive (`languages`)"
+      }
+    },
+    {
+      "path": "/framework/skills/offline-best-practices",
+      "component": "docs.PageFramework_Skills_OfflineBestPractices",
+      "meta": {
+        "title": "Offline, caching & UI state — best practices per surface"
+      }
+    },
+    {
+      "path": "/framework/skills/package-as-sdk",
+      "component": "docs.PageFramework_Skills_PackageAsSdk",
+      "meta": {
+        "title": "Authoring a package as an SDK — DSX best practices"
+      }
+    },
+    {
+      "path": "/framework/skills/runtime-api",
+      "component": "docs.PageFramework_Skills_RuntimeApi",
+      "meta": {
+        "title": "Runtime API (native) & web contract"
+      }
+    },
+    {
+      "path": "/framework/skills/security",
+      "component": "docs.PageFramework_Skills_Security",
+      "meta": {
+        "title": "Security model — what JSE/DSX can do, and what holds it"
+      }
+    },
+    {
+      "path": "/framework/skills/storage",
+      "component": "docs.PageFramework_Skills_Storage",
+      "meta": {
+        "title": "Storage (the `cdn` module)"
+      }
+    },
+    {
+      "path": "/framework/skills/style-catalog",
+      "component": "docs.PageFramework_Skills_StyleCatalog",
+      "meta": {
+        "title": "Style catalog — the machine-readable style-panel schema"
+      }
+    },
+    {
+      "path": "/framework/skills/surface-bridges",
+      "component": "docs.PageFramework_Skills_SurfaceBridges",
+      "meta": {
+        "title": "Surface bridges — mounting a RENDER SURFACE on the bus (`dsx.messenger`)"
+      }
+    },
+    {
+      "path": "/framework/skills/web-crypto",
+      "component": "docs.PageFramework_Skills_WebCrypto",
+      "meta": {
+        "title": "Web Crypto in JSE — the standard API, 1:1, no JS engine"
+      }
+    },
+    {
+      "path": "/framework/skills/white-label",
+      "component": "docs.PageFramework_Skills_WhiteLabel",
+      "meta": {
+        "title": "White-labeling — `dsx.global.strings` + `dsx.global.theme` (the platform convention)"
+      }
+    },
+    {
+      "path": "/framework/skills/writing-a-backend",
+      "component": "docs.PageFramework_Skills_WritingABackend",
+      "meta": {
+        "title": "Writing a backend in DSX"
+      }
+    },
+    {
+      "path": "/framework/skills/writing-a-module",
+      "component": "docs.PageFramework_Skills_WritingAModule",
+      "meta": {
+        "title": "Writing a module - DespiaScript"
+      }
+    },
+    {
+      "path": "/framework/skills/writing-a-module-internal",
+      "component": "docs.PageFramework_Skills_WritingAModuleInternal",
+      "meta": {
+        "title": "Writing a module"
+      }
+    },
+    {
+      "path": "/framework/skills/writing-unit-tests",
+      "component": "docs.PageFramework_Skills_WritingUnitTests",
+      "meta": {
+        "title": "Writing unit tests — self-contained actions in `dsx.json`"
+      }
+    }
+  ]
+}

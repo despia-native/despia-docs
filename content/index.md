@@ -1,0 +1,37 @@
+---
+title: Despia documentation
+description: One set of DSX documents, rendered as native iOS, native Android, an installable PWA and a server-rendered site.
+order: 0
+section:
+---
+
+# Despia documentation
+
+Despia is a web-optional native runtime: you write **DSX documents** once, and the same
+documents render as a native iOS app, a native Android app, an installable PWA, and a
+server-rendered site. None of the four is a port; the semantics are pinned by shared
+conformance corpora that every renderer must pass identically.
+
+```sh
+npm create dsx@latest my-app
+cd my-app
+npm install
+npx dsx dev
+```
+
+## Where to start
+
+- **[Quickstart](/quickstart)** takes you from an empty directory to a running app.
+- **[The combination matrix](/framework/guides/combinations)** shows every supported way
+  of pairing Despia with what you already have: a web app you keep, a backend you keep,
+  a vendor's API, or nothing yet.
+- **[Writing a backend](/framework/skills/writing-a-backend)** is the whole server story:
+  routes, workers, MCP tools, one deploy command.
+
+## This site is the proof
+
+These pages are themselves a DSX application: markdown compiled to DSX documents,
+server-rendered on Cloudflare Workers by `@despia/server`, searched client-side from a
+build-time index, and served to agents over the site's own MCP face at `/mcp`. Every page
+serves its raw markdown under `/md`, and the whole site is summarized at
+[/llms.txt](/llms.txt).
