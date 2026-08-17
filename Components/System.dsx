@@ -95,6 +95,70 @@
       </list>
     </SystemSection>
 
+    <SystemSection title="Badge"
+                   note="Count or dot status on a semantic fill, sized off the caption step of the ramp. value= folds past max= to 99+; dot=true is the bare presence dot; color= defaults to destructive. It never positions itself: the parent stack's align places it, the Avatar status-dot idiom.">
+      <hstack style="gap: 1rem; align-items: center; flex-wrap: wrap">
+        <stack style="display: grid; place-items: center; min-width: 1.2rem; min-height: 1.2rem; padding: 0 0.3rem; border-radius: 999px; background: destructive">
+          <text value="3" style="font-size: 0.72rem; font-weight: 600; color: var(--dsx-on-destructive)"/>
+        </stack>
+        <stack style="display: grid; place-items: center; min-width: 1.2rem; min-height: 1.2rem; padding: 0 0.3rem; border-radius: 999px; background: destructive">
+          <text value="99+" style="font-size: 0.72rem; font-weight: 600; color: var(--dsx-on-destructive)"/>
+        </stack>
+        <stack style="display: grid; place-items: center; min-width: 1.2rem; min-height: 1.2rem; padding: 0 0.3rem; border-radius: 999px; background: accent">
+          <text value="12" style="font-size: 0.72rem; font-weight: 600; color: var(--dsx-on-accent)"/>
+        </stack>
+        <stack style="width: 0.6rem; height: 0.6rem; border-radius: 999px; background: destructive"/>
+        <stack style="width: 0.6rem; height: 0.6rem; border-radius: 999px; background: accent"/>
+      </hstack>
+      <hstack style="gap: 1.5rem; align-items: center">
+        <stack style="display: grid">
+          <image icon="bell.fill" iconSize="24" color="secondary" style="grid-area: 1 / 1"/>
+          <stack style="grid-area: 1 / 1; justify-self: end; align-self: start; width: 0.6rem; height: 0.6rem; border-radius: 999px; background: destructive; margin: -0.15rem -0.15rem 0 0"/>
+        </stack>
+        <stack style="display: grid">
+          <image icon="tray" iconSize="24" color="secondary" style="grid-area: 1 / 1"/>
+          <stack style="grid-area: 1 / 1; justify-self: end; align-self: start; display: grid; place-items: center; min-width: 1.1rem; min-height: 1.1rem; padding: 0 0.25rem; border-radius: 999px; background: destructive; margin: -0.45rem -0.55rem 0 0">
+            <text value="3" style="font-size: 0.68rem; font-weight: 600; color: var(--dsx-on-destructive)"/>
+          </stack>
+        </stack>
+      </hstack>
+    </SystemSection>
+
+    <SystemSection title="Breadcrumb"
+                   note="The location trail: prior rows are real links via the anchor attribute, the last row is the current page and never a link. The separator icon swaps per trail; the row follows the document direction, so RTL comes free.">
+      <stack style="gap: 0.75rem">
+        <hstack role="navigation" a11yLabel="Breadcrumb" style="gap: 0.375rem; align-items: center; flex-wrap: wrap">
+          <pressable href="/"><text value="Docs" style="font-size: 0.875rem; color: secondary"/></pressable>
+          <image icon="chevron.right" iconSize="11" color="tertiary" a11yHidden="true"/>
+          <pressable href="/quickstart"><text value="Quickstart" style="font-size: 0.875rem; color: secondary"/></pressable>
+          <image icon="chevron.right" iconSize="11" color="tertiary" a11yHidden="true"/>
+          <text value="Requirements" style="font-size: 0.875rem; font-weight: 600"/>
+        </hstack>
+        <hstack role="navigation" a11yLabel="Breadcrumb" style="gap: 0.5rem; align-items: center; flex-wrap: wrap">
+          <pressable href="/"><text value="Docs" style="font-size: 0.875rem; color: secondary"/></pressable>
+          <image icon="circle.fill" iconSize="4" color="tertiary" a11yHidden="true"/>
+          <pressable href="/system"><text value="System" style="font-size: 0.875rem; color: secondary"/></pressable>
+          <image icon="circle.fill" iconSize="4" color="tertiary" a11yHidden="true"/>
+          <text value="Badge" style="font-size: 0.875rem; font-weight: 600"/>
+        </hstack>
+      </stack>
+    </SystemSection>
+
+    <SystemSection title="Tooltip"
+                   note="The universal hint attribute: tooltip= on any element, tooltipSide= picks the edge (top, bottom, leading, trailing; default top, collision-flipped at the viewport). It shows on hover intent and on keyboard focus under a real pointer; on touch it never fires and the text still reaches assistive tech through the described-by wiring. Pointer-out, blur, and Escape dismiss. No events: a tooltip is presentation, never a trigger.">
+      <hstack style="gap: 0.75rem; flex-wrap: wrap; align-items: center">
+        <button label="Save" tooltip="Save the draft"/>
+        <button label="Publish" variant="prominent" tooltip="Publish to production" tooltipSide="bottom"/>
+        <button label="Back" variant="bordered" tooltip="Return to the list" tooltipSide="leading"/>
+        <button label="Next" variant="bordered" tooltip="Continue to review" tooltipSide="trailing"/>
+      </hstack>
+      <hstack style="gap: 0.6rem; align-items: center">
+        <image icon="info.circle.fill" iconSize="18" color="secondary" tooltip="Any element can carry a hint, icons included"/>
+        <text value="Hover the row above and hold still a moment, or tab through it: the hint appears beside its side word."
+              style="color: secondary; font-size: 0.85rem"/>
+      </hstack>
+    </SystemSection>
+
     <SystemSection title="Surfaces"
                    note="The grouped pair is the native list language: secondaryGroupedBackground cards on a groupedBackground page. Elevation stays soft and real.">
       <stack style="gap: 1rem; padding: 1rem; border-radius: var(--dsx-radius-lg); background: groupedBackground">
