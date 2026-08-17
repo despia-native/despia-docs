@@ -1,0 +1,300 @@
+<stack style="gap: 0">
+  <head>
+    <!--
+      /system, the living spec of the design system: every element the grammar ships,
+      rendered in its states by the same runtime this site documents. HAND-AUTHORED
+      (not compiled from markdown): the compile step only regenerates Components/pages,
+      so this file, like DocShell, is safe at the Components root. Its route and nav
+      entry come from the handAuthored table in scripts/compile.mjs.
+      System components and semantic tokens only; both color schemes come free.
+    -->
+    <variable as="sheetOpen">return false</variable>
+    <variable as="airplane">return true</variable>
+    <variable as="haptics">return false</variable>
+    <variable as="plan">return 'Monthly'</variable>
+    <variable as="region">return 'Europe'</variable>
+    <variable as="brightness">return 0.6</variable>
+    <variable as="copies">return 2</variable>
+    <variable as="rows">return [
+      { id: 'general', icon: 'gearshape', title: 'General', detail: 'Automatic' },
+      { id: 'alerts', icon: 'bell.fill', title: 'Notifications', detail: 'On' },
+      { id: 'privacy', icon: 'lock.fill', title: 'Privacy', detail: 'Ask' }
+    ]</variable>
+    <formula as="pct" inputs="v">return Math.round(v * 100) + '%'</formula>
+  </head>
+
+  <DocShell title="System" route="/system">
+    <stack style="gap: 0.4rem">
+      <text value="System" style="font-size: 2rem; font-weight: 700; letter-spacing: -0.02em"/>
+      <text value="The design system as a living page: every element below is the real system component, rendered live. Semantic tokens only, one accent, both color schemes for free."
+            style="color: secondary"/>
+    </stack>
+
+    <SystemSection title="Buttons"
+                   note="The four roles: plain, tonal, filled, destructive. Each can be disabled; role=cancel keeps its dismissive weight.">
+      <hstack style="gap: 0.75rem; flex-wrap: wrap; align-items: center">
+        <button label="Plain"/>
+        <button label="Tonal" variant="bordered"/>
+        <button label="Filled" variant="prominent"/>
+        <button label="Delete" role="destructive"/>
+      </hstack>
+      <hstack style="gap: 0.75rem; flex-wrap: wrap; align-items: center">
+        <button label="Plain" disabled="true"/>
+        <button label="Tonal" variant="bordered" disabled="true"/>
+        <button label="Filled" variant="prominent" disabled="true"/>
+        <button label="Delete" role="destructive" disabled="true"/>
+      </hstack>
+    </SystemSection>
+
+    <SystemSection title="Fields"
+                   note="Focus draws the ring. A required field left empty raises its error once touched; message= overrides the validator text.">
+      <form as="gallery" spacing="14">
+        <field name="name" label="Name" placeholder="Ada Lovelace"/>
+        <field name="email" type="email" label="Email" placeholder="you@example.com" validate="required,email"/>
+        <field name="passphrase" type="secure" label="Passphrase" validate="required,minLength:8"
+               message="At least 8 characters"/>
+      </form>
+    </SystemSection>
+
+    <SystemSection title="Selection"
+                   note="The grammar's choice controls: toggle, segmented, picker, slider, stepper. Segmented and picker carry the radio semantics.">
+      <stack style="gap: 1.1rem">
+        <hstack style="gap: 0.75rem; align-items: center">
+          <text value="Airplane mode"/>
+          <spacer/>
+          <toggle bind="dsx.variable.airplane"/>
+        </hstack>
+        <hstack style="gap: 0.75rem; align-items: center">
+          <text value="Haptics"/>
+          <spacer/>
+          <toggle bind="dsx.variable.haptics"/>
+        </hstack>
+        <segmented bind="dsx.variable.plan" options="Weekly,Monthly,Yearly"/>
+        <picker bind="dsx.variable.region" options="Europe,Americas,Asia" label="Region"/>
+        <hstack style="gap: 0.75rem; align-items: center">
+          <slider bind="dsx.variable.brightness" style="flex: 1"/>
+          <text value="{{ dsx.formula.pct(dsx.variable.brightness) }}"
+                style="color: secondary; font-size: 0.85rem; min-width: 3.5ch; text-align: right"/>
+        </hstack>
+        <stepper bind="dsx.variable.copies" min="1" max="9" label="Copies"/>
+      </stack>
+    </SystemSection>
+
+    <SystemSection title="List rows"
+                   note="An unstyled list is the platform list. Rows lay out their own content; the chevron is just an image.">
+      <list bind="dsx.variable.rows" key="id">
+        <row>
+          <hstack style="gap: 0.75rem; align-items: center" a11yGroup="true">
+            <image icon="{{ item.icon }}" iconSize="18" color="accent"/>
+            <text bind="item.title"/>
+            <spacer/>
+            <text bind="item.detail" style="color: secondary"/>
+            <image icon="chevron.right" iconSize="13" color="tertiary"/>
+          </hstack>
+        </row>
+      </list>
+    </SystemSection>
+
+    <SystemSection title="Surfaces"
+                   note="The grouped pair is the native list language: secondaryGroupedBackground cards on a groupedBackground page. Elevation stays soft and real.">
+      <stack style="gap: 1rem; padding: 1rem; border-radius: var(--dsx-radius-lg); background: groupedBackground">
+        <stack style="gap: 0.25rem; padding: 1rem; border-radius: var(--dsx-radius); background: secondaryGroupedBackground; border: 1px solid var(--dsx-separator)">
+          <text value="Grouped card" style="font-weight: 600"/>
+          <text value="A hairline border, no shadow: the resting grouped surface."
+                style="color: secondary; font-size: 0.9rem"/>
+        </stack>
+        <stack style="gap: 0.25rem; padding: 1rem; border-radius: var(--dsx-radius); background: secondaryGroupedBackground; box-shadow: var(--dsx-shadow-2)">
+          <text value="Elevated card" style="font-weight: 600"/>
+          <text value="shadow-2, the resting elevation for floating content."
+                style="color: secondary; font-size: 0.9rem"/>
+        </stack>
+      </stack>
+      <hstack style="gap: 1rem; flex-wrap: wrap">
+        <stack style="padding: 0.9rem 1.1rem; border-radius: var(--dsx-radius); background: background; box-shadow: var(--dsx-shadow-1)">
+          <text value="shadow-1" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: secondary"/>
+        </stack>
+        <stack style="padding: 0.9rem 1.1rem; border-radius: var(--dsx-radius); background: background; box-shadow: var(--dsx-shadow-2)">
+          <text value="shadow-2" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: secondary"/>
+        </stack>
+        <stack style="padding: 0.9rem 1.1rem; border-radius: var(--dsx-radius); background: background; box-shadow: var(--dsx-shadow-3)">
+          <text value="shadow-3" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: secondary"/>
+        </stack>
+      </hstack>
+    </SystemSection>
+
+    <SystemSection title="Tabs" note="Each pane names its own tab with tabTitle and tabIcon; selection tints with the accent.">
+      <tabs>
+        <stack tabTitle="Overview" tabIcon="house.fill" style="gap: 0.3rem; padding: 1rem 0.25rem">
+          <text value="Panes keep their own content."/>
+          <text value="The bar renders from the panes; nothing is declared twice."
+                style="color: secondary; font-size: 0.9rem"/>
+        </stack>
+        <stack tabTitle="Activity" tabIcon="bell.fill" style="gap: 0.3rem; padding: 1rem 0.25rem">
+          <text value="The second pane."/>
+        </stack>
+        <stack tabTitle="Settings" tabIcon="gearshape" style="gap: 0.3rem; padding: 1rem 0.25rem">
+          <text value="The third pane."/>
+        </stack>
+      </tabs>
+    </SystemSection>
+
+    <SystemSection title="Sheet" note="Presented by state: a Bool opens it, swipe down or the system close control dismisses it.">
+      <hstack>
+        <button label="Present sheet" variant="bordered" on:tap="dsx.variable.sheetOpen = true"/>
+      </hstack>
+      <sheet present="dsx.variable.sheetOpen" detents="content" title="Sheet"
+             on:dismiss="dsx.variable.sheetOpen = false">
+        <stack style="gap: 1rem; padding: 0.5rem 1.25rem 1.5rem">
+          <text value="A declarative modal: no controller, no imperative call, just the flag this button set."/>
+          <button label="Done" variant="prominent" on:tap="dsx.variable.sheetOpen = false"/>
+        </stack>
+      </sheet>
+    </SystemSection>
+
+    <SystemSection title="Typography" note="The ramp. Weights stay between 400 and 700; tracking tightens as size grows.">
+      <stack style="gap: 0.9rem">
+        <hstack style="gap: 1rem; align-items: baseline">
+          <text value="2rem / 700" style="width: 7.5rem; flex-shrink: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
+          <text value="Display" style="font-size: 2rem; font-weight: 700; letter-spacing: -0.02em"/>
+        </hstack>
+        <hstack style="gap: 1rem; align-items: baseline">
+          <text value="1.5rem / 600" style="width: 7.5rem; flex-shrink: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
+          <text value="Title" style="font-size: 1.5rem; font-weight: 600; letter-spacing: -0.01em"/>
+        </hstack>
+        <hstack style="gap: 1rem; align-items: baseline">
+          <text value="1.17rem / 600" style="width: 7.5rem; flex-shrink: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
+          <text value="Heading" style="font-size: 1.17rem; font-weight: 600"/>
+        </hstack>
+        <hstack style="gap: 1rem; align-items: baseline">
+          <text value="1rem / 400" style="width: 7.5rem; flex-shrink: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
+          <text value="Body, the reading size."/>
+        </hstack>
+        <hstack style="gap: 1rem; align-items: baseline">
+          <text value="0.9rem / 400" style="width: 7.5rem; flex-shrink: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
+          <text value="Subhead, supporting copy." style="font-size: 0.9rem; color: secondary"/>
+        </hstack>
+        <hstack style="gap: 1rem; align-items: baseline">
+          <text value="0.8rem / 400" style="width: 7.5rem; flex-shrink: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
+          <text value="Footnote, fine print." style="font-size: 0.8rem; color: secondary"/>
+        </hstack>
+        <hstack style="gap: 1rem; align-items: baseline">
+          <text value="0.72rem / 600" style="width: 7.5rem; flex-shrink: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
+          <text value="Caption, the section label"
+                style="font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: secondary"/>
+        </hstack>
+      </stack>
+    </SystemSection>
+
+    <SystemSection title="Colors" note="The ten cross-renderer semantic words. The OS owns the values, so both schemes come free.">
+      <stack style="gap: 0.6rem">
+        <hstack style="gap: 0.75rem; align-items: center">
+          <stack style="width: 1.75rem; height: 1.75rem; border-radius: var(--dsx-radius-sm); background: label; border: 1px solid var(--dsx-separator)"/>
+          <text value="label" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem"/>
+          <spacer/>
+          <text value="Primary text" style="color: secondary; font-size: 0.85rem"/>
+        </hstack>
+        <hstack style="gap: 0.75rem; align-items: center">
+          <stack style="width: 1.75rem; height: 1.75rem; border-radius: var(--dsx-radius-sm); background: var(--dsx-secondary-label); border: 1px solid var(--dsx-separator)"/>
+          <text value="secondary" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem"/>
+          <spacer/>
+          <text value="Supporting text" style="color: secondary; font-size: 0.85rem"/>
+        </hstack>
+        <hstack style="gap: 0.75rem; align-items: center">
+          <stack style="width: 1.75rem; height: 1.75rem; border-radius: var(--dsx-radius-sm); background: var(--dsx-tertiary-label); border: 1px solid var(--dsx-separator)"/>
+          <text value="tertiary" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem"/>
+          <spacer/>
+          <text value="Faintest text, placeholders" style="color: secondary; font-size: 0.85rem"/>
+        </hstack>
+        <hstack style="gap: 0.75rem; align-items: center">
+          <stack style="width: 1.75rem; height: 1.75rem; border-radius: var(--dsx-radius-sm); background: background; border: 1px solid var(--dsx-separator)"/>
+          <text value="background" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem"/>
+          <spacer/>
+          <text value="The page" style="color: secondary; font-size: 0.85rem"/>
+        </hstack>
+        <hstack style="gap: 0.75rem; align-items: center">
+          <stack style="width: 1.75rem; height: 1.75rem; border-radius: var(--dsx-radius-sm); background: groupedBackground; border: 1px solid var(--dsx-separator)"/>
+          <text value="groupedBackground" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem"/>
+          <spacer/>
+          <text value="Grouped pages" style="color: secondary; font-size: 0.85rem"/>
+        </hstack>
+        <hstack style="gap: 0.75rem; align-items: center">
+          <stack style="width: 1.75rem; height: 1.75rem; border-radius: var(--dsx-radius-sm); background: secondaryGroupedBackground; border: 1px solid var(--dsx-separator)"/>
+          <text value="secondaryGroupedBackground" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem"/>
+          <spacer/>
+          <text value="Cards on grouped pages" style="color: secondary; font-size: 0.85rem"/>
+        </hstack>
+        <hstack style="gap: 0.75rem; align-items: center">
+          <stack style="width: 1.75rem; height: 1.75rem; border-radius: var(--dsx-radius-sm); background: fill; border: 1px solid var(--dsx-separator)"/>
+          <text value="fill" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem"/>
+          <spacer/>
+          <text value="Control fills" style="color: secondary; font-size: 0.85rem"/>
+        </hstack>
+        <hstack style="gap: 0.75rem; align-items: center">
+          <stack style="width: 1.75rem; height: 1.75rem; border-radius: var(--dsx-radius-sm); background: separator; border: 1px solid var(--dsx-separator)"/>
+          <text value="separator" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem"/>
+          <spacer/>
+          <text value="Hairlines" style="color: secondary; font-size: 0.85rem"/>
+        </hstack>
+        <hstack style="gap: 0.75rem; align-items: center">
+          <stack style="width: 1.75rem; height: 1.75rem; border-radius: var(--dsx-radius-sm); background: accent; border: 1px solid var(--dsx-separator)"/>
+          <text value="accent" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem"/>
+          <spacer/>
+          <text value="The one accent: actions and selection" style="color: secondary; font-size: 0.85rem"/>
+        </hstack>
+        <hstack style="gap: 0.75rem; align-items: center">
+          <stack style="width: 1.75rem; height: 1.75rem; border-radius: var(--dsx-radius-sm); background: destructive; border: 1px solid var(--dsx-separator)"/>
+          <text value="destructive" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem"/>
+          <spacer/>
+          <text value="Danger and deletion" style="color: secondary; font-size: 0.85rem"/>
+        </hstack>
+      </stack>
+    </SystemSection>
+
+    <SystemSection title="Spacing and radius" note="A 4px grid, space-1 through space-12. Three radius stops: controls ride base, cards ride lg.">
+      <stack style="gap: 0.5rem">
+        <hstack style="gap: 1rem; align-items: center">
+          <text value="space-1 · 4" style="width: 7.5rem; flex-shrink: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
+          <stack style="width: var(--dsx-space-1); height: 0.75rem; border-radius: 2px; background: accent"/>
+        </hstack>
+        <hstack style="gap: 1rem; align-items: center">
+          <text value="space-2 · 8" style="width: 7.5rem; flex-shrink: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
+          <stack style="width: var(--dsx-space-2); height: 0.75rem; border-radius: 2px; background: accent"/>
+        </hstack>
+        <hstack style="gap: 1rem; align-items: center">
+          <text value="space-3 · 12" style="width: 7.5rem; flex-shrink: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
+          <stack style="width: var(--dsx-space-3); height: 0.75rem; border-radius: 2px; background: accent"/>
+        </hstack>
+        <hstack style="gap: 1rem; align-items: center">
+          <text value="space-4 · 16" style="width: 7.5rem; flex-shrink: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
+          <stack style="width: var(--dsx-space-4); height: 0.75rem; border-radius: 2px; background: accent"/>
+        </hstack>
+        <hstack style="gap: 1rem; align-items: center">
+          <text value="space-6 · 24" style="width: 7.5rem; flex-shrink: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
+          <stack style="width: var(--dsx-space-6); height: 0.75rem; border-radius: 2px; background: accent"/>
+        </hstack>
+        <hstack style="gap: 1rem; align-items: center">
+          <text value="space-8 · 32" style="width: 7.5rem; flex-shrink: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
+          <stack style="width: var(--dsx-space-8); height: 0.75rem; border-radius: 2px; background: accent"/>
+        </hstack>
+        <hstack style="gap: 1rem; align-items: center">
+          <text value="space-12 · 48" style="width: 7.5rem; flex-shrink: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
+          <stack style="width: var(--dsx-space-12); height: 0.75rem; border-radius: 2px; background: accent"/>
+        </hstack>
+      </stack>
+      <hstack style="gap: 1rem; margin-top: 0.5rem; flex-wrap: wrap">
+        <stack style="gap: 0.4rem; align-items: center">
+          <stack style="width: 3.5rem; height: 3.5rem; border-radius: var(--dsx-radius-sm); background: secondaryGroupedBackground; border: 1px solid var(--dsx-separator)"/>
+          <text value="sm · 6" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
+        </stack>
+        <stack style="gap: 0.4rem; align-items: center">
+          <stack style="width: 3.5rem; height: 3.5rem; border-radius: var(--dsx-radius); background: secondaryGroupedBackground; border: 1px solid var(--dsx-separator)"/>
+          <text value="base · 10" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
+        </stack>
+        <stack style="gap: 0.4rem; align-items: center">
+          <stack style="width: 3.5rem; height: 3.5rem; border-radius: var(--dsx-radius-lg); background: secondaryGroupedBackground; border: 1px solid var(--dsx-separator)"/>
+          <text value="lg · 14" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
+        </stack>
+      </hstack>
+    </SystemSection>
+  </DocShell>
+</stack>

@@ -10,7 +10,9 @@
     -->
     <attribute as="title" default="'Despia docs'"/>
     <attribute as="route" default="'/'"/>
-    <attribute as="md" default="'/md/index.md'"/>
+    <!-- md = the raw-markdown sibling. Compiled pages always pass it; a hand-authored
+         page (no markdown source) omits it and the control stays hidden. -->
+    <attribute as="md" default="''"/>
     <variable as="query">return ''</variable>
     <api as="nav" url="/nav.json"/>
     <api as="searchIndex" url="/search-index.json"/>
@@ -47,7 +49,7 @@
     </formula>
   </head>
 
-  <hstack style="gap: 1rem; padding: 0.75rem 1.5rem; border-bottom: 1px solid separator; align: center; position: sticky; top: 0; background: background">
+  <hstack style="gap: 1rem; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--dsx-separator); align-items: center; position: sticky; top: 0; background: background">
     <text value="Despia" style="font-weight: 700; font-size: 1.1rem" href="/"/>
     <text value="docs" style="color: secondary"/>
     <spacer/>
@@ -64,8 +66,8 @@
     </row>
   </list>
 
-  <hstack style="gap: 0; align: start">
-    <stack style="width: 16rem; padding: 1rem 0.75rem; gap: 0; border-right: 1px solid separator; position: sticky; top: 3.25rem">
+  <hstack style="gap: 0; align-items: flex-start">
+    <stack style="width: 16rem; padding: 1rem 0.75rem; gap: 0; border-right: 1px solid var(--dsx-separator); position: sticky; top: 3.25rem">
       <list bind="dsx.formula.sidebarRows(dsx.api.nav.data)" key="id" scroll="false">
         <row href="{{ item.route }}">
           <text bind="item.label" style="padding: 0.3rem 0.75rem"/>
@@ -74,7 +76,7 @@
     </stack>
 
     <stack style="gap: 1rem; padding: 2rem 2.5rem; max-width: 46rem; flex: 1">
-      <hstack style="gap: 1rem; align: center">
+      <hstack visible-if="dsx.attribute.md !== ''" style="gap: 1rem; align-items: center">
         <spacer/>
         <text value="View as Markdown" href="{{ dsx.attribute.md }}" style="color: secondary; font-size: 0.85rem"/>
       </hstack>

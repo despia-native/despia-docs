@@ -20,6 +20,14 @@
       }
     },
     {
+      "path": "/system",
+      "component": "docs.System",
+      "meta": {
+        "title": "System",
+        "description": "The design system as a living page: every element in its states."
+      }
+    },
+    {
       "path": "/framework/guides/README",
       "component": "docs.PageFramework_Guides_README",
       "meta": {
