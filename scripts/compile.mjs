@@ -121,7 +121,25 @@ const pages = files.map((file) => {
   };
 }).sort((a, b) => a.order - b.order || (a.route < b.route ? -1 : 1));
 
-const duplicate = pages.map((p) => p.route).filter((r, i, all) => all.indexOf(r) !== i);
+/** Hand-authored pages: real DSX documents at the Components root (never generated —
+ *  this compiler owns and wipes only Components/pages). Each entry joins the route
+ *  table, the nav model and the search index exactly like a compiled page; having no
+ *  markdown source, they stay out of the /md siblings and the llms exports. */
+const handAuthored = [
+  {
+    route: "/system",
+    component: "System",
+    title: "System",
+    section: "system",
+    order: 2,
+    description: "The design system as a living page: every element in its states.",
+    search: "design system gallery elements states buttons fields selection toggle segmented picker slider stepper list rows cards surfaces tabs sheet typography color tokens spacing radius",
+  },
+];
+
+const entries = [...pages, ...handAuthored].sort((a, b) => a.order - b.order || (a.route < b.route ? -1 : 1));
+
+const duplicate = entries.map((p) => p.route).filter((r, i, all) => all.indexOf(r) !== i);
 if (duplicate.length > 0) {
   console.error(`[docs.compile] duplicate route(s): ${[...new Set(duplicate)].join(" · ")}`);
   process.exit(1);
@@ -147,7 +165,7 @@ for (const page of pages) {
 
 // ── the route table + nav model ───────────────────────────────────────────────────────────
 const config = JSON.parse(readFileSync(join(root, "dsx.config.json"), "utf8"));
-config.routes = pages.map((p) => ({
+config.routes = entries.map((p) => ({
   path: p.route,
   component: `docs.${p.component}`,
   meta: { title: p.title, ...(p.description !== "" ? { description: p.description } : {}) },
@@ -155,7 +173,7 @@ config.routes = pages.map((p) => ({
 writeFileSync(join(root, "dsx.config.json"), JSON.stringify(config, null, 2) + "\n");
 
 const sections = [];
-for (const page of pages) {
+for (const page of entries) {
   const name = page.section === "" ? "Start" : page.section.replace(/(^|-)([a-z])/g, (_, __, c) => " " + c.toUpperCase()).trim();
   let section = sections.find((s) => s.name === name);
   if (section === undefined) { section = { name, pages: [] }; sections.push(section); }
@@ -165,15 +183,18 @@ writeFileSync(join(publicDir, "nav.json"), JSON.stringify({ sections }, null, 1)
 
 // ── the client search index ───────────────────────────────────────────────────────────────
 writeFileSync(join(publicDir, "search-index.json"), JSON.stringify({
-  pages: pages.map((p) => ({
+  pages: entries.map((p) => ({
     route: p.route,
     title: p.title,
     section: p.section,
-    text: searchText(p.body).slice(0, 4000),
+    text: (p.body === undefined ? (p.search ?? p.description) : searchText(p.body)).slice(0, 4000),
   })),
 }, null, 1) + "\n");
 
 // ── llms.txt + llms-full.txt ──────────────────────────────────────────────────────────────
+// llms speaks markdown, so it lists only markdown-backed pages (hand-authored DSX has
+// no /md sibling to link).
+const mdRoutes = new Set(pages.map((p) => p.route));
 const site = "https://docs.despia.com";
 writeFileSync(join(publicDir, "llms.txt"), [
   "# Despia documentation",
@@ -183,14 +204,15 @@ writeFileSync(join(publicDir, "llms.txt"), [
   "",
   "Every page serves its raw markdown at the sibling path under /md/.",
   "",
-  ...sections.flatMap((s) => [
+  ...sections.filter((s) => s.pages.some((p) => mdRoutes.has(p.route))).flatMap((s) => [
     `## ${s.name}`,
     "",
-    ...s.pages.map((p) => `- [${p.title}](${site}${p.route === "/" ? "/md/index.md" : `/md${p.route}.md`})`),
+    ...s.pages.filter((p) => mdRoutes.has(p.route))
+      .map((p) => `- [${p.title}](${site}${p.route === "/" ? "/md/index.md" : `/md${p.route}.md`})`),
     "",
   ]),
 ].join("\n"));
 writeFileSync(join(publicDir, "llms-full.txt"),
   pages.map((p) => `# ${p.title}\n(${site}${p.route})\n\n${p.body}`).join("\n\n---\n\n"));
 
-console.log(`[docs.compile] ${pages.length} page(s) → Components/pages, routes, nav, search index, md copies, llms.txt`);
+console.log(`[docs.compile] ${pages.length} page(s) + ${handAuthored.length} hand-authored → Components/pages, routes, nav, search index, md copies, llms.txt`);
