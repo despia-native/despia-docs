@@ -55,6 +55,11 @@
         <button label="Filled" variant="prominent" disabled="true"/>
         <button label="Delete" role="destructive" disabled="true"/>
       </hstack>
+      <hstack style="gap: 0.6rem; align-items: center; flex-wrap: wrap">
+        <text value="Reference:" style="font-size: 0.8rem; color: tertiary"/>
+        <text value="button" href="/components/button" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: accent"/>
+        <text value="pressable" href="/components/pressable" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: accent"/>
+      </hstack>
     </SystemSection>
 
     <SystemSection title="Fields"
@@ -65,6 +70,12 @@
         <field name="passphrase" type="secure" label="Passphrase" validate="required,minLength:8"
                message="At least 8 characters"/>
       </form>
+      <hstack style="gap: 0.6rem; align-items: center; flex-wrap: wrap">
+        <text value="Reference:" style="font-size: 0.8rem; color: tertiary"/>
+        <text value="form" href="/components/form" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: accent"/>
+        <text value="field" href="/components/field" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: accent"/>
+        <text value="textfield" href="/components/textfield" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: accent"/>
+      </hstack>
     </SystemSection>
 
     <SystemSection title="Selection"
@@ -89,6 +100,14 @@
         </hstack>
         <stepper bind="dsx.variable.copies" min="1" max="9" label="Copies"/>
       </stack>
+      <hstack style="gap: 0.6rem; align-items: center; flex-wrap: wrap">
+        <text value="Reference:" style="font-size: 0.8rem; color: tertiary"/>
+        <text value="toggle" href="/components/toggle" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: accent"/>
+        <text value="segmented" href="/components/segmented" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: accent"/>
+        <text value="picker" href="/components/picker" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: accent"/>
+        <text value="slider" href="/components/slider" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: accent"/>
+        <text value="stepper" href="/components/stepper" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: accent"/>
+      </hstack>
     </SystemSection>
 
     <SystemSection title="List rows"
@@ -104,6 +123,10 @@
           </hstack>
         </row>
       </list>
+      <hstack style="gap: 0.6rem; align-items: center; flex-wrap: wrap">
+        <text value="Reference:" style="font-size: 0.8rem; color: tertiary"/>
+        <text value="list" href="/components/list" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: accent"/>
+      </hstack>
     </SystemSection>
 
     <SystemSection title="Badge"
@@ -212,6 +235,11 @@
         </stack>
       </grid>
       <Table bind="dsx.variable.orders" columns="Order,Customer,Total,Status" fields="id,customer,total,status"/>
+      <hstack style="gap: 0.6rem; align-items: center; flex-wrap: wrap">
+        <text value="Reference:" style="font-size: 0.8rem; color: tertiary"/>
+        <text value="grid" href="/components/grid" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: accent"/>
+        <text value="table" href="/components/table" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: accent"/>
+      </hstack>
     </SystemSection>
 
     <SystemSection title="Tabs" note="Each pane names its own tab with tabTitle and tabIcon; selection tints with the accent.">
@@ -228,6 +256,10 @@
           <text value="The third pane."/>
         </stack>
       </tabs>
+      <hstack style="gap: 0.6rem; align-items: center; flex-wrap: wrap">
+        <text value="Reference:" style="font-size: 0.8rem; color: tertiary"/>
+        <text value="tabs" href="/components/tabs" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: accent"/>
+      </hstack>
     </SystemSection>
 
     <SystemSection title="Sheet" note="Presented by state: a Bool opens it, swipe down or the system close control dismisses it.">
@@ -241,6 +273,10 @@
           <button label="Done" variant="prominent" on:tap="dsx.variable.sheetOpen = false"/>
         </stack>
       </sheet>
+      <hstack style="gap: 0.6rem; align-items: center; flex-wrap: wrap">
+        <text value="Reference:" style="font-size: 0.8rem; color: tertiary"/>
+        <text value="sheet" href="/components/sheet" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: accent"/>
+      </hstack>
     </SystemSection>
 
     <SystemSection title="Typography" note="The ramp. Weights stay between 400 and 700; tracking tightens as size grows.">
@@ -275,6 +311,10 @@
                 style="font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: secondary"/>
         </hstack>
       </stack>
+      <hstack style="gap: 0.6rem; align-items: center; flex-wrap: wrap">
+        <text value="Reference:" style="font-size: 0.8rem; color: tertiary"/>
+        <text value="text" href="/components/text" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: accent"/>
+      </hstack>
     </SystemSection>
 
     <SystemSection title="Colors" note="The ten cross-renderer semantic words. The OS owns the values, so both schemes come free.">
@@ -386,6 +426,67 @@
           <stack style="width: 3.5rem; height: 3.5rem; border-radius: var(--dsx-radius-lg); background: secondaryGroupedBackground; border: 1px solid var(--dsx-separator)"/>
           <text value="lg · 14" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
         </stack>
+      </hstack>
+    </SystemSection>
+
+    <SystemSection title="Component reference"
+                   note="One generated page per supported library component: anatomy, the census attribute table, events, a live example, platform presentation notes, and the customization hooks. The same pages ride llms.txt for agents.">
+      <hstack style="gap: 0.6rem 1.1rem; flex-wrap: wrap; align-items: center">
+        <text value="Accordion" href="/components/accordion" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="alert" href="/components/alert" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="button" href="/components/button" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="calendar" href="/components/calendar" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="carousel" href="/components/carousel" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="ChatBubble" href="/components/chatbubble" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="Checkbox" href="/components/checkbox" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="combobox" href="/components/combobox" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="confirmDialog" href="/components/confirmdialog" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="contextmenu" href="/components/contextmenu" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="datepicker" href="/components/datepicker" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="divider" href="/components/divider" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="Drawer" href="/components/drawer" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="field" href="/components/field" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="flow" href="/components/flow" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="form" href="/components/form" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="grid" href="/components/grid" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="hstack" href="/components/hstack" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="image" href="/components/image" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="list" href="/components/list" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="menu" href="/components/menu" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="MenuBar" href="/components/menubar" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="otp" href="/components/otp" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="pager" href="/components/pager" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="picker" href="/components/picker" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="popover" href="/components/popover" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="pressable" href="/components/pressable" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="progress" href="/components/progress" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="ProgressRing" href="/components/progressring" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="qrcode" href="/components/qrcode" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="RadioGroup" href="/components/radiogroup" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="rangeslider" href="/components/rangeslider" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="scaffold" href="/components/scaffold" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="scroll" href="/components/scroll" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="searchbar" href="/components/searchbar" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="segmented" href="/components/segmented" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="segmentedButton" href="/components/segmentedbutton" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="sheet" href="/components/sheet" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="Skeleton" href="/components/skeleton" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="slider" href="/components/slider" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="spacer" href="/components/spacer" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="spinner" href="/components/spinner" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="split" href="/components/split" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="stack" href="/components/stack" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="stars" href="/components/stars" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="stepper" href="/components/stepper" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="Table" href="/components/table" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="tabs" href="/components/tabs" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="text" href="/components/text" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="textarea" href="/components/textarea" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="textfield" href="/components/textfield" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="toggle" href="/components/toggle" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="toolbar" href="/components/toolbar" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="vstack" href="/components/vstack" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="zstack" href="/components/zstack" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
       </hstack>
     </SystemSection>
   </DocShell>

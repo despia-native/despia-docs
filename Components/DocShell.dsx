@@ -16,36 +16,22 @@
     <variable as="query">return ''</variable>
     <api as="nav" url="/nav.json"/>
     <api as="searchIndex" url="/search-index.json"/>
-    <formula as="sidebarRows" inputs="model">
-      const rows = []
-      if (!model || !model.sections) { return rows }
-      for (const section of model.sections) {
-        rows.push({ id: 'section:' + section.name, kind: 'section', label: section.name, route: '' })
-        for (const page of section.pages) {
-          rows.push({ id: 'page:' + page.route, kind: 'page', label: page.title, route: page.route })
-        }
-      }
-      return rows
+    <!-- formula grammar (StackReference): each attribute is a named input whose value
+         is an expression evaluated at the use-site; the read is dsx.formula.name, no
+         call parens. The api envelope's reserved read is the bare `nav.data`, and the
+         body speaks JSE's functional vocabulary (map/flatMap/concat - push is not JSE). -->
+    <formula as="sidebarRows" model="nav.data">
+      const sections = model && model.sections ? model.sections : []
+      return sections.flatMap((section) => [{ id: 'section:' + section.name, kind: 'section', label: section.name, route: '' }].concat(section.pages.map((page) => ({ id: 'page:' + page.route, kind: 'page', label: page.title, route: page.route }))))
     </formula>
-    <formula as="hits" inputs="q">
-      const out = []
-      if (!q || q.length < 2) { return out }
+    <formula as="hits" q="dsx.variable.query">
+      if (!q || q.length < 2) { return [] }
       const needle = q.toLowerCase()
       const index = searchIndex.data
-      if (!index || !index.pages) { return out }
-      for (const page of index.pages) {
-        if (out.length >= 8) { break }
-        if (page.title.toLowerCase().includes(needle)) {
-          out.push({ id: page.route, title: page.title, route: page.route, where: page.section })
-        }
-      }
-      for (const page of index.pages) {
-        if (out.length >= 8) { break }
-        if (!page.title.toLowerCase().includes(needle) && page.text.toLowerCase().includes(needle)) {
-          out.push({ id: page.route, title: page.title, route: page.route, where: page.section })
-        }
-      }
-      return out
+      if (!index || !index.pages) { return [] }
+      const inTitle = index.pages.filter((page) => page.title.toLowerCase().includes(needle))
+      const inText = index.pages.filter((page) => !page.title.toLowerCase().includes(needle) && page.text.toLowerCase().includes(needle))
+      return inTitle.concat(inText).slice(0, 8).map((page) => ({ id: page.route, title: page.title, route: page.route, where: page.section }))
     </formula>
   </head>
 
@@ -57,7 +43,7 @@
     <text value="GitHub" href="https://github.com/despia-native/despia" style="color: secondary"/>
   </hstack>
 
-  <list bind="dsx.formula.hits(dsx.variable.query)" key="id" scroll="false">
+  <list bind="dsx.formula.hits" key="id" scroll="false">
     <row href="{{ item.route }}">
       <hstack style="gap: 0.75rem; padding: 0.25rem 1.5rem">
         <text bind="item.title" style="font-weight: 600"/>
@@ -68,7 +54,7 @@
 
   <hstack style="gap: 0; align-items: flex-start">
     <stack style="width: 16rem; padding: 1rem 0.75rem; gap: 0; border-right: 1px solid var(--dsx-separator); position: sticky; top: 3.25rem">
-      <list bind="dsx.formula.sidebarRows(dsx.api.nav.data)" key="id" scroll="false">
+      <list bind="dsx.formula.sidebarRows" key="id" scroll="false">
         <row href="{{ item.route }}">
           <text bind="item.label" style="padding: 0.3rem 0.75rem"/>
         </row>

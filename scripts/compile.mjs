@@ -22,6 +22,11 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
+import { generateComponentPages } from "./generate-components.mjs";
+
+// The component reference pages regenerate first (from the front-door ledgers, when
+// present), so the walk below always compiles the current supported set.
+generateComponentPages();
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const contentDir = join(root, "content");
@@ -54,11 +59,14 @@ function walk(dir) {
   return out;
 }
 
-/** file path → route: content/index.md → /, content/guides/ota.md → /guides/ota */
+/** file path → route: content/index.md → /, content/guides/ota.md → /guides/ota.
+ *  A README.md is a directory's front page (the synced framework docs use README, not
+ *  index): guides/combinations/README.md → /guides/combinations, so in-content links
+ *  to the directory route resolve. */
 function routeFor(file) {
   const rel = relative(contentDir, file).split(sep).join("/").replace(/\.md$/, "");
-  if (rel === "index") return "/";
-  return "/" + rel.replace(/\/index$/, "");
+  if (rel === "index" || rel === "README") return "/";
+  return "/" + rel.replace(/\/(index|README)$/, "");
 }
 
 /** route → the generated component's name (fieldless, deterministic, collision-free) */
