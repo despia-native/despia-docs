@@ -1,4 +1,4 @@
-<stack style="gap: 0.9rem; margin-top: 1.5rem">
+<stack style="gap: 0.9rem; margin-top: 1.5rem; align-items: stretch">
   <head>
     <!--
       One section of the /system gallery: the small-caps label, an optional one-line

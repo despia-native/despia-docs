@@ -257,6 +257,17 @@ function adaptivityNote(renderer, cell) {
   return `- **${label}** (${state} ${cell.verified}): ${mdText(cell.evidence)}`;
 }
 
+/** The hero's platform chips, read from the Trinity matrix row: a renderer earns its
+ *  chip by having a grammar cell that is not audited red or unsupported. */
+function platformChips(matrixRow) {
+  const chips = [];
+  const cell = (renderer) => matrixRow.renderers?.[renderer]?.grammar?.value;
+  if (cell("web") === "supported") chips.push("Web");
+  if (cell("ios") !== undefined && cell("ios") !== "unsupported") chips.push("iOS");
+  if (cell("android") !== undefined && cell("android") !== "unsupported") chips.push("Android");
+  return chips;
+}
+
 function pageFor(tag, element, matrixRow, webRow, sheets) {
   const slug = tag.toLowerCase();
   const role = ROLES[tag] ?? `The ${tag} element, a ${element.category} component of the DSX grammar.`;
@@ -279,11 +290,19 @@ function pageFor(tag, element, matrixRow, webRow, sheets) {
   lines.push("");
   lines.push(prose(role));
   lines.push("");
-  const meta = [`Category: ${element.category}.`];
-  if (aliases.length > 0) meta.push(`Aliases: ${aliases.map((a) => `\`${a}\``).join(", ")}.`);
-  if ((element.platforms ?? []).length > 0) meta.push(`Native renderers: ${element.platforms.join(", ")}; the web twin is part of the Despia Web kernel.`);
-  meta.push("Live specimens: the [System gallery](/system).");
-  lines.push(meta.join(" "));
+  // The hero meta line: platform chips first (inline-code chips, the prose plane's
+  // chip treatment), then the census facts, middot-separated.
+  const meta = [platformChips(matrixRow).map((c) => `\`${c}\``).join(" ")];
+  meta.push(`Category: ${element.category}`);
+  if (aliases.length > 0) meta.push(`Aliases: ${aliases.map((a) => `\`${a}\``).join(", ")}`);
+  meta.push("Live specimens: the [System gallery](/system)");
+  lines.push(meta.filter(Boolean).join(" · ") + ".");
+  lines.push("");
+  lines.push("## Example");
+  lines.push("");
+  lines.push("```dsx");
+  lines.push(prettyDsx(element.example ?? ""));
+  lines.push("```");
   lines.push("");
   lines.push("## Anatomy");
   lines.push("");
@@ -313,17 +332,13 @@ function pageFor(tag, element, matrixRow, webRow, sheets) {
   if (events.length === 0) {
     lines.push("This element emits no events of its own; the universal gesture events still apply.");
   } else {
+    lines.push("| Event | Handled with | Notes |");
+    lines.push("|---|---|---|");
     for (const event of events) {
       const doc = element.attributes?.[`on:${event}`]?.doc;
-      lines.push(`- \`${event}\`, handled with \`on:${event}\`.${doc ? " " + mdText(doc).trim() : ""}`);
+      lines.push(`| \`${event}\` | \`on:${event}\` | ${doc ? tableCell(doc) : ""} |`);
     }
   }
-  lines.push("");
-  lines.push("## Example");
-  lines.push("");
-  lines.push("```dsx");
-  lines.push(prettyDsx(element.example ?? ""));
-  lines.push("```");
   lines.push("");
   lines.push("## Platform presentation");
   lines.push("");
