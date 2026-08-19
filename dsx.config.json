@@ -517,56 +517,56 @@
       "path": "/framework/guides/build-secrets-setup",
       "component": "docs.PageFramework_Guides_BuildSecretsSetup",
       "meta": {
-        "title": "Build secrets — simple setup guide"
+        "title": "Build secrets: simple setup guide"
       }
     },
     {
       "path": "/framework/guides/codemagic-build",
       "component": "docs.PageFramework_Guides_CodemagicBuild",
       "meta": {
-        "title": "Building an iOS app — Codemagic & the `iOS/` assets folder"
+        "title": "Building an iOS app: Codemagic & the `iOS/` assets folder"
       }
     },
     {
       "path": "/framework/guides/combinations",
       "component": "docs.PageFramework_Guides_Combinations",
       "meta": {
-        "title": "The combination matrix — every integration shape, named and walked"
+        "title": "The combination matrix: every integration shape, named and walked"
       }
     },
     {
       "path": "/framework/guides/combinations/c1-pure-dsx-app",
       "component": "docs.PageFramework_Guides_Combinations_C1PureDsxApp",
       "meta": {
-        "title": "C1 — the pure DSX app: four surfaces from one codebase"
+        "title": "C1: the pure DSX app, four surfaces from one codebase"
       }
     },
     {
       "path": "/framework/guides/combinations/c2-web-app-plus-native",
       "component": "docs.PageFramework_Guides_Combinations_C2WebAppPlusNative",
       "meta": {
-        "title": "C2 — your web app, plus DSX native parts"
+        "title": "C2: your web app, plus DSX native parts"
       }
     },
     {
       "path": "/framework/guides/combinations/c3-existing-app-despia-backend",
       "component": "docs.PageFramework_Guides_Combinations_C3ExistingAppDespiaBackend",
       "meta": {
-        "title": "C3 — your app, plus a Despia backend only"
+        "title": "C3: your app, plus a Despia backend only"
       }
     },
     {
       "path": "/framework/guides/combinations/c5-dsx-frontend-vendor-backend",
       "component": "docs.PageFramework_Guides_Combinations_C5DsxFrontendVendorBackend",
       "meta": {
-        "title": "C5 — a DSX front end on your vendor's backend, directly"
+        "title": "C5: a DSX front end on your vendor's backend, directly"
       }
     },
     {
       "path": "/framework/guides/combinations/c7-self-hosted-ota",
       "component": "docs.PageFramework_Guides_Combinations_C7SelfHostedOta",
       "meta": {
-        "title": "C7 — self-hosted OTA: your content, your host, no Despia hosting"
+        "title": "C7: self-hosted OTA, your content, your host, no Despia hosting"
       }
     },
     {
@@ -587,21 +587,21 @@
       "path": "/framework/guides/getting-started",
       "component": "docs.PageFramework_Guides_GettingStarted",
       "meta": {
-        "title": "Getting started — the web app you already have"
+        "title": "Getting started: the web app you already have"
       }
     },
     {
       "path": "/framework/guides/native-export",
       "component": "docs.PageFramework_Guides_NativeExport",
       "meta": {
-        "title": "`dsx export` — a real Xcode project, a real Android Studio project"
+        "title": "`dsx export`: a real Xcode project, a real Android Studio project"
       }
     },
     {
       "path": "/framework/guides/oauth-https-callback",
       "component": "docs.PageFramework_Guides_OauthHttpsCallback",
       "meta": {
-        "title": "OAuth HTTPS Callback — Cross-Platform Specification"
+        "title": "OAuth HTTPS Callback: Cross-Platform Specification"
       }
     },
     {
@@ -622,7 +622,7 @@
       "path": "/framework/guides/quickstart",
       "component": "docs.PageFramework_Guides_Quickstart",
       "meta": {
-        "title": "Quickstart — a DSX app from nothing"
+        "title": "Quickstart: a DSX app from nothing"
       }
     },
     {
@@ -657,7 +657,7 @@
       "path": "/framework/guides/transport-and-ota-integrity",
       "component": "docs.PageFramework_Guides_TransportAndOtaIntegrity",
       "meta": {
-        "title": "Transport & OTA integrity — HTTP/HTTPS and signed updates (the visual guide)"
+        "title": "Transport & OTA integrity: HTTP/HTTPS and signed updates (the visual guide)"
       }
     },
     {
@@ -671,7 +671,7 @@
       "path": "/framework/skills/action-contracts",
       "component": "docs.PageFramework_Skills_ActionContracts",
       "meta": {
-        "title": "Action contracts — inputs in, events out"
+        "title": "Action contracts: inputs in, events out"
       }
     },
     {
@@ -699,7 +699,7 @@
       "path": "/framework/skills/android/js-core-parity",
       "component": "docs.PageFramework_Skills_Android_JsCoreParity",
       "meta": {
-        "title": "JS-core parity contract — iOS ⇄ Android, API by API"
+        "title": "JS-core parity contract: iOS ⇄ Android, API by API"
       }
     },
     {
@@ -713,7 +713,7 @@
       "path": "/framework/skills/attribute-classes",
       "component": "docs.PageFramework_Skills_AttributeClasses",
       "meta": {
-        "title": "Attribute classes — one classification for every DSX block"
+        "title": "Attribute classes: one classification for every DSX block"
       }
     },
     {
@@ -727,7 +727,7 @@
       "path": "/framework/skills/component-props-and-state",
       "component": "docs.PageFramework_Skills_ComponentPropsAndState",
       "meta": {
-        "title": "Component props vs state — attributes vs variables"
+        "title": "Component props vs state: attributes vs variables"
       }
     },
     {
@@ -741,7 +741,7 @@
       "path": "/framework/skills/cookies",
       "component": "docs.PageFramework_Skills_Cookies",
       "meta": {
-        "title": "Cookies — `dsx.cookie`"
+        "title": "Cookies: `dsx.cookie`"
       }
     },
     {
@@ -755,7 +755,7 @@
       "path": "/framework/skills/custom-ux",
       "component": "docs.PageFramework_Skills_CustomUx",
       "meta": {
-        "title": "Custom UX — the escape hatches"
+        "title": "Custom UX: the escape hatches"
       }
     },
     {
@@ -797,7 +797,7 @@
       "path": "/framework/skills/editor-catalog",
       "component": "docs.PageFramework_Skills_EditorCatalog",
       "meta": {
-        "title": "Editor catalog — the web-canvas element schema"
+        "title": "Editor catalog: the web-canvas element schema"
       }
     },
     {
@@ -811,28 +811,28 @@
       "path": "/framework/skills/global-state",
       "component": "docs.PageFramework_Skills_GlobalState",
       "meta": {
-        "title": "Global app state — `global.*`"
+        "title": "Global app state: `global.*`"
       }
     },
     {
       "path": "/framework/skills/js-core",
       "component": "docs.PageFramework_Skills_JsCore",
       "meta": {
-        "title": "The JS core globals in JSE — app logic, 1:1, no browser"
+        "title": "The JS core globals in JSE: app logic, 1:1, no browser"
       }
     },
     {
       "path": "/framework/skills/lifecycle",
       "component": "docs.PageFramework_Skills_Lifecycle",
       "meta": {
-        "title": "Lifecycle guarantees — every resource × every transition"
+        "title": "Lifecycle guarantees: every resource × every transition"
       }
     },
     {
       "path": "/framework/skills/live-activities-and-widgets",
       "component": "docs.PageFramework_Skills_LiveActivitiesAndWidgets",
       "meta": {
-        "title": "Live Activities & widgets — authoring the OS surfaces"
+        "title": "Live Activities & widgets: authoring the OS surfaces"
       }
     },
     {
@@ -853,35 +853,35 @@
       "path": "/framework/skills/module-content",
       "component": "docs.PageFramework_Skills_ModuleContent",
       "meta": {
-        "title": "`content` — bundled content folders (dsx.json) and the `dsx.content` primitive"
+        "title": "`content`: bundled content folders (dsx.json) and the `dsx.content` primitive"
       }
     },
     {
       "path": "/framework/skills/module-frameworks",
       "component": "docs.PageFramework_Skills_ModuleFrameworks",
       "meta": {
-        "title": "Module build artifacts — binary dependencies without committing binaries"
+        "title": "Module build artifacts: binary dependencies without committing binaries"
       }
     },
     {
       "path": "/framework/skills/module-permissions",
       "component": "docs.PageFramework_Skills_ModulePermissions",
       "meta": {
-        "title": "Permissions — `Config/permissions.json`"
+        "title": "Permissions: `Config/permissions.json`"
       }
     },
     {
       "path": "/framework/skills/module-secrets",
       "component": "docs.PageFramework_Skills_ModuleSecrets",
       "meta": {
-        "title": "Module secrets — build-time SDK credentials, dynamic across every app"
+        "title": "Module secrets: build-time SDK credentials, dynamic across every app"
       }
     },
     {
       "path": "/framework/skills/module-state",
       "component": "docs.PageFramework_Skills_ModuleState",
       "meta": {
-        "title": "Module context — `dsx.module.<scheme>.context.*`"
+        "title": "Module context: `dsx.module.<scheme>.context.*`"
       }
     },
     {
@@ -895,42 +895,42 @@
       "path": "/framework/skills/module-weights",
       "component": "docs.PageFramework_Skills_ModuleWeights",
       "meta": {
-        "title": "Module weights — bundling large ML blobs without committing them"
+        "title": "Module weights: bundling large ML blobs without committing them"
       }
     },
     {
       "path": "/framework/skills/mounting-components",
       "component": "docs.PageFramework_Skills_MountingComponents",
       "meta": {
-        "title": "Mounting components — `dsx.component.mount`"
+        "title": "Mounting components: `dsx.component.mount`"
       }
     },
     {
       "path": "/framework/skills/native-components",
       "component": "docs.PageFramework_Skills_NativeComponents",
       "meta": {
-        "title": "Native components — the custom-coded component primitive"
+        "title": "Native components: the custom-coded component primitive"
       }
     },
     {
       "path": "/framework/skills/native-languages",
       "component": "docs.PageFramework_Skills_NativeLanguages",
       "meta": {
-        "title": "Native languages — the polyglot-module primitive (`languages`)"
+        "title": "Native languages: the polyglot-module primitive (`languages`)"
       }
     },
     {
       "path": "/framework/skills/offline-best-practices",
       "component": "docs.PageFramework_Skills_OfflineBestPractices",
       "meta": {
-        "title": "Offline, caching & UI state — best practices per surface"
+        "title": "Offline, caching & UI state: best practices per surface"
       }
     },
     {
       "path": "/framework/skills/package-as-sdk",
       "component": "docs.PageFramework_Skills_PackageAsSdk",
       "meta": {
-        "title": "Authoring a package as an SDK — DSX best practices"
+        "title": "Authoring a package as an SDK: DSX best practices"
       }
     },
     {
@@ -944,7 +944,7 @@
       "path": "/framework/skills/security",
       "component": "docs.PageFramework_Skills_Security",
       "meta": {
-        "title": "Security model — what JSE/DSX can do, and what holds it"
+        "title": "Security model: what JSE/DSX can do, and what holds it"
       }
     },
     {
@@ -958,28 +958,28 @@
       "path": "/framework/skills/style-catalog",
       "component": "docs.PageFramework_Skills_StyleCatalog",
       "meta": {
-        "title": "Style catalog — the machine-readable style-panel schema"
+        "title": "Style catalog: the machine-readable style-panel schema"
       }
     },
     {
       "path": "/framework/skills/surface-bridges",
       "component": "docs.PageFramework_Skills_SurfaceBridges",
       "meta": {
-        "title": "Surface bridges — mounting a RENDER SURFACE on the bus (`dsx.messenger`)"
+        "title": "Surface bridges: mounting a RENDER SURFACE on the bus (`dsx.messenger`)"
       }
     },
     {
       "path": "/framework/skills/web-crypto",
       "component": "docs.PageFramework_Skills_WebCrypto",
       "meta": {
-        "title": "Web Crypto in JSE — the standard API, 1:1, no JS engine"
+        "title": "Web Crypto in JSE: the standard API, 1:1, no JS engine"
       }
     },
     {
       "path": "/framework/skills/white-label",
       "component": "docs.PageFramework_Skills_WhiteLabel",
       "meta": {
-        "title": "White-labeling — `dsx.global.strings` + `dsx.global.theme` (the platform convention)"
+        "title": "White-labeling: `dsx.global.strings` + `dsx.global.theme` (the platform convention)"
       }
     },
     {
@@ -1007,7 +1007,7 @@
       "path": "/framework/skills/writing-unit-tests",
       "component": "docs.PageFramework_Skills_WritingUnitTests",
       "meta": {
-        "title": "Writing unit tests — self-contained actions in `dsx.json`"
+        "title": "Writing unit tests: self-contained actions in `dsx.json`"
       }
     }
   ]

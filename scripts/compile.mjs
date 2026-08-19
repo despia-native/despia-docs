@@ -96,7 +96,7 @@ function escapeForDsxAttr(source) {
 // ── the sidebar label map ─────────────────────────────────────────────────────────────────
 // Display names for the nav (title-cased, short); page h1s keep the source title. A route
 // missing here derives: components split camelCase, everything else trims the title to the
-// clause before a spaced dash and drops a trailing parenthetical.
+// clause before a colon (or a spaced dash) and drops a trailing parenthetical.
 const COMPONENT_LABELS = {
   hstack: "HStack", vstack: "VStack", zstack: "ZStack", qrcode: "QR Code", otp: "OTP",
   svg: "SVG", contextmenu: "Context Menu", confirmdialog: "Confirm Dialog",
@@ -136,7 +136,7 @@ function pageLabel(page) {
   if (PAGE_LABELS[page.route] !== undefined) return PAGE_LABELS[page.route];
   if (page.route.startsWith("/components/")) return componentLabel(page.route, page.title);
   let label = String(page.title).replace(/`/g, "");
-  label = label.split(/\s+[—–-]\s+/)[0];
+  label = label.split(/\s+[—–-]\s+|:\s+/)[0];
   label = label.replace(/\s*\([^)]*\)\s*$/, "");
   label = label.replace(/[—–]/g, "-");
   return label.trim() === "" ? page.title : label.trim();

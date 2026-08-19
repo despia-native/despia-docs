@@ -5,7 +5,9 @@
 //      (the web renderer emits no id attribute), scoped to the active route frame
 //   2. rail scroll-spy: the "On this page" link for the section in view
 //   3. aria-current="page" on the active sidebar link (the visual state is SSR'd)
-//   4. cmd/ctrl+K or "/" focuses search; Escape clears it
+//   4. cmd/ctrl+K or "/" focuses search; ArrowUp/ArrowDown rove an accent highlight
+//      over the result rows, Enter opens the highlighted (else first) hit, Escape
+//      clears the query then closes the panel
 //   5. rail clicks scroll in place (smooth only when motion is welcome)
 (function () {
   "use strict";
@@ -82,16 +84,57 @@
     if (row !== null && row.offsetParent !== null) return row;
     return null;
   }
+  function searchToggle() {
+    var frame = activeFrame();
+    var toggle = (frame === document ? document : frame).querySelector(".doc-search-toggle");
+    return toggle !== null && toggle.offsetParent !== null ? toggle : null;
+  }
+  function searchPanel() {
+    var frame = activeFrame();
+    var panel = (frame === document ? document : frame).querySelector(".doc-search-panel");
+    return panel !== null && panel.offsetParent !== null ? panel : null;
+  }
+  function panelRows(panel) {
+    return Array.prototype.slice.call(panel.querySelectorAll(".dsx-pressable"));
+  }
+
+  // The roving keyboard highlight over the result rows: docs.js owns the index, the
+  // shell CSS paints `.is-active` as the accent wash pill. Any query edit or refocus
+  // resets it (twice: now, and again after the runtime re-renders kept rows).
+  var hitIndex = -1;
+  function resetHit() {
+    hitIndex = -1;
+    document.querySelectorAll(".doc-search-panel .is-active").forEach(function (row) {
+      row.classList.remove("is-active");
+    });
+  }
+  function paintHit(rows) {
+    rows.forEach(function (row, i) { row.classList.toggle("is-active", i === hitIndex); });
+    if (hitIndex >= 0 && rows[hitIndex] !== undefined) rows[hitIndex].scrollIntoView({ block: "nearest" });
+  }
+  document.addEventListener("input", function (event) {
+    var target = event.target;
+    if (target === null || !target.closest || target.closest(".doc-search-inline, .doc-search-row") === null) return;
+    resetHit();
+    requestAnimationFrame(resetHit);
+  });
+  document.addEventListener("focusin", function (event) {
+    var target = event.target;
+    if (target === null || !target.closest || target.closest(".doc-search-inline, .doc-search-row") === null) return;
+    resetHit();
+  });
+
   document.addEventListener("keydown", function (event) {
     var key = event.key ? event.key.toLowerCase() : "";
     var meta = event.metaKey || event.ctrlKey;
-    var inField = /^(input|textarea|select)$/i.test(document.activeElement ? document.activeElement.tagName : "");
+    var active = document.activeElement;
+    var inField = /^(input|textarea|select)$/i.test(active ? active.tagName : "");
+    var inSearch = inField && active.closest && active.closest(".doc-search-inline, .doc-search-row") !== null;
     if ((meta && key === "k") || (!meta && !inField && key === "/")) {
       var input = searchInput();
       if (input === null) {
-        var frame = activeFrame();
-        var toggle = (frame === document ? document : frame).querySelector(".doc-search-toggle");
-        if (toggle !== null && toggle.offsetParent !== null) {
+        var toggle = searchToggle();
+        if (toggle !== null) {
           toggle.click();
           requestAnimationFrame(function () {
             var opened = searchInput();
@@ -104,11 +147,52 @@
       input.focus();
       input.select();
       event.preventDefault();
-    } else if (key === "escape" && inField) {
-      var active = document.activeElement;
-      if (active.closest(".doc-search-inline, .doc-search-row") !== null && active.value !== "") {
+    } else if ((key === "arrowdown" || key === "arrowup") && inSearch) {
+      var panel = searchPanel();
+      if (panel === null) return;
+      var rows = panelRows(panel);
+      if (rows.length === 0) return;
+      if (key === "arrowdown") hitIndex = hitIndex >= rows.length - 1 ? 0 : hitIndex + 1;
+      else hitIndex = hitIndex <= 0 ? rows.length - 1 : hitIndex - 1;
+      paintHit(rows);
+      event.preventDefault();
+    } else if (key === "enter" && inSearch) {
+      var open = searchPanel();
+      if (open === null) return;
+      var hits = panelRows(open);
+      if (hits.length === 0) return;
+      hits[hitIndex >= 0 && hitIndex < hits.length ? hitIndex : 0].click();
+      event.preventDefault();
+    } else if (key === "escape") {
+      if (inSearch && active.value !== "") {
         active.value = "";
         active.dispatchEvent(new Event("input", { bubbles: true }));
+      } else if (inSearch) {
+        // already empty: dismiss - the compact toggle closes the row, blur closes
+        // the wide prompt (the shell's on:blur drops the panel)
+        var compact = searchToggle();
+        if (compact !== null) compact.click();
+        active.blur();
+        resetHit();
+      } else if (searchPanel() !== null) {
+        // panel left open without focus (typed, then clicked away): close it whole.
+        // The compact row, when open, closes through its toggle (the shell clears the
+        // query too); otherwise clear the query through any bound field - the bind
+        // drives the panel, visible or not.
+        var frame = activeFrame();
+        var root = frame === document ? document : frame;
+        var rowField = root.querySelector(".doc-search-row input");
+        if (rowField !== null && rowField.offsetParent !== null) {
+          var rowToggle = searchToggle();
+          if (rowToggle !== null) rowToggle.click();
+        } else {
+          var field = root.querySelector(".doc-search-inline input, .doc-search-row input");
+          if (field !== null) {
+            field.value = "";
+            field.dispatchEvent(new Event("input", { bubbles: true }));
+          }
+        }
+        resetHit();
       }
     }
   });
