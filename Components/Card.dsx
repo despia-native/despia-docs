@@ -9,7 +9,7 @@
     <attribute as="icon" default="''"/>
     <attribute as="href" default="''"/>
   </head>
-  <image icon="{{ dsx.attribute.icon }}" iconSize="20" class="doc-tile-icon" visible-if="dsx.attribute.icon !== ''"/>
+  <image icon="{{ dsx.attribute.icon }}" iconSize="22" class="doc-tile-icon" visible-if="dsx.attribute.icon !== ''"/>
   <pressable href="{{ dsx.attribute.href }}" class="doc-tile-link" visible-if="dsx.attribute.href !== ''">
     <text value="{{ dsx.attribute.title }}" class="doc-tile-title"/>
   </pressable>

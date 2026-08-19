@@ -156,7 +156,7 @@
       <DocNav route="{{ dsx.attribute.route }}" on:navigate="dsx.action.closeNav()"/>
     </Drawer>
 
-    <stack class="doc-main">
+    <stack class="doc-main{{ dsx.attribute.route === '/' ? ' doc-main-home' : '' }}">
       <stack class="doc-column">
         <hstack class="doc-crumbs" role="navigation" a11yLabel="Breadcrumb" visible-if="dsx.attribute.route !== '/'">
           <pressable href="/" class="doc-crumb-link"><text value="Docs" class="doc-crumb"/></pressable>
