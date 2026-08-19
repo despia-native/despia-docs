@@ -500,6 +500,14 @@
       }
     },
     {
+      "path": "/writing-docs",
+      "component": "docs.PageWritingDocs",
+      "meta": {
+        "title": "Writing docs",
+        "description": "The authoring system, markdown plus components, documented with itself."
+      }
+    },
+    {
       "path": "/framework/guides",
       "component": "docs.PageFramework_Guides",
       "meta": {

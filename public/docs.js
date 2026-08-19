@@ -214,12 +214,133 @@
     });
   }
 
+  // ── the code copy affordance ───────────────────────────────────────────────
+  // Every fenced block gets a copy button: injected into the compile-time header
+  // bar when one exists (.doc-codeblock / .doc-codegroup), else the bare pre is
+  // wrapped in .doc-pre and the button floats on its corner (hover-reveal on fine
+  // pointers, always visible on coarse - DocShell.css). Clipboard API first,
+  // execCommand fallback; the icon morphs to a checkmark and the aria-label
+  // announces the state change (aria-live on the button).
+  var COPY_MARKUP =
+    '<svg class="doc-copy-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a1.8 1.8 0 0 1-1.8-1.8V4A1.8 1.8 0 0 1 4 2.2h9.2A1.8 1.8 0 0 1 15 4v1"/></svg>' +
+    '<svg class="doc-copy-check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.8l5 5L19.5 6.5"/></svg>';
+
+  function makeCopyButton() {
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "doc-copy";
+    btn.setAttribute("aria-label", "Copy code");
+    btn.setAttribute("aria-live", "polite");
+    btn.innerHTML = COPY_MARKUP;
+    return btn;
+  }
+
+  function enhanceCode() {
+    document.querySelectorAll("pre.dsx-md-code").forEach(function (pre) {
+      var block = pre.closest(".doc-codeblock");
+      if (block !== null) {
+        var bar = block.querySelector(".doc-codebar");
+        if (bar !== null && bar.querySelector(".doc-copy") === null) bar.appendChild(makeCopyButton());
+        return;
+      }
+      var group = pre.closest(".doc-codegroup");
+      if (group !== null) {
+        var tabsRoot = group.querySelector(".dsx-tabs");
+        if (tabsRoot !== null && tabsRoot.querySelector(":scope > .doc-copy") === null) tabsRoot.appendChild(makeCopyButton());
+        return;
+      }
+      if (pre.parentElement !== null && pre.parentElement.classList.contains("doc-pre")) return;
+      var wrap = document.createElement("div");
+      wrap.className = "doc-pre";
+      pre.parentNode.insertBefore(wrap, pre);
+      wrap.appendChild(pre);
+      wrap.appendChild(makeCopyButton());
+    });
+  }
+
+  function codeTextFor(btn) {
+    var scope = btn.closest(".doc-codeblock, .doc-codegroup, .doc-pre");
+    if (scope === null) return null;
+    var pre = scope.classList.contains("doc-codegroup")
+      ? scope.querySelector(".dsx-tab-panel:not([hidden]) pre.dsx-md-code")
+      : scope.querySelector("pre.dsx-md-code");
+    if (pre === null) return null;
+    var code = pre.querySelector("code");
+    return (code !== null ? code : pre).innerText.replace(/\n$/, "");
+  }
+
+  function fallbackCopy(text) {
+    var area = document.createElement("textarea");
+    area.value = text;
+    area.setAttribute("readonly", "");
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+    document.body.appendChild(area);
+    area.select();
+    var ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+    document.body.removeChild(area);
+    return ok;
+  }
+
+  function writeClipboard(text, done) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(fallbackCopy(text)); });
+      return;
+    }
+    done(fallbackCopy(text));
+  }
+
+  document.addEventListener("click", function (event) {
+    var btn = event.target && event.target.closest ? event.target.closest(".doc-copy") : null;
+    if (btn === null) return;
+    var text = codeTextFor(btn);
+    if (text === null) return;
+    writeClipboard(text, function (ok) {
+      if (!ok) return;
+      btn.classList.add("is-copied");
+      btn.setAttribute("aria-label", "Copied");
+      clearTimeout(btn.__docCopyTimer);
+      btn.__docCopyTimer = setTimeout(function () {
+        btn.classList.remove("is-copied");
+        btn.setAttribute("aria-label", "Copy code");
+      }, 1800);
+    });
+  });
+
+  // Content tabs (.doc-tabs / .doc-codegroup) render the tabs primitive's strip
+  // horizontally at EVERY width; above the primitive's own wide breakpoint it
+  // declares vertical and swaps its arrow axis, so re-declare the rendered
+  // orientation and translate Left/Right (the runtime keeps Up/Down; a handled
+  // event arrives defaultPrevented and is left alone).
+  var tabsWide = window.matchMedia ? window.matchMedia("(min-width: 69rem)") : { matches: false };
+  function levelTabStrips() {
+    document.querySelectorAll(".doc-tabs .dsx-tablist, .doc-codegroup .dsx-tablist").forEach(function (strip) {
+      if (strip.getAttribute("aria-orientation") !== "horizontal") strip.setAttribute("aria-orientation", "horizontal");
+    });
+  }
+  document.addEventListener("keydown", function (event) {
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+    if (event.defaultPrevented || !tabsWide.matches) return;
+    var tab = event.target && event.target.closest ? event.target.closest(".doc-tabs .dsx-tab, .doc-codegroup .dsx-tab") : null;
+    if (tab === null || tab.parentElement === null) return;
+    var tabs = Array.prototype.slice.call(tab.parentElement.querySelectorAll(".dsx-tab"));
+    var at = tabs.indexOf(tab);
+    if (at === -1) return;
+    var next = event.key === "ArrowRight" ? (at + 1) % tabs.length : (at - 1 + tabs.length) % tabs.length;
+    event.preventDefault();
+    tabs[next].click();
+    tabs[next].focus();
+  });
+
   var refreshQueued = false;
   function refresh() {
     refreshQueued = false;
     promoteAnchors();
     markNav();
     focusableScrollRegions();
+    enhanceCode();
+    levelTabStrips();
     spy();
     if (location.hash.length > 1) {
       var target = document.getElementById(location.hash.slice(1));

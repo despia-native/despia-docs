@@ -84,6 +84,7 @@ function firstHeading(body) {
 function searchText(body) {
   return body
     .replace(/```[\s\S]*?```/g, " ")
+    .replace(/<[^>\n]*>/g, " ")
     .replace(/[#>*`_\[\]()|-]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
@@ -169,30 +170,39 @@ function slugFor(text, taken) {
   taken.add(unique);
   return unique;
 }
-function sectionize(body) {
+function sectionize(body, bodyStart) {
   const taken = new Set();
-  const chunks = [{ id: "", title: "", level: 0, lines: [] }];
+  const chunks = [{ id: "", title: "", level: 0, lines: [], start: bodyStart }];
   let fence = null;
-  for (const line of body.split("\n")) {
+  let componentDepth = 0;
+  body.split("\n").forEach((line, index) => {
     const opener = /^\s{0,3}(`{3,}|~{3,})/.exec(line);
     if (fence !== null) {
       chunks[chunks.length - 1].lines.push(line);
       if (opener !== null && opener[1].startsWith(fence[0]) && opener[1].length >= fence.length) fence = null;
-      continue;
+      return;
     }
     if (opener !== null) {
       fence = opener[1];
       chunks[chunks.length - 1].lines.push(line);
-      continue;
+      return;
     }
-    const heading = /^(##|###)\s+(.+?)\s*$/.exec(line);
+    // Component blocks are atomic: a heading inside one never splits the page (the
+    // block must land whole in a single chunk for its close tag to balance).
+    const closing = CLOSE_TAG.exec(line);
+    if (closing !== null && componentDepth > 0) componentDepth -= 1;
+    else {
+      const open = parseOpenTag(line);
+      if (open !== null && !open.selfClosing && !open.rest.trim().endsWith(`</${open.name}>`)) componentDepth += 1;
+    }
+    const heading = componentDepth === 0 ? /^(##|###)\s+(.+?)\s*$/.exec(line) : null;
     if (heading !== null) {
       const title = headingText(heading[2]);
-      chunks.push({ id: slugFor(title, taken), title, level: heading[1].length, lines: [line] });
-      continue;
+      chunks.push({ id: slugFor(title, taken), title, level: heading[1].length, lines: [line], start: bodyStart + index });
+      return;
     }
     chunks[chunks.length - 1].lines.push(line);
-  }
+  });
   for (const chunk of chunks) chunk.body = chunk.lines.join("\n");
   return chunks.filter((chunk) => chunk.level > 0 || chunk.body.trim() !== "");
 }
@@ -203,6 +213,283 @@ function sectionize(body) {
  *  bindings. `</` is escaped inside the string so the raw scan can never end early. */
 function jseStringLiteral(source) {
   return JSON.stringify(source).replace(/<\//g, "<\\/");
+}
+
+// ── components in markdown ────────────────────────────────────────────────────────────────
+// A line-anchored Capitalized tag is a COMPONENT BLOCK: the compiler emits it as a real
+// DSX node in the generated page and recursively compiles its inner content (markdown
+// runs become nested <markdown> chunks in the component's slot). Attributes pass through
+// verbatim; fenced code is never scanned for tags, so examples stay text. The name must
+// be known - a typo fails the build with file and line, never a silent passthrough. The
+// /md siblings and the llms exports keep the source markdown verbatim, tags included.
+const CALLOUT_SUGAR = { Note: "note", Info: "info", Tip: "tip", Warning: "warning", Danger: "danger" };
+const COMPILER_TAGS = new Set(["Tabs", "Tab", "CodeGroup", ...Object.keys(CALLOUT_SUGAR)]);
+const SYSTEM_TAGS = new Set(["Accordion"]);
+const libraryComponents = readdirSync(join(root, "Components"), { withFileTypes: true })
+  .filter((entry) => entry.isFile() && entry.name.endsWith(".dsx"))
+  .map((entry) => entry.name.replace(/\.dsx$/, ""));
+const KNOWN_COMPONENTS = new Set([...libraryComponents, ...COMPILER_TAGS, ...SYSTEM_TAGS]);
+
+const OPEN_TAG = /^\s{0,3}<([A-Z][A-Za-z0-9]*)(?=[\s/>])/;
+const CLOSE_TAG = /^\s{0,3}<\/([A-Z][A-Za-z0-9]*)>\s*$/;
+
+/** Parse a line-anchored component open tag that closes on the same line (quotes may
+ *  hold `>`); null when the line is not one. `rest` = content after the `>`. */
+function parseOpenTag(line) {
+  const m = OPEN_TAG.exec(line);
+  if (m === null) return null;
+  let i = m[0].length;
+  let quote = null;
+  while (i < line.length) {
+    const ch = line[i];
+    if (quote !== null) { if (ch === quote) quote = null; }
+    else if (ch === '"' || ch === "'") quote = ch;
+    else if (ch === ">") break;
+    i += 1;
+  }
+  if (i >= line.length) return null;
+  const selfClosing = line[i - 1] === "/";
+  const attrs = line.slice(m[0].length, selfClosing ? i - 1 : i).trim();
+  return { name: m[1], attrs, selfClosing, rest: line.slice(i + 1) };
+}
+
+function fail(page, lineNo, message) {
+  console.error(`[docs.compile] ${relative(root, page.file).split(sep).join("/")}:${lineNo}: ${message}`);
+  process.exit(1);
+}
+
+/** Fence meta: ```lang title="file.ts". A bare info string (language alone) returns
+ *  null - the fence stays inside its markdown run. Meta keys are a closed set. */
+function parseFenceMeta(page, lineNo, marker, info) {
+  if (info === "" || /^[A-Za-z0-9_+-]*$/.test(info)) return null;
+  if (marker.length !== 3) fail(page, lineNo, `a fence carrying meta must open with exactly three marks`);
+  const m = /^([A-Za-z0-9_+-]*)\s+(.*)$/.exec(info);
+  if (m === null) fail(page, lineNo, `unreadable fence info "${info}"`);
+  let title = "";
+  let meta = m[2].trim();
+  while (meta !== "") {
+    const kv = /^([A-Za-z-]+)="([^"]*)"\s*(.*)$/.exec(meta);
+    if (kv === null) fail(page, lineNo, `unreadable fence meta "${meta}" (expected key="value")`);
+    if (kv[1] !== "title") fail(page, lineNo, `unknown fence meta key "${kv[1]}" (supported: title)`);
+    title = kv[2];
+    meta = kv[3].trim();
+  }
+  return { lang: m[1], title };
+}
+
+/** Find the balanced line-anchored `</name>` from `from`, fence-aware, counting nested
+ *  same-name opens. Returns the close line's index; a missing close fails the build. */
+function findClose(page, lines, from, name, startLine) {
+  let depth = 1;
+  let fence = null;
+  for (let i = from; i < lines.length; i += 1) {
+    const line = lines[i];
+    const opener = /^\s{0,3}(`{3,}|~{3,})/.exec(line);
+    if (fence !== null) {
+      if (opener !== null && opener[1].startsWith(fence[0]) && opener[1].length >= fence.length) fence = null;
+      continue;
+    }
+    if (opener !== null) { fence = opener[1]; continue; }
+    const close = CLOSE_TAG.exec(line);
+    if (close !== null && close[1] === name) {
+      depth -= 1;
+      if (depth === 0) return i;
+      continue;
+    }
+    const open = parseOpenTag(line);
+    if (open !== null && open.name === name && !open.selfClosing && !open.rest.trim().endsWith(`</${name}>`)) depth += 1;
+  }
+  fail(page, startLine + from - 1, `<${name}> never closes (expected a line-anchored </${name}>)`);
+}
+
+function attrValue(attrs, name) {
+  const m = new RegExp(`${name}="([^"]*)"`).exec(attrs);
+  return m === null ? null : m[1];
+}
+
+function pushMdVar(page, text) {
+  return page.mdVars.push(text) - 1;
+}
+
+/** One titled fence as a code card: header bar (language chip, title) + the fence as a
+ *  markdown chunk. docs.js adds the copy button into the bar; bare fences keep their
+ *  floating button instead. */
+function codeblockNode(page, meta, marker, body, indent) {
+  const n = pushMdVar(page, `${marker}${meta.lang}\n${body.join("\n")}\n${marker}`);
+  return [
+    `${indent}<stack class="doc-codeblock">`,
+    `${indent}  <hstack class="doc-codebar">`,
+    ...(meta.lang !== "" ? [`${indent}    <text value="${escapeForDsxAttr(meta.lang)}" class="doc-codebar-lang"/>`] : []),
+    ...(meta.title !== "" ? [`${indent}    <text value="${escapeForDsxAttr(meta.title)}" class="doc-codebar-title"/>`] : []),
+    `${indent}  </hstack>`,
+    `${indent}  <markdown bind="dsx.variable.md${n}"/>`,
+    `${indent}</stack>`,
+  ].join("\n");
+}
+
+/** The inner blocks of a container that accepts ONLY <name> children (Tabs -> Tab). */
+function childBlocks(page, inner, name, parent) {
+  const blocks = [];
+  const lines = inner.lines;
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i];
+    if (line.trim() === "") { i += 1; continue; }
+    const tag = parseOpenTag(line);
+    if (tag === null || tag.name !== name) fail(page, inner.startLine + i, `<${parent}> accepts only <${name}> children`);
+    if (tag.selfClosing) fail(page, inner.startLine + i, `<${name}> needs body content`);
+    const restTrim = tag.rest.trim();
+    if (restTrim !== "") {
+      const closeTok = `</${name}>`;
+      if (!restTrim.endsWith(closeTok)) fail(page, inner.startLine + i, `<${name}> with inline content must close on the same line`);
+      blocks.push({ tag, at: inner.startLine + i, inner: { lines: [restTrim.slice(0, -closeTok.length).trim()], startLine: inner.startLine + i } });
+      i += 1;
+      continue;
+    }
+    const end = findClose(page, lines, i + 1, name, inner.startLine);
+    blocks.push({ tag, at: inner.startLine + i, inner: { lines: lines.slice(i + 1, end), startLine: inner.startLine + i + 1 } });
+    i = end + 1;
+  }
+  if (blocks.length === 0) fail(page, inner.startLine, `<${parent}> needs at least one <${name}> child`);
+  return blocks;
+}
+
+/** CodeGroup inner content: fenced blocks only, each one pane of the shared tab bar. */
+function codeGroupPanes(page, inner) {
+  const panes = [];
+  const lines = inner.lines;
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i];
+    if (line.trim() === "") { i += 1; continue; }
+    const opener = /^\s{0,3}(`{3,}|~{3,})(.*)$/.exec(line);
+    if (opener === null) fail(page, inner.startLine + i, `<CodeGroup> accepts only fenced code blocks`);
+    const marker = opener[1];
+    if (marker.length !== 3) fail(page, inner.startLine + i, `<CodeGroup> fences must open with exactly three marks`);
+    const info = opener[2].trim();
+    const meta = parseFenceMeta(page, inner.startLine + i, marker, info) ?? { lang: info, title: "" };
+    const body = [];
+    i += 1;
+    while (i < lines.length && !(lines[i].trim().startsWith(marker[0].repeat(3)) && lines[i].trim().replace(new RegExp(`^${marker[0]}+`), "") === "")) {
+      body.push(lines[i]);
+      i += 1;
+    }
+    if (i >= lines.length) fail(page, inner.startLine, `<CodeGroup> holds an unterminated fence`);
+    i += 1;
+    panes.push({ meta, marker, body });
+  }
+  if (panes.length === 0) fail(page, inner.startLine, `<CodeGroup> needs at least one fenced block`);
+  return panes;
+}
+
+function componentNode(page, tag, inner, at, indent) {
+  const attrs = tag.attrs === "" ? "" : ` ${tag.attrs}`;
+  const sugar = CALLOUT_SUGAR[tag.name];
+  if (sugar !== undefined) {
+    if (inner === null) return `${indent}<Callout kind="${sugar}"${attrs}/>`;
+    const children = compileBody(page, inner.lines, inner.startLine, `${indent}  `);
+    return `${indent}<Callout kind="${sugar}"${attrs}>\n${children.join("\n")}\n${indent}</Callout>`;
+  }
+  if (tag.name === "Tab") fail(page, at, `<Tab> only lives inside <Tabs>`);
+  if (tag.name === "Tabs") {
+    if (inner === null) fail(page, at, `<Tabs> needs <Tab> children`);
+    const panes = childBlocks(page, inner, "Tab", "Tabs").map((block) => {
+      const title = attrValue(block.tag.attrs, "title");
+      if (title === null) fail(page, block.at, `<Tab> needs a title="..."`);
+      const children = compileBody(page, block.inner.lines, block.inner.startLine, `${indent}      `);
+      return `${indent}    <stack tabTitle="${escapeForDsxAttr(title)}" class="doc-tab-pane">\n${children.join("\n")}\n${indent}    </stack>`;
+    });
+    return `${indent}<stack class="doc-tabs">\n${indent}  <tabs${attrs}>\n${panes.join("\n")}\n${indent}  </tabs>\n${indent}</stack>`;
+  }
+  if (tag.name === "CodeGroup") {
+    if (inner === null) fail(page, at, `<CodeGroup> needs fenced blocks`);
+    const panes = codeGroupPanes(page, inner).map((pane) => {
+      const title = pane.meta.title !== "" ? pane.meta.title : (pane.meta.lang !== "" ? pane.meta.lang : "code");
+      const n = pushMdVar(page, `${pane.marker}${pane.meta.lang}\n${pane.body.join("\n")}\n${pane.marker}`);
+      return `${indent}    <stack tabTitle="${escapeForDsxAttr(title)}" class="doc-tab-pane"><markdown bind="dsx.variable.md${n}"/></stack>`;
+    });
+    return `${indent}<stack class="doc-codegroup">\n${indent}  <tabs${attrs}>\n${panes.join("\n")}\n${indent}  </tabs>\n${indent}</stack>`;
+  }
+  if (inner === null) return `${indent}<${tag.name}${attrs}/>`;
+  const children = compileBody(page, inner.lines, inner.startLine, `${indent}  `);
+  if (children.length === 0) return `${indent}<${tag.name}${attrs}/>`;
+  return `${indent}<${tag.name}${attrs}>\n${children.join("\n")}\n${indent}</${tag.name}>`;
+}
+
+/** Compile a run of markdown lines into DSX nodes: markdown chunks (page variables +
+ *  <markdown> binds), component blocks (real DSX nodes, inner content recursed) and
+ *  titled fences (code cards). The recursion IS the authoring system. */
+function compileBody(page, lines, startLine, indent) {
+  const nodes = [];
+  let run = [];
+  const flushRun = () => {
+    const text = run.join("\n").replace(/^\n+/, "").replace(/\n+$/, "");
+    run = [];
+    if (text.trim() === "") return;
+    nodes.push(`${indent}<markdown bind="dsx.variable.md${pushMdVar(page, text)}"/>`);
+  };
+  let i = 0;
+  let fence = null;
+  while (i < lines.length) {
+    const line = lines[i];
+    const opener = /^\s{0,3}(`{3,}|~{3,})(.*)$/.exec(line);
+    if (fence !== null) {
+      run.push(line);
+      if (opener !== null && opener[1].startsWith(fence[0]) && opener[1].length >= fence.length) fence = null;
+      i += 1;
+      continue;
+    }
+    if (opener !== null) {
+      const meta = parseFenceMeta(page, startLine + i, opener[1], opener[2].trim());
+      if (meta === null) {
+        fence = opener[1];
+        run.push(line);
+        i += 1;
+        continue;
+      }
+      flushRun();
+      const marker = opener[1];
+      const body = [];
+      i += 1;
+      while (i < lines.length && !(lines[i].trim().startsWith(marker) && lines[i].trim().replace(new RegExp(`^${marker[0]}+`), "") === "")) {
+        body.push(lines[i]);
+        i += 1;
+      }
+      if (i >= lines.length) fail(page, startLine, `unterminated fence`);
+      i += 1;
+      nodes.push(codeblockNode(page, meta, marker, body, indent));
+      continue;
+    }
+    const closing = CLOSE_TAG.exec(line);
+    if (closing !== null) fail(page, startLine + i, `stray closing tag </${closing[1]}>`);
+    const tag = parseOpenTag(line);
+    if (tag !== null) {
+      if (!KNOWN_COMPONENTS.has(tag.name)) {
+        fail(page, startLine + i, `unknown component <${tag.name}> - known: ${[...KNOWN_COMPONENTS].sort().join(", ")}. Add Components/${tag.name}.dsx to extend the set.`);
+      }
+      flushRun();
+      let inner = null;
+      if (!tag.selfClosing) {
+        const restTrim = tag.rest.trim();
+        if (restTrim !== "") {
+          const closeTok = `</${tag.name}>`;
+          if (!restTrim.endsWith(closeTok)) fail(page, startLine + i, `<${tag.name}> with inline content must close on the same line`);
+          inner = { lines: [restTrim.slice(0, -closeTok.length).trim()], startLine: startLine + i };
+        } else {
+          const end = findClose(page, lines, i + 1, tag.name, startLine);
+          inner = { lines: lines.slice(i + 1, end), startLine: startLine + i + 1 };
+          i = end;
+        }
+      }
+      nodes.push(componentNode(page, tag, inner, startLine + i, indent));
+      i += 1;
+      continue;
+    }
+    run.push(line);
+    i += 1;
+  }
+  flushRun();
+  return nodes;
 }
 
 const files = walk(contentDir);
@@ -229,6 +516,7 @@ const pages = files.map((file) => {
     order: Number(meta.order ?? 1000),
     description: meta.description ?? "",
     body,
+    bodyStart: source.split("\n").length - body.split("\n").length + 1,
     component: componentNameFor(route),
   };
 }).sort((a, b) => a.order - b.order || (a.route < b.route ? -1 : 1));
@@ -275,15 +563,18 @@ const neighborsOf = (route) => {
 // ── the generated page components ─────────────────────────────────────────────────────────
 for (const page of pages) {
   const mdRoute = page.route === "/" ? "/md/index.md" : `/md${page.route}.md`;
-  const chunks = sectionize(page.body);
+  const chunks = sectionize(page.body, page.bodyStart);
   const toc = chunks.filter((c) => c.level > 0).map((c) => ({ id: c.id, title: c.title, level: c.level }));
   const { prev, next } = neighborsOf(page.route);
   const sectionName = flatNav.find((p) => p.route === page.route)?.section ?? "";
-  const vars = chunks.map((chunk, i) =>
-    `    <variable as="md${i}">return ${jseStringLiteral(chunk.body)}</variable>`).join("\n");
-  const blocks = chunks.map((chunk, i) => chunk.level === 0
-    ? `    <markdown bind="dsx.variable.md${i}"/>`
-    : `    <stack class="doc-section doc-anchor-${chunk.id}"><markdown bind="dsx.variable.md${i}"/></stack>`).join("\n");
+  page.mdVars = [];
+  const blocks = chunks.map((chunk) => {
+    if (chunk.level === 0) return compileBody(page, chunk.lines, chunk.start, "    ").join("\n");
+    const nodes = compileBody(page, chunk.lines, chunk.start, "      ");
+    return `    <stack class="doc-section doc-anchor-${chunk.id}">\n${nodes.join("\n")}\n    </stack>`;
+  }).filter((block) => block !== "").join("\n");
+  const vars = page.mdVars.map((text, i) =>
+    `    <variable as="md${i}">return ${jseStringLiteral(text)}</variable>`).join("\n");
   const shellAttrs = [
     `title="${escapeForDsxAttr(page.title)}"`,
     `label="${escapeForDsxAttr(pageLabel(page))}"`,
