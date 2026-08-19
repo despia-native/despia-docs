@@ -5,7 +5,7 @@
 //  Workers assets upload (or any static host) serves whole.
 //
 
-import { cpSync, existsSync, readdirSync } from "node:fs";
+import { cpSync, existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -20,4 +20,21 @@ if (!existsSync(dist)) {
 for (const name of readdirSync(pub)) {
   cpSync(join(pub, name), join(dist, name), { recursive: true });
 }
-console.log("[docs.assemble] public/ artifacts folded into dist/ — one servable tree");
+
+// The docs enhancement layer (public/docs.js: anchor ids, scroll-spy, search keys,
+// aria-current) rides every exported page as a deferred script. Injected here, at the
+// deployable-tree seam, so the SSR pipeline stays generic.
+let enhanced = 0;
+const injectDocsScript = (dir) => {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const abs = join(dir, entry.name);
+    if (entry.isDirectory()) { injectDocsScript(abs); continue; }
+    if (entry.name !== "index.html") continue;
+    const html = readFileSync(abs, "utf8");
+    if (html.includes("/docs.js") || !html.includes("</body>")) continue;
+    writeFileSync(abs, html.replace("</body>", `<script defer src="/docs.js"></script>\n</body>`));
+    enhanced += 1;
+  }
+};
+injectDocsScript(dist);
+console.log(`[docs.assemble] public/ artifacts folded into dist/ — one servable tree (${enhanced} page(s) carry docs.js)`);

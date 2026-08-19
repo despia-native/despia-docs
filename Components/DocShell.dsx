@@ -1,29 +1,32 @@
-<stack style="gap: 0; min-height: 100vh; background: background">
+<stack class="doc-root" style="gap: 0; min-height: 100vh; background: background; align-items: stretch">
   <head>
     <!--
-      The one layout every documentation page mounts (the generated page components wrap
-      their <markdown> body in this shell). Head = the site chrome's state and logic:
-      the nav model and the search index are build artifacts fetched as data, the search
-      itself is a formula over that index - client-side, no server dependency, exactly
-      the W7.3 claim. The raw-markdown control is a link to the page's /md sibling, the
-      copy-as-markdown contract in its simplest honest form.
+      The one layout every documentation page mounts. Rebuilt on the design system
+      (the F2 docs flagship): a sticky translucent header (wordmark, client search
+      over the build-time index, GitHub, the three-state scheme toggle riding the
+      theme= subtree pin), the grouped sidebar as a static SSR'd DocNav (generated
+      by scripts/compile.mjs) - a plain pinned aside on wide frames and the system
+      Drawer under 69rem - a measured content column with breadcrumb, prev/next
+      pager cards and the "On this page" rail built from the page's own headings.
+      Layout chrome lives in the DocShell.css sidecar, tokens only; the prose plane
+      styles the rendered markdown itself.
     -->
     <attribute as="title" default="'Despia docs'"/>
+    <attribute as="label" default="''"/>
     <attribute as="route" default="'/'"/>
     <!-- md = the raw-markdown sibling. Compiled pages always pass it; a hand-authored
          page (no markdown source) omits it and the control stays hidden. -->
     <attribute as="md" default="''"/>
+    <attribute as="section" default="''"/>
+    <attribute as="toc" default="'[]'"/>
+    <attribute as="prev" default="''"/>
+    <attribute as="prevLabel" default="''"/>
+    <attribute as="next" default="''"/>
+    <attribute as="nextLabel" default="''"/>
     <variable as="query">return ''</variable>
-    <api as="nav" url="/nav.json"/>
+    <variable as="navOpen">return false</variable>
+    <variable as="searchOpen">return false</variable>
     <api as="searchIndex" url="/search-index.json"/>
-    <!-- formula grammar (StackReference): each attribute is a named input whose value
-         is an expression evaluated at the use-site; the read is dsx.formula.name, no
-         call parens. The api envelope's reserved read is the bare `nav.data`, and the
-         body speaks JSE's functional vocabulary (map/flatMap/concat - push is not JSE). -->
-    <formula as="sidebarRows" model="nav.data">
-      const sections = model && model.sections ? model.sections : []
-      return sections.flatMap((section) => [{ id: 'section:' + section.name, kind: 'section', label: section.name, route: '' }].concat(section.pages.map((page) => ({ id: 'page:' + page.route, kind: 'page', label: page.title, route: page.route }))))
-    </formula>
     <formula as="hits" q="dsx.variable.query">
       if (!q || q.length < 2) { return [] }
       const needle = q.toLowerCase()
@@ -31,44 +34,120 @@
       if (!index || !index.pages) { return [] }
       const inTitle = index.pages.filter((page) => page.title.toLowerCase().includes(needle))
       const inText = index.pages.filter((page) => !page.title.toLowerCase().includes(needle) && page.text.toLowerCase().includes(needle))
-      return inTitle.concat(inText).slice(0, 8).map((page) => ({ id: page.route, title: page.title, route: page.route, where: page.section }))
+      return inTitle.concat(inText).slice(0, 8).map((page) => ({ id: page.route, title: page.label ? page.label : page.title, route: page.route, where: page.section }))
     </formula>
+    <formula as="tocRows" raw="dsx.attribute.toc">
+      if (!raw || raw === '') { return [] }
+      return JSON.parse(raw)
+    </formula>
+    <formula as="themeState" docs="dsx.global.docs">
+      return docs && docs.theme ? docs.theme : ''
+    </formula>
+    <action as="cycleTheme">
+      const current = dsx.global.docs && dsx.global.docs.theme ? dsx.global.docs.theme : ''
+      dsx.global.docs = { theme: current === '' ? 'dark' : current === 'dark' ? 'light' : '' }
+    </action>
+    <action as="closeSearch">
+      dsx.variable.query = ''
+      dsx.variable.searchOpen = false
+    </action>
+    <action as="closeNav">
+      dsx.variable.navOpen = false
+    </action>
   </head>
 
-  <hstack style="gap: 1rem; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--dsx-separator); align-items: center; position: sticky; top: 0; background: background">
-    <text value="Despia" style="font-weight: 700; font-size: 1.1rem" href="/"/>
-    <text value="docs" style="color: secondary"/>
-    <spacer/>
-    <textfield bind="dsx.variable.query" placeholder="Search the docs" style="min-width: 16rem"/>
-    <text value="GitHub" href="https://github.com/despia-native/despia" style="color: secondary"/>
-  </hstack>
-
-  <list bind="dsx.formula.hits" key="id" scroll="false">
-    <row href="{{ item.route }}">
-      <hstack style="gap: 0.75rem; padding: 0.25rem 1.5rem">
-        <text bind="item.title" style="font-weight: 600"/>
-        <text bind="item.where" style="color: secondary"/>
-      </hstack>
-    </row>
-  </list>
-
-  <hstack style="gap: 0; align-items: flex-start">
-    <stack style="width: 16rem; padding: 1rem 0.75rem; gap: 0; border-right: 1px solid var(--dsx-separator); position: sticky; top: 3.25rem">
-      <list bind="dsx.formula.sidebarRows" key="id" scroll="false">
-        <row href="{{ item.route }}">
-          <text bind="item.label" style="padding: 0.3rem 0.75rem"/>
+  <stack class="doc-header">
+    <hstack class="doc-header-row">
+      <pressable class="doc-icon-btn doc-nav-toggle" a11yLabel="Open navigation"
+                 on:tap="dsx.variable.navOpen = true">
+        <svg d="M3 6.4h18v1.6H3z M3 11.2h18v1.6H3z M3 16h18v1.6H3z" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"/>
+      </pressable>
+      <pressable href="/" class="doc-wordmark" a11yLabel="Despia documentation home">
+        <text value="Despia" class="doc-wordmark-name"/>
+        <text value="Docs" class="doc-wordmark-tag"/>
+      </pressable>
+      <spacer/>
+      <stack class="doc-search-inline">
+        <searchbar bind="dsx.variable.query" placeholder="Search docs"/>
+        <text value="&#8984;K" class="doc-kbd" a11yHidden="true" visible-if="dsx.variable.query === ''"/>
+      </stack>
+      <pressable class="doc-icon-btn doc-search-toggle" a11yLabel="Search"
+                 on:tap="dsx.variable.searchOpen = !dsx.variable.searchOpen">
+        <svg d="M10.5 3c4.142 0 7.5 3.358 7.5 7.5s-3.358 7.5-7.5 7.5S3 14.642 3 10.5 6.358 3 10.5 3zm0 2c-3.038 0-5.5 2.462-5.5 5.5s2.462 5.5 5.5 5.5 5.5-2.462 5.5-5.5S13.538 5 10.5 5zm4.94 11.85l4.66 4.65 1.4-1.4-4.65-4.66-1.41 1.41z" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"/>
+      </pressable>
+      <pressable href="https://github.com/despia-native/despia" class="doc-icon-btn" a11yLabel="Despia on GitHub">
+        <svg d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.17-.02-2.12-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.02 1.75 2.68 1.25 3.34.95.1-.74.4-1.25.72-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18.92-.26 1.9-.38 2.88-.39.98.01 1.96.13 2.88.39 2.2-1.49 3.16-1.18 3.16-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.78 1.05.78 2.12 0 1.53-.01 2.76-.01 3.14 0 .3.21.67.8.55C20.44 21.37 23.5 17.06 23.5 12 23.5 5.65 18.35.5 12 .5z" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"/>
+      </pressable>
+      <pressable class="doc-icon-btn" on:tap="dsx.action.cycleTheme()"
+                 a11yLabel="{{ 'Color scheme: ' + (dsx.formula.themeState === '' ? 'system' : dsx.formula.themeState) + '. Activate to change.' }}">
+        <svg visible-if="dsx.formula.themeState === ''" d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 2.5v15c4.142 0 7.5-3.358 7.5-7.5S16.142 4.5 12 4.5z" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"/>
+        <svg visible-if="dsx.formula.themeState === 'dark'" d="M20.74 13.15c-1.06.3-2.18.47-3.34.47-6.02 0-10.9-4.88-10.9-10.9 0-.62.05-1.23.15-1.82C3.15 2.28 1 5.9 1 10c0 5.52 4.48 10 10 10 4.61 0 8.5-3.12 9.74-6.85z" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"/>
+        <svg visible-if="dsx.formula.themeState === 'light'" d="M12 7c2.761 0 5 2.239 5 5s-2.239 5-5 5-5-2.239-5-5 2.239-5 5-5zm-.8-5h1.6v3h-1.6zm0 17h1.6v3h-1.6zM2 11.2h3v1.6H2zm17 0h3v1.6h-3zM4.9 6.03l1.13-1.13 2.12 2.12-1.13 1.13zm10.95 10.97l1.13-1.13 2.12 2.12-1.13 1.13zM4.9 17.97l2.12-2.12 1.13 1.13-2.12 2.12zm10.95-10.95l2.12-2.12 1.13 1.13-2.12 2.12z" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"/>
+      </pressable>
+    </hstack>
+    <stack class="doc-search-row" visible-if="dsx.variable.searchOpen">
+      <searchbar bind="dsx.variable.query" placeholder="Search docs"/>
+    </stack>
+    <stack class="doc-search-panel" visible-if="dsx.formula.hits.length > 0" role="navigation" a11yLabel="Search results">
+      <list bind="dsx.formula.hits" key="id" scroll="false">
+        <row href="{{ item.route }}" on:tap="dsx.action.closeSearch()">
+          <hstack class="doc-hit">
+            <text bind="item.title" class="doc-hit-title"/>
+            <spacer/>
+            <text bind="item.where" class="doc-hit-where"/>
+          </hstack>
         </row>
       </list>
     </stack>
+  </stack>
 
-    <stack style="gap: 1rem; padding: 2rem 2.5rem; max-width: 46rem; flex: 1">
-      <hstack visible-if="dsx.attribute.md !== ''" style="gap: 1rem; align-items: center">
-        <spacer/>
-        <text value="View as Markdown" href="{{ dsx.attribute.md }}" style="color: secondary; font-size: 0.85rem"/>
-      </hstack>
-      <slot/>
-      <divider/>
-      <text value="Apache-2.0. The raw markdown of every page lives under /md; the whole site is one llms.txt away." style="color: secondary; font-size: 0.85rem"/>
+  <hstack class="doc-frame">
+    <stack class="doc-sidebar">
+      <DocNav route="{{ dsx.attribute.route }}" on:navigate="dsx.action.closeNav()"/>
+    </stack>
+    <Drawer class="doc-drawer" present="dsx.variable.navOpen" on:close="dsx.variable.navOpen = false"
+            a11yLabel="Documentation navigation">
+      <DocNav route="{{ dsx.attribute.route }}" on:navigate="dsx.action.closeNav()"/>
+    </Drawer>
+
+    <stack class="doc-main">
+      <stack class="doc-column">
+        <hstack class="doc-crumbs" role="navigation" a11yLabel="Breadcrumb" visible-if="dsx.attribute.route !== '/'">
+          <pressable href="/" class="doc-crumb-link"><text value="Docs" class="doc-crumb"/></pressable>
+          <image icon="chevron.right" iconSize="10" color="tertiary" a11yHidden="true" visible-if="dsx.attribute.section !== ''"/>
+          <text value="{{ dsx.attribute.section }}" class="doc-crumb" visible-if="dsx.attribute.section !== ''"/>
+          <image icon="chevron.right" iconSize="10" color="tertiary" a11yHidden="true"/>
+          <text value="{{ dsx.attribute.label !== '' ? dsx.attribute.label : dsx.attribute.title }}" class="doc-crumb-current"/>
+          <spacer/>
+          <text value="Markdown" href="{{ dsx.attribute.md }}" visible-if="dsx.attribute.md !== ''" class="doc-md-link"/>
+        </hstack>
+
+        <slot/>
+
+        <hstack class="doc-pager" visible-if="dsx.attribute.prev !== '' || dsx.attribute.next !== ''">
+          <pressable href="{{ dsx.attribute.prev }}" class="doc-pager-card doc-pager-prev" visible-if="dsx.attribute.prev !== ''">
+            <text value="Previous" class="doc-pager-eyebrow"/>
+            <text value="{{ dsx.attribute.prevLabel }}" class="doc-pager-title"/>
+          </pressable>
+          <spacer/>
+          <pressable href="{{ dsx.attribute.next }}" class="doc-pager-card doc-pager-next" visible-if="dsx.attribute.next !== ''">
+            <text value="Next" class="doc-pager-eyebrow"/>
+            <text value="{{ dsx.attribute.nextLabel }}" class="doc-pager-title"/>
+          </pressable>
+        </hstack>
+
+        <text value="Apache-2.0. The raw markdown of every page lives under /md; the whole site is one llms.txt away."
+              class="doc-footer"/>
+      </stack>
+
+      <stack class="doc-rail" visible-if="dsx.formula.tocRows.length >= 2" role="navigation" a11yLabel="On this page">
+        <text value="On this page" class="doc-rail-label"/>
+        <list bind="dsx.formula.tocRows" key="id" scroll="false" class="doc-toc">
+          <row href="#{{ item.id }}">
+            <text bind="item.title" class="doc-toc-text doc-toc-l{{ item.level }}"/>
+          </row>
+        </list>
+      </stack>
     </stack>
   </hstack>
 </stack>

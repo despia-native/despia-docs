@@ -1,4 +1,4 @@
-<stack style="gap: 0">
+<scroll theme="{{ dsx.global.docs &amp;&amp; dsx.global.docs.theme ? dsx.global.docs.theme : '' }}" style="background: background">
   <head>
     <!--
       /system, the living spec of the design system: every element the grammar ships,
@@ -34,7 +34,9 @@
     <formula as="pct" inputs="v">return Math.round(v * 100) + '%'</formula>
   </head>
 
-  <DocShell title="System" route="/system">
+  <DocShell title="System" label="Design system" route="/system" section="Start"
+            prev="/quickstart" prevLabel="Quickstart"
+            next="/framework/guides" nextLabel="Overview">
     <stack style="gap: 0.4rem">
       <text value="System" style="font-size: 2rem; font-weight: 700; letter-spacing: -0.02em"/>
       <text value="The design system as a living page: every element below is the real system component, rendered live. Semantic tokens only, one accent, both color schemes for free."
@@ -84,17 +86,17 @@
         <hstack style="gap: 0.75rem; align-items: center">
           <text value="Airplane mode"/>
           <spacer/>
-          <toggle bind="dsx.variable.airplane"/>
+          <toggle bind="dsx.variable.airplane" a11yLabel="Airplane mode"/>
         </hstack>
         <hstack style="gap: 0.75rem; align-items: center">
           <text value="Haptics"/>
           <spacer/>
-          <toggle bind="dsx.variable.haptics"/>
+          <toggle bind="dsx.variable.haptics" a11yLabel="Haptics"/>
         </hstack>
         <segmented bind="dsx.variable.plan" options="Weekly,Monthly,Yearly"/>
         <picker bind="dsx.variable.region" options="Europe,Americas,Asia" label="Region"/>
         <hstack style="gap: 0.75rem; align-items: center">
-          <slider bind="dsx.variable.brightness" style="flex: 1"/>
+          <slider bind="dsx.variable.brightness" a11yLabel="Brightness" style="flex: 1"/>
           <text value="{{ dsx.formula.pct(dsx.variable.brightness) }}"
                 style="color: secondary; font-size: 0.85rem; min-width: 3.5ch; text-align: right"/>
         </hstack>
@@ -161,14 +163,14 @@
     <SystemSection title="Breadcrumb"
                    note="The location trail: prior rows are real links via the anchor attribute, the last row is the current page and never a link. The separator icon swaps per trail; the row follows the document direction, so RTL comes free.">
       <stack style="gap: 0.75rem">
-        <hstack role="navigation" a11yLabel="Breadcrumb" style="gap: 0.375rem; align-items: center; flex-wrap: wrap">
+        <hstack role="navigation" a11yLabel="Breadcrumb, chevron style" style="gap: 0.375rem; align-items: center; flex-wrap: wrap">
           <pressable href="/"><text value="Docs" style="font-size: 0.875rem; color: secondary"/></pressable>
           <image icon="chevron.right" iconSize="11" color="tertiary" a11yHidden="true"/>
           <pressable href="/quickstart"><text value="Quickstart" style="font-size: 0.875rem; color: secondary"/></pressable>
           <image icon="chevron.right" iconSize="11" color="tertiary" a11yHidden="true"/>
           <text value="Requirements" style="font-size: 0.875rem; font-weight: 600"/>
         </hstack>
-        <hstack role="navigation" a11yLabel="Breadcrumb" style="gap: 0.5rem; align-items: center; flex-wrap: wrap">
+        <hstack role="navigation" a11yLabel="Breadcrumb, dot style" style="gap: 0.5rem; align-items: center; flex-wrap: wrap">
           <pressable href="/"><text value="Docs" style="font-size: 0.875rem; color: secondary"/></pressable>
           <image icon="circle.fill" iconSize="4" color="tertiary" a11yHidden="true"/>
           <pressable href="/system"><text value="System" style="font-size: 0.875rem; color: secondary"/></pressable>
@@ -189,7 +191,7 @@
       <hstack style="gap: 0.6rem; align-items: center">
         <image icon="info.circle.fill" iconSize="18" color="secondary" tooltip="Any element can carry a hint, icons included"/>
         <text value="Hover the row above and hold still a moment, or tab through it: the hint appears beside its side word."
-              style="color: secondary; font-size: 0.85rem"/>
+              style="color: secondary; font-size: 0.85rem; flex: 1"/>
       </hstack>
     </SystemSection>
 
@@ -281,31 +283,31 @@
 
     <SystemSection title="Typography" note="The ramp. Weights stay between 400 and 700; tracking tightens as size grows.">
       <stack style="gap: 0.9rem">
-        <hstack style="gap: 1rem; align-items: baseline">
+        <hstack style="gap: 1rem; align-items: baseline; flex-wrap: wrap">
           <text value="2rem / 700" style="width: 7.5rem; flex-shrink: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
           <text value="Display" style="font-size: 2rem; font-weight: 700; letter-spacing: -0.02em"/>
         </hstack>
-        <hstack style="gap: 1rem; align-items: baseline">
+        <hstack style="gap: 1rem; align-items: baseline; flex-wrap: wrap">
           <text value="1.5rem / 600" style="width: 7.5rem; flex-shrink: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
           <text value="Title" style="font-size: 1.5rem; font-weight: 600; letter-spacing: -0.01em"/>
         </hstack>
-        <hstack style="gap: 1rem; align-items: baseline">
+        <hstack style="gap: 1rem; align-items: baseline; flex-wrap: wrap">
           <text value="1.17rem / 600" style="width: 7.5rem; flex-shrink: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
           <text value="Heading" style="font-size: 1.17rem; font-weight: 600"/>
         </hstack>
-        <hstack style="gap: 1rem; align-items: baseline">
+        <hstack style="gap: 1rem; align-items: baseline; flex-wrap: wrap">
           <text value="1rem / 400" style="width: 7.5rem; flex-shrink: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
           <text value="Body, the reading size."/>
         </hstack>
-        <hstack style="gap: 1rem; align-items: baseline">
+        <hstack style="gap: 1rem; align-items: baseline; flex-wrap: wrap">
           <text value="0.9rem / 400" style="width: 7.5rem; flex-shrink: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
           <text value="Subhead, supporting copy." style="font-size: 0.9rem; color: secondary"/>
         </hstack>
-        <hstack style="gap: 1rem; align-items: baseline">
+        <hstack style="gap: 1rem; align-items: baseline; flex-wrap: wrap">
           <text value="0.8rem / 400" style="width: 7.5rem; flex-shrink: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
           <text value="Footnote, fine print." style="font-size: 0.8rem; color: secondary"/>
         </hstack>
-        <hstack style="gap: 1rem; align-items: baseline">
+        <hstack style="gap: 1rem; align-items: baseline; flex-wrap: wrap">
           <text value="0.72rem / 600" style="width: 7.5rem; flex-shrink: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: tertiary"/>
           <text value="Caption, the section label"
                 style="font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: secondary"/>
@@ -319,65 +321,55 @@
 
     <SystemSection title="Colors" note="The ten cross-renderer semantic words. The OS owns the values, so both schemes come free.">
       <stack style="gap: 0.6rem">
-        <hstack style="gap: 0.75rem; align-items: center">
+        <hstack style="gap: 0.75rem; align-items: center; flex-wrap: wrap; align-self: stretch">
           <stack style="width: 1.75rem; height: 1.75rem; border-radius: var(--dsx-radius-sm); background: label; border: 1px solid var(--dsx-separator)"/>
           <text value="label" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem"/>
-          <spacer/>
-          <text value="Primary text" style="color: secondary; font-size: 0.85rem"/>
+          <text value="Primary text" style="color: secondary; font-size: 0.85rem; flex: 1 1 auto; min-width: 9rem; text-align: right"/>
         </hstack>
-        <hstack style="gap: 0.75rem; align-items: center">
+        <hstack style="gap: 0.75rem; align-items: center; flex-wrap: wrap; align-self: stretch">
           <stack style="width: 1.75rem; height: 1.75rem; border-radius: var(--dsx-radius-sm); background: var(--dsx-secondary-label); border: 1px solid var(--dsx-separator)"/>
           <text value="secondary" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem"/>
-          <spacer/>
-          <text value="Supporting text" style="color: secondary; font-size: 0.85rem"/>
+          <text value="Supporting text" style="color: secondary; font-size: 0.85rem; flex: 1 1 auto; min-width: 9rem; text-align: right"/>
         </hstack>
-        <hstack style="gap: 0.75rem; align-items: center">
+        <hstack style="gap: 0.75rem; align-items: center; flex-wrap: wrap; align-self: stretch">
           <stack style="width: 1.75rem; height: 1.75rem; border-radius: var(--dsx-radius-sm); background: var(--dsx-tertiary-label); border: 1px solid var(--dsx-separator)"/>
           <text value="tertiary" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem"/>
-          <spacer/>
-          <text value="Faintest text, placeholders" style="color: secondary; font-size: 0.85rem"/>
+          <text value="Faintest text, placeholders" style="color: secondary; font-size: 0.85rem; flex: 1 1 auto; min-width: 9rem; text-align: right"/>
         </hstack>
-        <hstack style="gap: 0.75rem; align-items: center">
+        <hstack style="gap: 0.75rem; align-items: center; flex-wrap: wrap; align-self: stretch">
           <stack style="width: 1.75rem; height: 1.75rem; border-radius: var(--dsx-radius-sm); background: background; border: 1px solid var(--dsx-separator)"/>
           <text value="background" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem"/>
-          <spacer/>
-          <text value="The page" style="color: secondary; font-size: 0.85rem"/>
+          <text value="The page" style="color: secondary; font-size: 0.85rem; flex: 1 1 auto; min-width: 9rem; text-align: right"/>
         </hstack>
-        <hstack style="gap: 0.75rem; align-items: center">
+        <hstack style="gap: 0.75rem; align-items: center; flex-wrap: wrap; align-self: stretch">
           <stack style="width: 1.75rem; height: 1.75rem; border-radius: var(--dsx-radius-sm); background: groupedBackground; border: 1px solid var(--dsx-separator)"/>
           <text value="groupedBackground" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem"/>
-          <spacer/>
-          <text value="Grouped pages" style="color: secondary; font-size: 0.85rem"/>
+          <text value="Grouped pages" style="color: secondary; font-size: 0.85rem; flex: 1 1 auto; min-width: 9rem; text-align: right"/>
         </hstack>
-        <hstack style="gap: 0.75rem; align-items: center">
+        <hstack style="gap: 0.75rem; align-items: center; flex-wrap: wrap; align-self: stretch">
           <stack style="width: 1.75rem; height: 1.75rem; border-radius: var(--dsx-radius-sm); background: secondaryGroupedBackground; border: 1px solid var(--dsx-separator)"/>
           <text value="secondaryGroupedBackground" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem"/>
-          <spacer/>
-          <text value="Cards on grouped pages" style="color: secondary; font-size: 0.85rem"/>
+          <text value="Cards on grouped pages" style="color: secondary; font-size: 0.85rem; flex: 1 1 auto; min-width: 9rem; text-align: right"/>
         </hstack>
-        <hstack style="gap: 0.75rem; align-items: center">
+        <hstack style="gap: 0.75rem; align-items: center; flex-wrap: wrap; align-self: stretch">
           <stack style="width: 1.75rem; height: 1.75rem; border-radius: var(--dsx-radius-sm); background: fill; border: 1px solid var(--dsx-separator)"/>
           <text value="fill" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem"/>
-          <spacer/>
-          <text value="Control fills" style="color: secondary; font-size: 0.85rem"/>
+          <text value="Control fills" style="color: secondary; font-size: 0.85rem; flex: 1 1 auto; min-width: 9rem; text-align: right"/>
         </hstack>
-        <hstack style="gap: 0.75rem; align-items: center">
+        <hstack style="gap: 0.75rem; align-items: center; flex-wrap: wrap; align-self: stretch">
           <stack style="width: 1.75rem; height: 1.75rem; border-radius: var(--dsx-radius-sm); background: separator; border: 1px solid var(--dsx-separator)"/>
           <text value="separator" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem"/>
-          <spacer/>
-          <text value="Hairlines" style="color: secondary; font-size: 0.85rem"/>
+          <text value="Hairlines" style="color: secondary; font-size: 0.85rem; flex: 1 1 auto; min-width: 9rem; text-align: right"/>
         </hstack>
-        <hstack style="gap: 0.75rem; align-items: center">
+        <hstack style="gap: 0.75rem; align-items: center; flex-wrap: wrap; align-self: stretch">
           <stack style="width: 1.75rem; height: 1.75rem; border-radius: var(--dsx-radius-sm); background: accent; border: 1px solid var(--dsx-separator)"/>
           <text value="accent" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem"/>
-          <spacer/>
-          <text value="The one accent: actions and selection" style="color: secondary; font-size: 0.85rem"/>
+          <text value="The one accent: actions and selection" style="color: secondary; font-size: 0.85rem; flex: 1 1 auto; min-width: 9rem; text-align: right"/>
         </hstack>
-        <hstack style="gap: 0.75rem; align-items: center">
+        <hstack style="gap: 0.75rem; align-items: center; flex-wrap: wrap; align-self: stretch">
           <stack style="width: 1.75rem; height: 1.75rem; border-radius: var(--dsx-radius-sm); background: destructive; border: 1px solid var(--dsx-separator)"/>
           <text value="destructive" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem"/>
-          <spacer/>
-          <text value="Danger and deletion" style="color: secondary; font-size: 0.85rem"/>
+          <text value="Danger and deletion" style="color: secondary; font-size: 0.85rem; flex: 1 1 auto; min-width: 9rem; text-align: right"/>
         </hstack>
       </stack>
     </SystemSection>
@@ -431,67 +423,7 @@
 
     <SystemSection title="Component reference"
                    note="One generated page per supported library component: anatomy, the census attribute table, events, a live example, platform presentation notes, and the customization hooks. The same pages ride llms.txt for agents.">
-      <hstack style="gap: 0.6rem 1.1rem; flex-wrap: wrap; align-items: center">
-        <text value="Accordion" href="/components/accordion" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="alert" href="/components/alert" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="audio" href="/components/audio" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="button" href="/components/button" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="calendar" href="/components/calendar" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="carousel" href="/components/carousel" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="ChatBubble" href="/components/chatbubble" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="Checkbox" href="/components/checkbox" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="combobox" href="/components/combobox" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="confirmDialog" href="/components/confirmdialog" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="contextmenu" href="/components/contextmenu" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="datepicker" href="/components/datepicker" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="divider" href="/components/divider" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="Drawer" href="/components/drawer" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="field" href="/components/field" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="flow" href="/components/flow" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="form" href="/components/form" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="grid" href="/components/grid" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="hstack" href="/components/hstack" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="image" href="/components/image" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="list" href="/components/list" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="menu" href="/components/menu" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="MenuBar" href="/components/menubar" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="otp" href="/components/otp" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="pager" href="/components/pager" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="picker" href="/components/picker" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="popover" href="/components/popover" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="pressable" href="/components/pressable" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="progress" href="/components/progress" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="ProgressRing" href="/components/progressring" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="qrcode" href="/components/qrcode" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="RadioGroup" href="/components/radiogroup" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="rangeslider" href="/components/rangeslider" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="refreshable" href="/components/refreshable" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="scaffold" href="/components/scaffold" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="scroll" href="/components/scroll" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="searchbar" href="/components/searchbar" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="segmented" href="/components/segmented" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="segmentedButton" href="/components/segmentedbutton" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="sheet" href="/components/sheet" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="Skeleton" href="/components/skeleton" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="slider" href="/components/slider" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="spacer" href="/components/spacer" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="spinner" href="/components/spinner" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="split" href="/components/split" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="stack" href="/components/stack" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="stars" href="/components/stars" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="stepper" href="/components/stepper" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="svg" href="/components/svg" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="Table" href="/components/table" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="tabs" href="/components/tabs" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="text" href="/components/text" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="textarea" href="/components/textarea" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="textfield" href="/components/textfield" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="toggle" href="/components/toggle" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="toolbar" href="/components/toolbar" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="video" href="/components/video" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="vstack" href="/components/vstack" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-        <text value="zstack" href="/components/zstack" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
-      </hstack>
+      <SystemCards/>
     </SystemSection>
   </DocShell>
-</stack>
+</scroll>
