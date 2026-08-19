@@ -49,7 +49,7 @@ export function greet(name: string): string { ... }
 
 ## Callouts
 
-Five kinds, one anatomy: accent rail, tinted fill, kind icon, optional bold title, markdown body.
+Five kinds, one anatomy: a hairline box, a kind icon, an optional title, markdown body. The hue stays in the icon and the border; the words stay neutral.
 
 <Note>A plain note. The quiet kind, for asides that should not shout.</Note>
 
@@ -89,7 +89,7 @@ Every element of the system, rendered live in its states.
 <Card title="The window.dsx API" icon="globe" href="/framework/guides/despia-api">
 The page-side surface: promises in, events back.
 </Card>
-<Card title="Combination matrix" icon="puzzlepiece.extension" href="/framework/guides/combinations">
+<Card title="Combination matrix" icon="rectangle.stack.fill" href="/framework/guides/combinations">
 Every way the runtime, web view and backend compose.
 </Card>
 </CardGroup>
