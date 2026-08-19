@@ -384,6 +384,302 @@
 }
 .doc-card-role { font-size: 0.8125rem; line-height: 1.45; color: var(--dsx-secondary-label); }
 
+/* ── the authoring components (components-in-markdown, scripts/compile.mjs) ──
+   Every doc component below renders inside the shell, so this one owner-scoped
+   sheet reaches them all (a per-component sidecar could never style its own
+   root: the owner stamp lands on the root element itself). Tokens only. */
+
+/* callouts: accent rail + tinted fill + kind icon */
+.doc-callout {
+  --doc-callout-ink: var(--dsx-secondary-label);
+  --doc-callout-wash: var(--dsx-fill);
+  align-items: flex-start;
+  gap: 0.625rem;
+  margin-block: 1.3rem;
+  padding: 0.875rem 1rem;
+  border-radius: var(--dsx-radius-lg);
+  border-inline-start: 3px solid var(--doc-callout-ink);
+  background: var(--doc-callout-wash);
+}
+.doc-callout-info { --doc-callout-ink: var(--dsx-accent); --doc-callout-wash: var(--dsx-accent-muted); }
+.doc-callout-tip { --doc-callout-ink: var(--dsx-success); --doc-callout-wash: var(--dsx-success-muted); }
+.doc-callout-warning { --doc-callout-ink: var(--dsx-warning); --doc-callout-wash: var(--dsx-warning-muted); }
+.doc-callout-danger { --doc-callout-ink: var(--dsx-destructive); --doc-callout-wash: var(--dsx-danger-muted); }
+.doc-callout-icon { color: var(--doc-callout-ink); margin-block-start: 0.2rem; flex: 0 0 auto; }
+.doc-callout-content { min-width: 0; flex: 1; gap: 0.2rem; align-items: stretch; }
+.doc-callout-title { font-size: 0.875rem; font-weight: 650; color: var(--doc-callout-ink); }
+.doc-callout-body { min-width: 0; align-items: stretch; font-size: 0.875rem; }
+.doc-callout-body .dsx-markdown { font-size: 0.9375rem; }
+.doc-callout-body .dsx-markdown > :first-child { margin-block-start: 0; }
+.doc-callout-body .dsx-markdown > :last-child { margin-block-end: 0; }
+
+/* cards: the linking tile + its grid */
+.doc-tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.875rem;
+  margin-block: 1.3rem;
+}
+.doc-tiles-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 40rem) {
+  .doc-tiles, .doc-tiles-3 { grid-template-columns: minmax(0, 1fr); }
+}
+.doc-tile {
+  position: relative;
+  align-items: flex-start;
+  gap: 0.375rem;
+  padding: 1rem 1.125rem 1.125rem;
+  border-radius: var(--dsx-radius-card, var(--dsx-radius-lg));
+  background: var(--dsx-background);
+  box-shadow: inset 0 0 0 var(--dsx-hairline) var(--dsx-outline-soft), var(--dsx-shadow-xs);
+  transition: box-shadow var(--dsx-dur-fast) var(--dsx-ease), transform var(--dsx-dur-fast) var(--dsx-ease);
+}
+.doc-tiles .doc-tile { margin-block: 0; }
+.doc-column > .doc-tile, .doc-section > .doc-tile { margin-block: 1.3rem; }
+.doc-tile-icon { color: var(--dsx-accent); }
+.doc-tile-title { font-size: 0.9375rem; font-weight: 600; color: var(--dsx-label); transition: color var(--dsx-dur-fast) var(--dsx-ease); }
+.doc-tile-link { border-radius: inherit; }
+.doc-tile-link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.doc-tile-link:focus-visible { outline: none; }
+.doc-tile-link:focus-visible::after {
+  outline: var(--dsx-focus-ring-width) solid var(--dsx-accent);
+  outline-offset: var(--dsx-focus-ring-offset);
+}
+@media (hover: hover) {
+  .doc-tile:hover {
+    transform: translateY(-2px);
+    box-shadow: inset 0 0 0 var(--dsx-hairline) var(--dsx-separator), var(--dsx-shadow-2);
+  }
+  .doc-tile:hover .doc-tile-title { color: var(--dsx-accent); }
+}
+.doc-tile-body { min-width: 0; align-items: stretch; }
+.doc-tile-body .dsx-markdown { font-size: 0.875rem; color: var(--dsx-secondary-label); }
+.doc-tile-body .dsx-markdown > :first-child { margin-block-start: 0; }
+.doc-tile-body .dsx-markdown > :last-child { margin-block-end: 0; }
+
+/* steps: the numbered rail */
+.doc-steps { counter-reset: doc-step; align-items: stretch; margin-block: 1.3rem; }
+.doc-step { counter-increment: doc-step; gap: 0.875rem; align-items: stretch; }
+.doc-step-rail { flex: 0 0 auto; width: 1.75rem; align-items: center; gap: 0.375rem; }
+.doc-step-badge {
+  width: 1.75rem;
+  height: 1.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--dsx-fill);
+  flex: 0 0 auto;
+}
+.doc-step-badge::before {
+  content: counter(doc-step);
+  font-size: 0.8125rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  color: var(--dsx-secondary-label);
+}
+.doc-step-rail::after { content: ""; flex: 1; width: var(--dsx-hairline); min-height: 0.5rem; background: var(--dsx-separator); }
+.doc-step:last-child .doc-step-rail::after { display: none; }
+.doc-step-content { min-width: 0; flex: 1; gap: 0.25rem; align-items: stretch; padding-block: 0.25rem 1.125rem; }
+.doc-step:last-child .doc-step-content { padding-block-end: 0.125rem; }
+.doc-step-title { font-size: 0.9375rem; font-weight: 600; color: var(--dsx-label); }
+.doc-step-body { min-width: 0; align-items: stretch; }
+.doc-step-body .dsx-markdown > :first-child { margin-block-start: 0; }
+.doc-step-body .dsx-markdown > :last-child { margin-block-end: 0; }
+.doc-step-body .dsx-markdown pre { margin-block: 0.75em; }
+
+/* the media frame */
+.doc-figure { margin-block: 1.3rem; align-items: stretch; gap: 0.5rem; }
+.doc-figure-media {
+  align-items: center;
+  border-radius: var(--dsx-radius-lg);
+  background: var(--dsx-secondary-background);
+  box-shadow: inset 0 0 0 var(--dsx-hairline) var(--dsx-outline-soft);
+  overflow: hidden;
+  padding: 0.375rem;
+}
+.doc-figure-media .dsx-markdown { align-self: stretch; }
+.doc-figure-media .dsx-markdown > :first-child { margin-block-start: 0; }
+.doc-figure-media .dsx-markdown > :last-child { margin-block-end: 0; }
+.doc-figure-media .dsx-markdown img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 22rem;
+  margin: 0 auto;
+  border-radius: calc(var(--dsx-radius-lg) - 0.375rem);
+}
+.doc-figure-caption { font-size: 0.8125rem; color: var(--dsx-secondary-label); text-align: center; }
+
+/* the disclosure set: system Accordions joined on one card */
+.doc-accordions {
+  margin-block: 1.3rem;
+  align-items: stretch;
+  border-radius: var(--dsx-radius-lg);
+  box-shadow: inset 0 0 0 var(--dsx-hairline) var(--dsx-outline-soft);
+  overflow: hidden;
+}
+.doc-accordions > .dsx-accordion + .dsx-accordion { border-block-start: var(--dsx-hairline) solid var(--dsx-outline-soft); }
+.doc-accordions .dsx-markdown > :first-child { margin-block-start: 0; }
+.doc-accordions .dsx-markdown > :last-child { margin-block-end: 0; }
+
+/* ── content tabs + the code UX (compile.mjs emission, docs.js behavior) ──
+   <Tabs>/<CodeGroup> ride the tabs PRIMITIVE; this scope re-places its adaptive
+   app chrome (bottom dock / desktop rail) as the inline underline strip a doc
+   page needs, at every width. Same DOM, same WAI-ARIA wiring. */
+.doc-tabs, .doc-codegroup { margin-block: 1.3rem; align-items: stretch; }
+.doc-tabs .dsx-tabs, .doc-codegroup .dsx-tabs {
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  color: var(--dsx-label);
+}
+.doc-tabs .dsx-tablist, .doc-codegroup .dsx-tablist {
+  order: -1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 0.25rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  border-block-end: var(--dsx-hairline) solid var(--dsx-separator);
+}
+.doc-tabs .dsx-tab, .doc-codegroup .dsx-tab {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 0.4rem;
+  min-height: 2.25rem;
+  margin: 0;
+  padding: 0.375rem 0.25rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--dsx-secondary-label);
+  box-shadow: inset 0 calc(-2 * var(--dsx-hairline) - 1px) 0 transparent;
+  transition: color var(--dsx-dur-fast) var(--dsx-ease), box-shadow var(--dsx-dur-fast) var(--dsx-ease);
+}
+.doc-tabs .dsx-tab + .dsx-tab, .doc-codegroup .dsx-tab + .dsx-tab { margin-inline-start: 0.875rem; }
+.doc-tabs .dsx-tab-label, .doc-codegroup .dsx-tab-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.3;
+  color: inherit;
+}
+@media (hover: hover) {
+  .doc-tabs .dsx-tab:hover, .doc-codegroup .dsx-tab:hover { color: var(--dsx-label); background: transparent; }
+}
+.doc-tabs .dsx-tab[data-dsx-selected="true"], .doc-codegroup .dsx-tab[data-dsx-selected="true"] {
+  color: var(--dsx-accent);
+  background: transparent;
+  box-shadow: inset 0 calc(-2 * var(--dsx-hairline) - 1px) 0 var(--dsx-accent);
+}
+.doc-tabs .dsx-tab[data-dsx-selected="true"] .dsx-tab-label,
+.doc-codegroup .dsx-tab[data-dsx-selected="true"] .dsx-tab-label { font-weight: 600; }
+.doc-tabs .dsx-tab-panels, .doc-codegroup .dsx-tab-panels { overflow: visible; }
+.doc-tab-pane { min-width: 0; align-items: stretch; }
+.doc-tabs .doc-tab-pane { padding-block-start: 0.25rem; }
+.doc-tabs .doc-tab-pane .dsx-markdown > :first-child { margin-block-start: 0.75em; }
+.doc-tabs .doc-tab-pane .dsx-markdown > :last-child { margin-block-end: 0.25em; }
+
+/* the code header bar: one surface with the block below it */
+.doc-codeblock {
+  margin-block: 1.3rem;
+  align-items: stretch;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 var(--dsx-hairline) var(--dsx-outline-soft);
+  overflow: hidden;
+}
+.doc-codebar {
+  position: relative;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 2.5rem;
+  padding: 0.375rem 3rem 0.375rem 1rem;
+  background: var(--dsx-secondary-background);
+  border-block-end: var(--dsx-hairline) solid var(--dsx-outline-soft);
+}
+.doc-codebar-lang {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--dsx-accent);
+  background: var(--dsx-accent-muted);
+  border-radius: 999px;
+  padding: 0.2em 0.65em;
+}
+.doc-codebar-title {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.8125rem;
+  color: var(--dsx-secondary-label);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.doc-codeblock .dsx-markdown pre { margin-block: 0; border-radius: 0; box-shadow: none; }
+
+/* the code group: the same bar carries the language tabs */
+.doc-codegroup { border-radius: 12px; box-shadow: inset 0 0 0 var(--dsx-hairline) var(--dsx-outline-soft); overflow: hidden; }
+.doc-codegroup .dsx-tabs { position: relative; }
+.doc-codegroup .dsx-tablist {
+  gap: 0;
+  min-height: 2.5rem;
+  padding: 0 3rem 0 1rem;
+  background: var(--dsx-secondary-background);
+  border-block-end: var(--dsx-hairline) solid var(--dsx-outline-soft);
+}
+.doc-codegroup .dsx-tab { min-height: 2.5rem; }
+.doc-codegroup .dsx-tab-label { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.8125rem; }
+.doc-codegroup .dsx-md-code { margin-block: 0; border-radius: 0; box-shadow: none; }
+
+/* the copy affordance (docs.js): hover-reveal on fine pointers over bare blocks,
+   always visible on coarse pointers and on every header bar */
+.doc-pre { position: relative; }
+.doc-copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  border-radius: var(--dsx-radius-sm);
+  color: var(--dsx-secondary-label);
+  background: color-mix(in srgb, var(--dsx-secondary-background) 84%, transparent);
+  box-shadow: inset 0 0 0 var(--dsx-hairline) var(--dsx-outline-soft);
+  transition: color var(--dsx-dur-fast) var(--dsx-ease), background-color var(--dsx-dur-fast) var(--dsx-ease), opacity var(--dsx-dur-fast) var(--dsx-ease);
+}
+@media (hover: hover) {
+  .doc-copy:hover { color: var(--dsx-label); background: var(--dsx-fill); }
+}
+.doc-copy:focus-visible {
+  outline: var(--dsx-focus-ring-width) solid var(--dsx-accent);
+  outline-offset: var(--dsx-focus-ring-offset);
+  opacity: 1;
+}
+.doc-copy svg { width: 1rem; height: 1rem; display: block; transition: transform var(--dsx-dur-fast) var(--dsx-ease); }
+.doc-copy .doc-copy-check { display: none; color: var(--dsx-success); }
+.doc-copy.is-copied .doc-copy-icon { display: none; }
+.doc-copy.is-copied .doc-copy-check { display: block; animation: doc-copy-pop var(--dsx-dur-base) var(--dsx-ease); }
+@keyframes doc-copy-pop { from { transform: scale(0.6); } }
+.doc-pre > .doc-copy { position: absolute; top: 0.625rem; inset-inline-end: 0.625rem; z-index: 2; }
+.doc-codebar > .doc-copy { position: absolute; top: 50%; translate: 0 -50%; inset-inline-end: 0.5rem; }
+.doc-codegroup .dsx-tabs > .doc-copy { position: absolute; top: 0.3rem; inset-inline-end: 0.5rem; z-index: 2; }
+@media (hover: hover) and (pointer: fine) {
+  .doc-pre > .doc-copy { opacity: 0; }
+  .doc-pre:hover > .doc-copy, .doc-pre > .doc-copy:focus-visible, .doc-pre > .doc-copy.is-copied { opacity: 1; }
+}
+
 /* ── responsive steps ───────────────────────────────────────────────────── */
 @media (min-width: 69rem) {
   .doc-nav-toggle, .doc-search-toggle, .doc-search-row, .doc-drawer { display: none; }
@@ -407,8 +703,10 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .doc-icon-btn, .doc-nav-link, .doc-pager-card, .doc-card, .doc-toc .dsx-pressable, .doc-toc-text,
-  .doc-search-panel .dsx-pressable {
+  .doc-search-panel .dsx-pressable, .doc-tile, .doc-tile-title, .doc-copy, .doc-copy svg,
+  .doc-tabs .dsx-tab, .doc-codegroup .dsx-tab {
     transition: none;
   }
-  .doc-pager-card:hover, .doc-card:hover { transform: none; }
+  .doc-pager-card:hover, .doc-card:hover, .doc-tile:hover { transform: none; }
+  .doc-copy.is-copied .doc-copy-check { animation: none; }
 }
