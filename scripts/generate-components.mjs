@@ -290,13 +290,15 @@ function pageFor(tag, element, matrixRow, webRow, sheets) {
   lines.push("");
   lines.push(prose(role));
   lines.push("");
-  // The hero meta line: platform chips first (inline-code chips, the prose plane's
-  // chip treatment), then the census facts, middot-separated.
-  const meta = [platformChips(matrixRow).map((c) => `\`${c}\``).join(" ")];
-  meta.push(`Category: ${element.category}`);
+  // The hero meta: platform chips over a dot-separated meta line, rendered by the
+  // RefMeta component (Components/RefMeta.dsx); the body stays ordinary markdown so
+  // the code chips and the gallery link keep working, in /md and llms.txt too.
+  const meta = [`Category: ${element.category}`];
   if (aliases.length > 0) meta.push(`Aliases: ${aliases.map((a) => `\`${a}\``).join(", ")}`);
   meta.push("Live specimens: the [System gallery](/system)");
-  lines.push(meta.filter(Boolean).join(" · ") + ".");
+  lines.push(`<RefMeta platforms="${platformChips(matrixRow).join(",")}">`);
+  lines.push(meta.join(" · ") + ".");
+  lines.push("</RefMeta>");
   lines.push("");
   lines.push("## Example");
   lines.push("");
