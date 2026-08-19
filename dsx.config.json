@@ -44,6 +44,14 @@
       }
     },
     {
+      "path": "/components/audio",
+      "component": "docs.PageComponents_Audio",
+      "meta": {
+        "title": "audio",
+        "description": "The audio element, a media component of the DSX grammar."
+      }
+    },
+    {
       "path": "/components/button",
       "component": "docs.PageComponents_Button",
       "meta": {
@@ -284,6 +292,14 @@
       }
     },
     {
+      "path": "/components/refreshable",
+      "component": "docs.PageComponents_Refreshable",
+      "meta": {
+        "title": "refreshable",
+        "description": "The refreshable element, a structure component of the DSX grammar."
+      }
+    },
+    {
       "path": "/components/scaffold",
       "component": "docs.PageComponents_Scaffold",
       "meta": {
@@ -396,6 +412,14 @@
       }
     },
     {
+      "path": "/components/svg",
+      "component": "docs.PageComponents_Svg",
+      "meta": {
+        "title": "svg",
+        "description": "The svg element, a display component of the DSX grammar."
+      }
+    },
+    {
       "path": "/components/table",
       "component": "docs.PageComponents_Table",
       "meta": {
@@ -449,6 +473,14 @@
       "meta": {
         "title": "toolbar",
         "description": "The action row pinned to an edge, with roving focus across its controls."
+      }
+    },
+    {
+      "path": "/components/video",
+      "component": "docs.PageComponents_Video",
+      "meta": {
+        "title": "video",
+        "description": "The video element, a media component of the DSX grammar."
       }
     },
     {

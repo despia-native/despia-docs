@@ -434,6 +434,7 @@
       <hstack style="gap: 0.6rem 1.1rem; flex-wrap: wrap; align-items: center">
         <text value="Accordion" href="/components/accordion" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
         <text value="alert" href="/components/alert" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="audio" href="/components/audio" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
         <text value="button" href="/components/button" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
         <text value="calendar" href="/components/calendar" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
         <text value="carousel" href="/components/carousel" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
@@ -464,6 +465,7 @@
         <text value="qrcode" href="/components/qrcode" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
         <text value="RadioGroup" href="/components/radiogroup" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
         <text value="rangeslider" href="/components/rangeslider" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="refreshable" href="/components/refreshable" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
         <text value="scaffold" href="/components/scaffold" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
         <text value="scroll" href="/components/scroll" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
         <text value="searchbar" href="/components/searchbar" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
@@ -478,6 +480,7 @@
         <text value="stack" href="/components/stack" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
         <text value="stars" href="/components/stars" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
         <text value="stepper" href="/components/stepper" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="svg" href="/components/svg" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
         <text value="Table" href="/components/table" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
         <text value="tabs" href="/components/tabs" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
         <text value="text" href="/components/text" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
@@ -485,6 +488,7 @@
         <text value="textfield" href="/components/textfield" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
         <text value="toggle" href="/components/toggle" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
         <text value="toolbar" href="/components/toolbar" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
+        <text value="video" href="/components/video" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
         <text value="vstack" href="/components/vstack" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
         <text value="zstack" href="/components/zstack" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: accent"/>
       </hstack>
