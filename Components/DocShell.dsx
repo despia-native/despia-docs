@@ -3,8 +3,10 @@
     <!--
       The one layout every documentation page mounts. Rebuilt on the design system
       (the F2 docs flagship): a sticky translucent header (wordmark, client search
-      over the build-time index, GitHub, the three-state scheme toggle riding the
-      theme= subtree pin), the grouped sidebar as a static SSR'd DocNav (generated
+      over the build-time index with grouped results in an elevated overlay panel
+      plus empty-query/no-results states and docs.js arrow-key navigation, GitHub,
+      the three-state scheme toggle riding the theme= subtree pin), the grouped
+      sidebar as a static SSR'd DocNav (generated
       by scripts/compile.mjs) - a plain pinned aside on wide frames and the system
       Drawer under 69rem - a measured content column with breadcrumb, prev/next
       pager cards and the "On this page" rail built from the page's own headings.
@@ -26,15 +28,30 @@
     <variable as="query">return ''</variable>
     <variable as="navOpen">return false</variable>
     <variable as="searchOpen">return false</variable>
+    <variable as="searchFocus">return false</variable>
     <api as="searchIndex" url="/search-index.json"/>
-    <formula as="hits" q="dsx.variable.query">
+    <!-- Ranked hits folded into section groups (title matches lead, then body matches;
+         groups appear in relevance order, rows stay ranked inside each). -->
+    <formula as="hitGroups" q="dsx.variable.query">
       if (!q || q.length < 2) { return [] }
       const needle = q.toLowerCase()
       const index = searchIndex.data
       if (!index || !index.pages) { return [] }
       const inTitle = index.pages.filter((page) => page.title.toLowerCase().includes(needle))
       const inText = index.pages.filter((page) => !page.title.toLowerCase().includes(needle) && page.text.toLowerCase().includes(needle))
-      return inTitle.concat(inText).slice(0, 8).map((page) => ({ id: page.route, title: page.label ? page.label : page.title, route: page.route, where: page.section }))
+      const ranked = inTitle.concat(inText).slice(0, 8)
+      const bySection = ranked.groupBy((page) => page.section === '' ? 'Start' : page.section.charAt(0).toUpperCase() + page.section.slice(1))
+      return Object.entries(bySection).map((pair) => ({
+        name: pair[0],
+        rows: pair[1].map((page) => ({ id: page.route, title: page.label ? page.label : page.title, route: page.route })),
+      }))
+    </formula>
+    <!-- The panel's state: '' closed · 'prompt' (field active, under two characters,
+         the empty-query EmptyState) · 'results' (grouped hits, or the no-results
+         EmptyState when hitGroups is empty). -->
+    <formula as="searchState" q="dsx.variable.query" focus="dsx.variable.searchFocus" open="dsx.variable.searchOpen">
+      if (q && q.length >= 2) { return 'results' }
+      return focus || open ? 'prompt' : ''
     </formula>
     <formula as="tocRows" raw="dsx.attribute.toc">
       if (!raw || raw === '') { return [] }
@@ -50,6 +67,10 @@
     <action as="closeSearch">
       dsx.variable.query = ''
       dsx.variable.searchOpen = false
+      dsx.variable.searchFocus = false
+    </action>
+    <action as="toggleSearch">
+      if (dsx.variable.searchOpen) { dsx.action.closeSearch() } else { dsx.variable.searchOpen = true }
     </action>
     <action as="closeNav">
       dsx.variable.navOpen = false
@@ -68,11 +89,12 @@
       </pressable>
       <spacer/>
       <stack class="doc-search-inline">
-        <searchbar bind="dsx.variable.query" placeholder="Search docs"/>
+        <searchbar bind="dsx.variable.query" placeholder="Search docs"
+                   on:focus="dsx.variable.searchFocus = true" on:blur="dsx.variable.searchFocus = false"/>
         <text value="&#8984;K" class="doc-kbd" a11yHidden="true" visible-if="dsx.variable.query === ''"/>
       </stack>
       <pressable class="doc-icon-btn doc-search-toggle" a11yLabel="Search"
-                 on:tap="dsx.variable.searchOpen = !dsx.variable.searchOpen">
+                 on:tap="dsx.action.toggleSearch()">
         <svg d="M10.5 3c4.142 0 7.5 3.358 7.5 7.5s-3.358 7.5-7.5 7.5S3 14.642 3 10.5 6.358 3 10.5 3zm0 2c-3.038 0-5.5 2.462-5.5 5.5s2.462 5.5 5.5 5.5 5.5-2.462 5.5-5.5S13.538 5 10.5 5zm4.94 11.85l4.66 4.65 1.4-1.4-4.65-4.66-1.41 1.41z" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"/>
       </pressable>
       <pressable href="https://github.com/despia-native/despia" class="doc-icon-btn" a11yLabel="Despia on GitHub">
@@ -86,17 +108,41 @@
       </pressable>
     </hstack>
     <stack class="doc-search-row" visible-if="dsx.variable.searchOpen">
-      <searchbar bind="dsx.variable.query" placeholder="Search docs"/>
+      <searchbar bind="dsx.variable.query" placeholder="Search docs"
+                 on:focus="dsx.variable.searchFocus = true" on:blur="dsx.variable.searchFocus = false"/>
     </stack>
-    <stack class="doc-search-panel" visible-if="dsx.formula.hits.length > 0" role="navigation" a11yLabel="Search results">
-      <list bind="dsx.formula.hits" key="id" scroll="false">
-        <row href="{{ item.route }}" on:tap="dsx.action.closeSearch()">
-          <hstack class="doc-hit">
-            <text bind="item.title" class="doc-hit-title"/>
-            <spacer/>
-            <text bind="item.where" class="doc-hit-where"/>
-          </hstack>
-        </row>
+    <!-- The results panel: an elevated overlay surface under the header. Three faces
+         ride searchState - the empty-query prompt, the no-results state (both the
+         system EmptyState anatomy: quiet icon, headline, one-line hint) and the
+         grouped hits (uppercase micro-labels over pill rows, the sidebar's language).
+         docs.js adds the roving arrow-key highlight (.is-active) on the rows. -->
+    <stack class="doc-search-panel" visible-if="dsx.formula.searchState !== ''" role="navigation" a11yLabel="Search results">
+      <stack class="doc-search-blank" visible-if="dsx.formula.searchState === 'prompt'">
+        <image icon="magnifyingglass" iconSize="32" color="secondary" a11yHidden="true" class="doc-search-blank-icon"/>
+        <stack class="doc-search-blank-copy" a11yGroup="true">
+          <text value="Search the docs" textAlign="center" class="doc-search-blank-title"/>
+          <text value="Type at least two characters to find a page." textAlign="center" class="doc-search-blank-hint"/>
+        </stack>
+      </stack>
+      <stack class="doc-search-blank" visible-if="dsx.formula.searchState === 'results' &amp;&amp; dsx.formula.hitGroups.length === 0">
+        <image icon="tray" iconSize="32" color="secondary" a11yHidden="true" class="doc-search-blank-icon"/>
+        <stack class="doc-search-blank-copy" a11yGroup="true">
+          <text value="No results" textAlign="center" class="doc-search-blank-title"/>
+          <text value="{{ 'Nothing matches “' + dsx.variable.query + '”. Try a component or guide name.' }}" textAlign="center" class="doc-search-blank-hint"/>
+        </stack>
+      </stack>
+      <list bind="dsx.formula.hitGroups" key="name" scroll="false" spacing="0" class="doc-hit-groups"
+            visible-if="dsx.formula.hitGroups.length > 0">
+        <stack class="doc-hit-group">
+          <text bind="item.name" class="doc-hit-label"/>
+          <list bind="item.rows" key="id" scroll="false" spacing="0" class="doc-hit-list">
+            <row href="{{ item.route }}" on:tap="dsx.action.closeSearch()">
+              <hstack class="doc-hit">
+                <text bind="item.title" class="doc-hit-title"/>
+              </hstack>
+            </row>
+          </list>
+        </stack>
       </list>
     </stack>
   </stack>

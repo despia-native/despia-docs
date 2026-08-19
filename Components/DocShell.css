@@ -86,7 +86,9 @@
 .doc-search-row { padding: 0 clamp(0.75rem, 3vw, 1.5rem) 0.625rem; }
 .doc-search-row > * { width: 100%; }
 
-/* the results panel: an elevated surface anchored under the header */
+/* the results panel: the elevated overlay surface anchored under the header
+   (system overlay language: translucent blurred surface, radius-lg, shadow-3,
+   inset hairline; a soft rise-in only when motion is welcome) */
 .doc-search-panel {
   position: absolute;
   top: calc(100% + 0.375rem);
@@ -94,25 +96,71 @@
   width: min(24rem, calc(100vw - 1.5rem));
   max-height: min(24rem, 70vh);
   overflow-y: auto;
+  scrollbar-width: thin;
   z-index: 120;
-  background: var(--dsx-background);
+  background: color-mix(in srgb, var(--dsx-background) 94%, transparent);
+  -webkit-backdrop-filter: blur(24px) saturate(1.16);
+  backdrop-filter: blur(24px) saturate(1.16);
   border-radius: var(--dsx-radius-lg);
   box-shadow: var(--dsx-shadow-3), inset 0 0 0 var(--dsx-hairline) var(--dsx-outline-soft);
   padding: 0.375rem;
 }
-.doc-search-panel .dsx-row + .dsx-row { margin-top: 1px; }
+@media (prefers-reduced-motion: no-preference) {
+  .doc-search-panel { animation: doc-search-panel-in var(--dsx-dur-fast) var(--dsx-ease) both; }
+}
+@keyframes doc-search-panel-in {
+  from { opacity: 0; translate: 0 -0.25rem; }
+}
+
+/* grouped hits: uppercase micro-labels over pill rows (the sidebar's language) */
+.doc-hit-group { align-items: stretch; }
+.doc-hit-group + .doc-hit-group,
+.doc-hit-groups .dsx-row + .dsx-row > .doc-hit-group { margin-block-start: 0.375rem; }
+.doc-hit-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dsx-tertiary-label);
+  margin: 0.375rem 0.625rem 0.25rem;
+}
 .doc-hit {
   align-items: baseline;
   gap: 0.75rem;
   padding: 0.5rem 0.625rem;
   border-radius: var(--dsx-radius-sm);
 }
-.doc-search-panel .dsx-pressable { border-radius: var(--dsx-radius-sm); }
+.doc-search-panel .dsx-pressable {
+  border-radius: var(--dsx-radius-sm);
+  transition: background-color var(--dsx-dur-fast) var(--dsx-ease);
+}
 @media (hover: hover) {
   .doc-search-panel .dsx-pressable:hover { background: var(--dsx-fill); }
 }
+/* the roving keyboard highlight (docs.js): the accent wash pill, nav's active state */
+.doc-search-panel .dsx-pressable.is-active { background: var(--dsx-accent-muted); }
+.doc-search-panel .dsx-pressable.is-active .doc-hit-title { color: var(--dsx-accent); font-weight: 600; }
 .doc-hit-title { font-size: 0.875rem; font-weight: 500; color: var(--dsx-label); }
-.doc-hit-where { font-size: 0.75rem; color: var(--dsx-tertiary-label); }
+
+/* the empty-query prompt + no-results faces: the EmptyState anatomy scaled to a
+   dropdown (quiet icon, headline, one-line hint, one centered calm block) */
+.doc-search-blank {
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  padding: 2rem 1.25rem 2.125rem;
+  text-align: center;
+}
+.doc-search-blank-icon { color: var(--dsx-secondary-label); opacity: 0.82; }
+.doc-search-blank-copy { align-items: center; gap: 0.25rem; }
+.doc-search-blank-title { font-size: 0.9375rem; font-weight: 600; color: var(--dsx-label); }
+.doc-search-blank-hint {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--dsx-secondary-label);
+  max-width: 17.5rem;
+  overflow-wrap: anywhere;
+}
 
 /* ── frame: sidebar + main ──────────────────────────────────────────────── */
 .doc-frame { align-items: stretch; gap: 0; min-height: calc(100vh - 3.5rem); }
@@ -347,7 +395,8 @@
   .doc-root { scroll-behavior: smooth; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .doc-icon-btn, .doc-nav-link, .doc-pager-card, .doc-card, .doc-toc .dsx-pressable, .doc-toc-text {
+  .doc-icon-btn, .doc-nav-link, .doc-pager-card, .doc-card, .doc-toc .dsx-pressable, .doc-toc-text,
+  .doc-search-panel .dsx-pressable {
     transition: none;
   }
   .doc-pager-card:hover, .doc-card:hover { transform: none; }
