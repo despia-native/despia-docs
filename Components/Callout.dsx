@@ -1,11 +1,12 @@
 <hstack class="doc-callout doc-callout-{{ dsx.attribute.kind }}" role="note">
   <head>
     <!--
-      The admonition card: accent rail + tinted fill + kind icon, an optional bold
-      title, and the body slot (nested markdown chunks from the compiler). Authored
-      in markdown as <Callout kind="...">, or through the sugar tags Note / Info /
-      Tip / Warning / Danger (scripts/compile.mjs rewrites those to kinds). Looks
-      live in DocShell.css (the sheet that reaches every page), tokens only.
+      The admonition: a hairline box whose hue lives only in the kind icon and
+      the border, an optional neutral title, and the body slot (nested markdown
+      chunks from the compiler). Authored in markdown as <Callout kind="...">,
+      or through the sugar tags Note / Info / Tip / Warning / Danger
+      (scripts/compile.mjs rewrites those to kinds). Looks live in DocShell.css
+      (the sheet that reaches every page), tokens only.
     -->
     <attribute as="kind" default="'note'"/>
     <attribute as="title" default="''"/>
@@ -13,11 +14,11 @@
       if (kind === 'info') { return 'info.circle.fill' }
       if (kind === 'tip') { return 'sparkles' }
       if (kind === 'warning') { return 'exclamationmark.triangle.fill' }
-      if (kind === 'danger') { return 'flame.fill' }
+      if (kind === 'danger') { return 'xmark' }
       return 'note.text'
     </formula>
   </head>
-  <image icon="{{ dsx.formula.icon }}" iconSize="15" class="doc-callout-icon"/>
+  <image icon="{{ dsx.formula.icon }}" iconSize="16" class="doc-callout-icon"/>
   <stack class="doc-callout-content">
     <text value="{{ dsx.attribute.title }}" class="doc-callout-title" visible-if="dsx.attribute.title !== ''"/>
     <stack class="doc-callout-body">
