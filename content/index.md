@@ -9,7 +9,9 @@ section:
 
 Write DSX documents once and ship them four ways: a native iOS app, a native Android app, an installable PWA, and a server-rendered site.
 
-Despia is a web-optional native runtime. None of the four targets is a port; the semantics are pinned by shared conformance corpora that every renderer must pass identically. The same markup that renders this page renders a `UIStackView` on iOS and a Compose column on Android.
+Despia is a web-optional native runtime. None of the four targets is a port: the semantics are pinned by shared conformance corpora, and the same markup that renders this page renders a `UIStackView` on iOS and a Compose column on Android.
+
+What that is proven to mean is written down rather than implied. Runtime behavior is held to 857 conformance assertions on the TypeScript kernel and 2,775 tests on the Kotlin kernel, on every pull request. The web renderer is verified against its own committed reference render, which every skin change re-records so the diff is the review. Native rendering is held to a budgeted near-pixel contract with a published gap ledger, because an app should look like the platform it runs on. [Platform support](/framework/guides/platform-support) is the full picture: what is measured, what is budgeted, what is still verified by review, and every element the web renderer does not implement.
 
 ```sh
 npm create dsx@latest my-app
@@ -24,6 +26,7 @@ npx dsx dev
 - **[The design system](/system)** is a living page: every element the grammar ships, rendered by the same runtime this site documents.
 - **[The combination matrix](/framework/guides/combinations)** shows every supported way of pairing Despia with what you already have: a web app you keep, a backend you keep, a vendor's API, or nothing yet.
 - **[Writing a backend](/framework/skills/writing-a-backend)** is the whole server story: routes, workers, MCP tools, one deploy command.
+- **[Platform support](/framework/guides/platform-support)** is the honest map of what runs where, and what the cross-platform claim is measured to mean.
 
 ## This site is the proof
 
