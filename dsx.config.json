@@ -627,6 +627,13 @@
       }
     },
     {
+      "path": "/framework/guides/platform-support",
+      "component": "docs.PageFramework_Guides_PlatformSupport",
+      "meta": {
+        "title": "Platform support: what the cross-platform claim is measured to mean"
+      }
+    },
+    {
       "path": "/framework/guides/quickstart",
       "component": "docs.PageFramework_Guides_Quickstart",
       "meta": {
