@@ -50,6 +50,13 @@ document:
 - `depth` on a queue budget caps how many messages can be waiting at once. A push past it is
   refused with the retryable `saturated`, which is backpressure, not failure.
 
+You can see the whole plane where you build: in the Studio (`despia edit`), the server
+screen has a **Spend** view listing every ceiling, the ones you declared and the defaults you
+never had to write, with the lifted ones called out. Tapping a row shows the exact `<budget>`
+head line that enforces it, with its file and line, so the meter and the declaration that pins
+it are never more than one click apart. The same rows ship in `despia build`'s generated
+barrel as `spendBudgets`, which is how a standalone worker hands its ceilings to the runtime.
+
 ## What happens when a ceiling is met
 
 At 80% of any ceiling, a `spend.warning` event lands on your deployment's event feed, once per
