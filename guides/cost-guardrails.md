@@ -107,8 +107,15 @@ when the guarded defaults matter.
 
 ## What this cannot do
 
-Honesty is part of the guardrail. Traffic that reaches a tripped deployment still costs the
-platform's per-request floor (fractions of a cent per thousand). The requests ceiling meters
+Honesty is part of the guardrail. A ceiling is enforced to a stated bound, not to the exact
+unit: your backend runs as many isolated instances as traffic demands, each counts locally and
+synchronizes every few seconds, so a ceiling of 2,000 means 2,000 plus at most a few seconds
+of traffic before every instance agrees it is spent, and an instance that crashes can lose the
+last few seconds of its count. Both bounds are pinned by tests in the framework. Closing them
+entirely would mean a database round trip on every single call, which would make the meter
+cost more than most of what it meters. Ceilings are safety margins against five-figure
+runaways, not billing-grade invoices. Traffic that reaches a tripped deployment still costs
+the platform's per-request floor (fractions of a cent per thousand). The requests ceiling meters
 your API surface; your site's pages and assets are covered differently, because static asset
 requests are free on Workers and the deployed CPU ceiling bounds what a rendered page can
 burn. Hand-written TypeScript handlers and imported npm packages are host-tier code, so they
