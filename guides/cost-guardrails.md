@@ -83,10 +83,13 @@ Beyond the ceilings, the build refuses the classic loop shapes outright:
 ## Your data stays on your infrastructure
 
 The meters, the trip history, and the analytics live in your own deployment, under the reserved
-`dsx_` tables the framework already provisions. The dashboard reads them directly from your
-browser through `GET /dsx-internal/spend`, authenticated by a read-only token that can see
-meters and nothing else. The numbers never transit Despia's servers, which is also why hosting
-on your own Cloudflare account stays free: Despia is not in your data path.
+`dsx_` tables the framework already provisions. The dashboard shows them as the **Spend Guard**
+card: every ceiling as a bar with its state (Guarded, Near limit, Capped, or No limit for the
+ones you lifted), and the card wearing its worst row, so one glance answers "is anything
+burning money". Spend Guard reads directly from your browser through
+`GET /dsx-internal/spend`, authenticated by a read-only token that can see meters and nothing
+else. The numbers never transit Despia's servers, which is also why hosting on your own
+Cloudflare account stays free: Despia is not in your data path.
 
 The only thing that ever reaches Despia is a doorbell: when a ceiling trips or recovers, and
 only if you have notifications configured, your deployment sends one signed message saying
