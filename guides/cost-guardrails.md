@@ -57,8 +57,9 @@ window, so the dashboard can warn you before anything is refused.
 
 Past the ceiling, the deployment answers `429 spend_capped`. The refusal names the budget in the
 `x-dsx-spend-budget` header and carries the real reset time in `Retry-After`. It is decided
-before identity checks, before the request body is read, and before any database or network
-work, so a capped deployment serves refusals at close to the platform's floor cost. Inside an
+before the request body is read and before any database or network work; the only things a
+blocked request still pays for are the platform's own invocation charge and its token check, so
+a capped deployment serves refusals at close to the platform's floor cost. Inside an
 action body, a capped call answers an ordinary failed call (`{ ok: false, error: "spend_capped" }`),
 and a capped `fetch` returns the refused shape (`status: -2`) without the request ever leaving
 the process.
