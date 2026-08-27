@@ -104,8 +104,10 @@ when the guarded defaults matter.
 ## What this cannot do
 
 Honesty is part of the guardrail. Traffic that reaches a tripped deployment still costs the
-platform's per-request floor (fractions of a cent per thousand). Hand-written TypeScript
-handlers and imported npm packages are host-tier code, so they are covered at the route level
-rather than per call. And ceilings on your own account are enforceable exactly until you, the
+platform's per-request floor (fractions of a cent per thousand). The requests ceiling meters
+your API surface; your site's pages and assets are covered differently, because static asset
+requests are free on Workers and the deployed CPU ceiling bounds what a rendered page can
+burn. Hand-written TypeScript handlers and imported npm packages are host-tier code, so they
+are covered at the route level rather than per call. And ceilings on your own account are enforceable exactly until you, the
 account owner, decide otherwise, which is the correct sovereignty. The guardrails are default
 locks with visible keys, not a cage.
