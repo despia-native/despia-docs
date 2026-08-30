@@ -1,0 +1,1029 @@
+{
+  "name": "Despia Docs",
+  "entry": "PageIndex",
+  "outDir": "dist",
+  "routes": [
+    {
+      "path": "/",
+      "component": "docs.PageIndex",
+      "meta": {
+        "title": "Despia documentation",
+        "description": "One set of DSX documents, rendered as native iOS, native Android, an installable PWA and a server-rendered site."
+      }
+    },
+    {
+      "path": "/quickstart",
+      "component": "docs.PageQuickstart",
+      "meta": {
+        "title": "Quickstart",
+        "description": "From an empty directory to a running DSX app."
+      }
+    },
+    {
+      "path": "/system",
+      "component": "docs.System",
+      "meta": {
+        "title": "System",
+        "description": "The design system as a living page: every element in its states."
+      }
+    },
+    {
+      "path": "/components/accordion",
+      "component": "docs.PageComponents_Accordion",
+      "meta": {
+        "title": "Accordion",
+        "description": "A collapsible disclosure row: a tappable title that opens and closes its body content."
+      }
+    },
+    {
+      "path": "/components/alert",
+      "component": "docs.PageComponents_Alert",
+      "meta": {
+        "title": "alert",
+        "description": "The modal alert dialog: title, message and normalized actions, presented by state."
+      }
+    },
+    {
+      "path": "/components/audio",
+      "component": "docs.PageComponents_Audio",
+      "meta": {
+        "title": "audio",
+        "description": "The audio element, a media component of the DSX grammar."
+      }
+    },
+    {
+      "path": "/components/button",
+      "component": "docs.PageComponents_Button",
+      "meta": {
+        "title": "button",
+        "description": "The system button: label, icon, variants and roles, the primary tap target of the grammar."
+      }
+    },
+    {
+      "path": "/components/calendar",
+      "component": "docs.PageComponents_Calendar",
+      "meta": {
+        "title": "calendar",
+        "description": "A month-grid date control with ISO binding, range constraints and marked dates."
+      }
+    },
+    {
+      "path": "/components/carousel",
+      "component": "docs.PageComponents_Carousel",
+      "meta": {
+        "title": "carousel",
+        "description": "A snap-paging slide container with selection dots and two-way current-page binding."
+      }
+    },
+    {
+      "path": "/components/chatbubble",
+      "component": "docs.PageComponents_Chatbubble",
+      "meta": {
+        "title": "ChatBubble",
+        "description": "A directional message bubble for conversation UIs, tinted by sender side."
+      }
+    },
+    {
+      "path": "/components/checkbox",
+      "component": "docs.PageComponents_Checkbox",
+      "meta": {
+        "title": "Checkbox",
+        "description": "A binary check control bound to a Bool, with label and change write-back."
+      }
+    },
+    {
+      "path": "/components/combobox",
+      "component": "docs.PageComponents_Combobox",
+      "meta": {
+        "title": "combobox",
+        "description": "An editable text field over a filtered option list, the type-ahead choice control."
+      }
+    },
+    {
+      "path": "/components/confirmdialog",
+      "component": "docs.PageComponents_Confirmdialog",
+      "meta": {
+        "title": "confirmDialog",
+        "description": "The two-action confirmation dialog, presented by state and resolved through its actions."
+      }
+    },
+    {
+      "path": "/components/contextmenu",
+      "component": "docs.PageComponents_Contextmenu",
+      "meta": {
+        "title": "contextmenu",
+        "description": "A context menu on right-click and long-press, with nested actions, roles and separators."
+      }
+    },
+    {
+      "path": "/components/datepicker",
+      "component": "docs.PageComponents_Datepicker",
+      "meta": {
+        "title": "datepicker",
+        "description": "The platform date and time picker bound to a normalized wire value."
+      }
+    },
+    {
+      "path": "/components/divider",
+      "component": "docs.PageComponents_Divider",
+      "meta": {
+        "title": "divider",
+        "description": "A hairline rule on the semantic separator token."
+      }
+    },
+    {
+      "path": "/components/drawer",
+      "component": "docs.PageComponents_Drawer",
+      "meta": {
+        "title": "Drawer",
+        "description": "The navigation drawer: modal over compact layouts, standing and pinnable on desktop widths."
+      }
+    },
+    {
+      "path": "/components/field",
+      "component": "docs.PageComponents_Field",
+      "meta": {
+        "title": "field",
+        "description": "A labeled form control inside a form: shared state, validation, touched and error tracking."
+      }
+    },
+    {
+      "path": "/components/flow",
+      "component": "docs.PageComponents_Flow",
+      "meta": {
+        "title": "flow",
+        "description": "A wrapping flow layout: children pack left to right at ideal size and break on overflow."
+      }
+    },
+    {
+      "path": "/components/form",
+      "component": "docs.PageComponents_Form",
+      "meta": {
+        "title": "form",
+        "description": "The form container: one state namespace for its fields, validity, and the submit action."
+      }
+    },
+    {
+      "path": "/components/grid",
+      "component": "docs.PageComponents_Grid",
+      "meta": {
+        "title": "grid",
+        "description": "A column grid over bound rows: responsive column counts, keyed reconciliation, spacing and scroll."
+      }
+    },
+    {
+      "path": "/components/hstack",
+      "component": "docs.PageComponents_Hstack",
+      "meta": {
+        "title": "hstack",
+        "description": "The horizontal stack: the fixed-axis preset of stack for row layout."
+      }
+    },
+    {
+      "path": "/components/image",
+      "component": "docs.PageComponents_Image",
+      "meta": {
+        "title": "image",
+        "description": "Remote, bundled and icon imagery: one element for pictures and the shared icon corpus."
+      }
+    },
+    {
+      "path": "/components/list",
+      "component": "docs.PageComponents_List",
+      "meta": {
+        "title": "list",
+        "description": "The platform list over bound rows: keyed identity, row templates, swipe actions and reordering."
+      }
+    },
+    {
+      "path": "/components/menu",
+      "component": "docs.PageComponents_Menu",
+      "meta": {
+        "title": "menu",
+        "description": "An anchored dropdown menu with normalized actions, roles, separators and submenus."
+      }
+    },
+    {
+      "path": "/components/menubar",
+      "component": "docs.PageComponents_Menubar",
+      "meta": {
+        "title": "MenuBar",
+        "description": "The desktop menu bar idiom: horizontal roots with keyboard menus, collapsing to the sheet idiom on compact."
+      }
+    },
+    {
+      "path": "/components/otp",
+      "component": "docs.PageComponents_Otp",
+      "meta": {
+        "title": "otp",
+        "description": "The segmented one-time-code input with paste normalization and a completion event."
+      }
+    },
+    {
+      "path": "/components/pager",
+      "component": "docs.PageComponents_Pager",
+      "meta": {
+        "title": "pager",
+        "description": "A full-size snap pager over bound pages with two-way current-page binding."
+      }
+    },
+    {
+      "path": "/components/picker",
+      "component": "docs.PageComponents_Picker",
+      "meta": {
+        "title": "picker",
+        "description": "The single-choice picker: platform select semantics over static or bound options."
+      }
+    },
+    {
+      "path": "/components/popover",
+      "component": "docs.PageComponents_Popover",
+      "meta": {
+        "title": "popover",
+        "description": "An anchored, viewport-aware popover presented from its trigger content."
+      }
+    },
+    {
+      "path": "/components/pressable",
+      "component": "docs.PageComponents_Pressable",
+      "meta": {
+        "title": "pressable",
+        "description": "A whole-area tap target around arbitrary children: button or link semantics without chrome."
+      }
+    },
+    {
+      "path": "/components/progress",
+      "component": "docs.PageComponents_Progress",
+      "meta": {
+        "title": "progress",
+        "description": "The linear determinate progress bar with a clamped bound value."
+      }
+    },
+    {
+      "path": "/components/progressring",
+      "component": "docs.PageComponents_Progressring",
+      "meta": {
+        "title": "ProgressRing",
+        "description": "A circular determinate progress indicator drawn as a ring."
+      }
+    },
+    {
+      "path": "/components/qrcode",
+      "component": "docs.PageComponents_Qrcode",
+      "meta": {
+        "title": "qrcode",
+        "description": "A deterministic QR code rendered from its value, with size, colors and correction level."
+      }
+    },
+    {
+      "path": "/components/radiogroup",
+      "component": "docs.PageComponents_Radiogroup",
+      "meta": {
+        "title": "RadioGroup",
+        "description": "A single-choice group of radio rows built from static or bound options."
+      }
+    },
+    {
+      "path": "/components/rangeslider",
+      "component": "docs.PageComponents_Rangeslider",
+      "meta": {
+        "title": "rangeslider",
+        "description": "The dual-thumb range control binding a low and high value inside shared bounds."
+      }
+    },
+    {
+      "path": "/components/refreshable",
+      "component": "docs.PageComponents_Refreshable",
+      "meta": {
+        "title": "refreshable",
+        "description": "The refreshable element, a structure component of the DSX grammar."
+      }
+    },
+    {
+      "path": "/components/scaffold",
+      "component": "docs.PageComponents_Scaffold",
+      "meta": {
+        "title": "scaffold",
+        "description": "The adaptive app shell: sidebar, content and inspector panes that collapse by width class."
+      }
+    },
+    {
+      "path": "/components/scroll",
+      "component": "docs.PageComponents_Scroll",
+      "meta": {
+        "title": "scroll",
+        "description": "The scrolling viewport: vertical by default, indicators hidden, children scroll."
+      }
+    },
+    {
+      "path": "/components/searchbar",
+      "component": "docs.PageComponents_Searchbar",
+      "meta": {
+        "title": "searchbar",
+        "description": "The composite search field: leading magnifier, live binding and the platform search affordances."
+      }
+    },
+    {
+      "path": "/components/segmented",
+      "component": "docs.PageComponents_Segmented",
+      "meta": {
+        "title": "segmented",
+        "description": "The segmented single-choice control with radio semantics and arrow-key traversal."
+      }
+    },
+    {
+      "path": "/components/segmentedbutton",
+      "component": "docs.PageComponents_Segmentedbutton",
+      "meta": {
+        "title": "segmentedButton",
+        "description": "The Material segmented button row: single or multiple selection with labels and icons."
+      }
+    },
+    {
+      "path": "/components/sheet",
+      "component": "docs.PageComponents_Sheet",
+      "meta": {
+        "title": "sheet",
+        "description": "The bottom sheet presented by state: detents, chrome, and swipe or control dismissal."
+      }
+    },
+    {
+      "path": "/components/skeleton",
+      "component": "docs.PageComponents_Skeleton",
+      "meta": {
+        "title": "Skeleton",
+        "description": "A loading placeholder block that mirrors the size and radius of the content it stands in for."
+      }
+    },
+    {
+      "path": "/components/slider",
+      "component": "docs.PageComponents_Slider",
+      "meta": {
+        "title": "slider",
+        "description": "The continuous value slider bound to a number inside min and max."
+      }
+    },
+    {
+      "path": "/components/spacer",
+      "component": "docs.PageComponents_Spacer",
+      "meta": {
+        "title": "spacer",
+        "description": "Flexible space that expands along the parent stack's axis to push and distribute siblings."
+      }
+    },
+    {
+      "path": "/components/spinner",
+      "component": "docs.PageComponents_Spinner",
+      "meta": {
+        "title": "spinner",
+        "description": "The indeterminate activity spinner with semantic tint and reduced-motion handling."
+      }
+    },
+    {
+      "path": "/components/split",
+      "component": "docs.PageComponents_Split",
+      "meta": {
+        "title": "split",
+        "description": "The two or three pane adaptive container: stack push on phones, pinned panes with draggable dividers on desktop."
+      }
+    },
+    {
+      "path": "/components/stack",
+      "component": "docs.PageComponents_Stack",
+      "meta": {
+        "title": "stack",
+        "description": "The generic container: one element, CSS decides column, row or layered layout."
+      }
+    },
+    {
+      "path": "/components/stars",
+      "component": "docs.PageComponents_Stars",
+      "meta": {
+        "title": "stars",
+        "description": "The star rating row: fractional fills, read-only or interactive radio semantics."
+      }
+    },
+    {
+      "path": "/components/stepper",
+      "component": "docs.PageComponents_Stepper",
+      "meta": {
+        "title": "stepper",
+        "description": "The increment and decrement control for a bounded numeric value."
+      }
+    },
+    {
+      "path": "/components/svg",
+      "component": "docs.PageComponents_Svg",
+      "meta": {
+        "title": "svg",
+        "description": "The svg element, a display component of the DSX grammar."
+      }
+    },
+    {
+      "path": "/components/table",
+      "component": "docs.PageComponents_Table",
+      "meta": {
+        "title": "Table",
+        "description": "A data table from bound rows and declared columns, scroll-contained inside its own frame."
+      }
+    },
+    {
+      "path": "/components/tabs",
+      "component": "docs.PageComponents_Tabs",
+      "meta": {
+        "title": "tabs",
+        "description": "The tab container: each child pane names its own tab; the bar renders from the panes."
+      }
+    },
+    {
+      "path": "/components/text",
+      "component": "docs.PageComponents_Text",
+      "meta": {
+        "title": "text",
+        "description": "The text element: bound or literal content with the semantic type ramp and inline markdown."
+      }
+    },
+    {
+      "path": "/components/textarea",
+      "component": "docs.PageComponents_Textarea",
+      "meta": {
+        "title": "textarea",
+        "description": "The multi-line text input growing between minLines and maxLines."
+      }
+    },
+    {
+      "path": "/components/textfield",
+      "component": "docs.PageComponents_Textfield",
+      "meta": {
+        "title": "textfield",
+        "description": "The single-line text input: binding, placeholder, content types and submit semantics."
+      }
+    },
+    {
+      "path": "/components/toggle",
+      "component": "docs.PageComponents_Toggle",
+      "meta": {
+        "title": "toggle",
+        "description": "The on-off switch bound to a Bool."
+      }
+    },
+    {
+      "path": "/components/toolbar",
+      "component": "docs.PageComponents_Toolbar",
+      "meta": {
+        "title": "toolbar",
+        "description": "The action row pinned to an edge, with roving focus across its controls."
+      }
+    },
+    {
+      "path": "/components/video",
+      "component": "docs.PageComponents_Video",
+      "meta": {
+        "title": "video",
+        "description": "The video element, a media component of the DSX grammar."
+      }
+    },
+    {
+      "path": "/components/vstack",
+      "component": "docs.PageComponents_Vstack",
+      "meta": {
+        "title": "vstack",
+        "description": "The vertical stack: the fixed-axis preset of stack for column layout."
+      }
+    },
+    {
+      "path": "/components/zstack",
+      "component": "docs.PageComponents_Zstack",
+      "meta": {
+        "title": "zstack",
+        "description": "The layered stack: children overlap in declaration order with nine-point alignment."
+      }
+    },
+    {
+      "path": "/writing-docs",
+      "component": "docs.PageWritingDocs",
+      "meta": {
+        "title": "Writing docs",
+        "description": "The authoring system, markdown plus components, documented with itself."
+      }
+    },
+    {
+      "path": "/framework/guides",
+      "component": "docs.PageFramework_Guides",
+      "meta": {
+        "title": "Building an app on DSX"
+      }
+    },
+    {
+      "path": "/framework/guides/adaptive-native-shells",
+      "component": "docs.PageFramework_Guides_AdaptiveNativeShells",
+      "meta": {
+        "title": "Adaptive large-screen shells"
+      }
+    },
+    {
+      "path": "/framework/guides/build-secrets-setup",
+      "component": "docs.PageFramework_Guides_BuildSecretsSetup",
+      "meta": {
+        "title": "Build secrets: simple setup guide"
+      }
+    },
+    {
+      "path": "/framework/guides/codemagic-build",
+      "component": "docs.PageFramework_Guides_CodemagicBuild",
+      "meta": {
+        "title": "Building an iOS app: Codemagic & the `iOS/` assets folder"
+      }
+    },
+    {
+      "path": "/framework/guides/combinations",
+      "component": "docs.PageFramework_Guides_Combinations",
+      "meta": {
+        "title": "The combination matrix: every integration shape, named and walked"
+      }
+    },
+    {
+      "path": "/framework/guides/combinations/c1-pure-dsx-app",
+      "component": "docs.PageFramework_Guides_Combinations_C1PureDsxApp",
+      "meta": {
+        "title": "C1: the pure DSX app, four surfaces from one codebase"
+      }
+    },
+    {
+      "path": "/framework/guides/combinations/c2-web-app-plus-native",
+      "component": "docs.PageFramework_Guides_Combinations_C2WebAppPlusNative",
+      "meta": {
+        "title": "C2: your web app, plus DSX native parts"
+      }
+    },
+    {
+      "path": "/framework/guides/combinations/c3-existing-app-despia-backend",
+      "component": "docs.PageFramework_Guides_Combinations_C3ExistingAppDespiaBackend",
+      "meta": {
+        "title": "C3: your app, plus a Despia backend only"
+      }
+    },
+    {
+      "path": "/framework/guides/combinations/c5-dsx-frontend-vendor-backend",
+      "component": "docs.PageFramework_Guides_Combinations_C5DsxFrontendVendorBackend",
+      "meta": {
+        "title": "C5: a DSX front end on your vendor's backend, directly"
+      }
+    },
+    {
+      "path": "/framework/guides/combinations/c7-self-hosted-ota",
+      "component": "docs.PageFramework_Guides_Combinations_C7SelfHostedOta",
+      "meta": {
+        "title": "C7: self-hosted OTA, your content, your host, no Despia hosting"
+      }
+    },
+    {
+      "path": "/framework/guides/despia-api",
+      "component": "docs.PageFramework_Guides_DespiaApi",
+      "meta": {
+        "title": "The `window.dsx` API"
+      }
+    },
+    {
+      "path": "/framework/guides/files-and-storage",
+      "component": "docs.PageFramework_Guides_FilesAndStorage",
+      "meta": {
+        "title": "Files & storage"
+      }
+    },
+    {
+      "path": "/framework/guides/getting-started",
+      "component": "docs.PageFramework_Guides_GettingStarted",
+      "meta": {
+        "title": "Getting started: the web app you already have"
+      }
+    },
+    {
+      "path": "/framework/guides/native-export",
+      "component": "docs.PageFramework_Guides_NativeExport",
+      "meta": {
+        "title": "`dsx export`: a real Xcode project, a real Android Studio project"
+      }
+    },
+    {
+      "path": "/framework/guides/oauth-https-callback",
+      "component": "docs.PageFramework_Guides_OauthHttpsCallback",
+      "meta": {
+        "title": "OAuth HTTPS Callback: Cross-Platform Specification"
+      }
+    },
+    {
+      "path": "/framework/guides/packages",
+      "component": "docs.PageFramework_Guides_Packages",
+      "meta": {
+        "title": "Package catalog"
+      }
+    },
+    {
+      "path": "/framework/guides/patterns",
+      "component": "docs.PageFramework_Guides_Patterns",
+      "meta": {
+        "title": "Common patterns"
+      }
+    },
+    {
+      "path": "/framework/guides/platform-support",
+      "component": "docs.PageFramework_Guides_PlatformSupport",
+      "meta": {
+        "title": "Platform support: what the cross-platform claim is measured to mean"
+      }
+    },
+    {
+      "path": "/framework/guides/quickstart",
+      "component": "docs.PageFramework_Guides_Quickstart",
+      "meta": {
+        "title": "Quickstart: a DSX app from nothing"
+      }
+    },
+    {
+      "path": "/framework/guides/reserved-directories",
+      "component": "docs.PageFramework_Guides_ReservedDirectories",
+      "meta": {
+        "title": "The reserved-directory contract"
+      }
+    },
+    {
+      "path": "/framework/guides/staging-and-testing",
+      "component": "docs.PageFramework_Guides_StagingAndTesting",
+      "meta": {
+        "title": "Staging, testing & the dev center"
+      }
+    },
+    {
+      "path": "/framework/guides/state-and-events",
+      "component": "docs.PageFramework_Guides_StateAndEvents",
+      "meta": {
+        "title": "State & events"
+      }
+    },
+    {
+      "path": "/framework/guides/styling",
+      "component": "docs.PageFramework_Guides_Styling",
+      "meta": {
+        "title": "Styling DSX with CSS"
+      }
+    },
+    {
+      "path": "/framework/guides/transport-and-ota-integrity",
+      "component": "docs.PageFramework_Guides_TransportAndOtaIntegrity",
+      "meta": {
+        "title": "Transport & OTA integrity: HTTP/HTTPS and signed updates (the visual guide)"
+      }
+    },
+    {
+      "path": "/framework/skills",
+      "component": "docs.PageFramework_Skills",
+      "meta": {
+        "title": "Despia Module Skills"
+      }
+    },
+    {
+      "path": "/framework/skills/action-contracts",
+      "component": "docs.PageFramework_Skills_ActionContracts",
+      "meta": {
+        "title": "Action contracts: inputs in, events out"
+      }
+    },
+    {
+      "path": "/framework/skills/android",
+      "component": "docs.PageFramework_Skills_Android",
+      "meta": {
+        "title": "DespiaScript on Android"
+      }
+    },
+    {
+      "path": "/framework/skills/android/api-mapping",
+      "component": "docs.PageFramework_Skills_Android_ApiMapping",
+      "meta": {
+        "title": "API mapping - Swift ↔ Kotlin"
+      }
+    },
+    {
+      "path": "/framework/skills/android/containers",
+      "component": "docs.PageFramework_Skills_Android_Containers",
+      "meta": {
+        "title": "`dsx.container` on Android"
+      }
+    },
+    {
+      "path": "/framework/skills/android/js-core-parity",
+      "component": "docs.PageFramework_Skills_Android_JsCoreParity",
+      "meta": {
+        "title": "JS-core parity contract: iOS ⇄ Android, API by API"
+      }
+    },
+    {
+      "path": "/framework/skills/android/manifest-and-build",
+      "component": "docs.PageFramework_Skills_Android_ManifestAndBuild",
+      "meta": {
+        "title": "dsx.json → Android"
+      }
+    },
+    {
+      "path": "/framework/skills/attribute-classes",
+      "component": "docs.PageFramework_Skills_AttributeClasses",
+      "meta": {
+        "title": "Attribute classes: one classification for every DSX block"
+      }
+    },
+    {
+      "path": "/framework/skills/building",
+      "component": "docs.PageFramework_Skills_Building",
+      "meta": {
+        "title": "Building in Xcode directly (no Despia CI/CD)"
+      }
+    },
+    {
+      "path": "/framework/skills/component-props-and-state",
+      "component": "docs.PageFramework_Skills_ComponentPropsAndState",
+      "meta": {
+        "title": "Component props vs state: attributes vs variables"
+      }
+    },
+    {
+      "path": "/framework/skills/containers",
+      "component": "docs.PageFramework_Skills_Containers",
+      "meta": {
+        "title": "Containers (the shared App Group)"
+      }
+    },
+    {
+      "path": "/framework/skills/cookies",
+      "component": "docs.PageFramework_Skills_Cookies",
+      "meta": {
+        "title": "Cookies: `dsx.cookie`"
+      }
+    },
+    {
+      "path": "/framework/skills/cross-module-calls",
+      "component": "docs.PageFramework_Skills_CrossModuleCalls",
+      "meta": {
+        "title": "Cross-module calls"
+      }
+    },
+    {
+      "path": "/framework/skills/custom-ux",
+      "component": "docs.PageFramework_Skills_CustomUx",
+      "meta": {
+        "title": "Custom UX: the escape hatches"
+      }
+    },
+    {
+      "path": "/framework/skills/deploying",
+      "component": "docs.PageFramework_Skills_Deploying",
+      "meta": {
+        "title": "Deploying from Xcode (no Despia CI/CD)"
+      }
+    },
+    {
+      "path": "/framework/skills/despiascript",
+      "component": "docs.PageFramework_Skills_Despiascript",
+      "meta": {
+        "title": "DespiaScript"
+      }
+    },
+    {
+      "path": "/framework/skills/documenting-a-module",
+      "component": "docs.PageFramework_Skills_DocumentingAModule",
+      "meta": {
+        "title": "Documenting a module"
+      }
+    },
+    {
+      "path": "/framework/skills/dsx-best-practices",
+      "component": "docs.PageFramework_Skills_DsxBestPractices",
+      "meta": {
+        "title": "DSX best practices"
+      }
+    },
+    {
+      "path": "/framework/skills/dynamic-modules",
+      "component": "docs.PageFramework_Skills_DynamicModules",
+      "meta": {
+        "title": "Building dynamic, powerful modules"
+      }
+    },
+    {
+      "path": "/framework/skills/editor-catalog",
+      "component": "docs.PageFramework_Skills_EditorCatalog",
+      "meta": {
+        "title": "Editor catalog: the web-canvas element schema"
+      }
+    },
+    {
+      "path": "/framework/skills/extracting-a-module",
+      "component": "docs.PageFramework_Skills_ExtractingAModule",
+      "meta": {
+        "title": "Extracting a host feature into a module"
+      }
+    },
+    {
+      "path": "/framework/skills/global-state",
+      "component": "docs.PageFramework_Skills_GlobalState",
+      "meta": {
+        "title": "Global app state: `global.*`"
+      }
+    },
+    {
+      "path": "/framework/skills/js-core",
+      "component": "docs.PageFramework_Skills_JsCore",
+      "meta": {
+        "title": "The JS core globals in JSE: app logic, 1:1, no browser"
+      }
+    },
+    {
+      "path": "/framework/skills/lifecycle",
+      "component": "docs.PageFramework_Skills_Lifecycle",
+      "meta": {
+        "title": "Lifecycle guarantees: every resource × every transition"
+      }
+    },
+    {
+      "path": "/framework/skills/live-activities-and-widgets",
+      "component": "docs.PageFramework_Skills_LiveActivitiesAndWidgets",
+      "meta": {
+        "title": "Live Activities & widgets: authoring the OS surfaces"
+      }
+    },
+    {
+      "path": "/framework/skills/localization",
+      "component": "docs.PageFramework_Skills_Localization",
+      "meta": {
+        "title": "Localization"
+      }
+    },
+    {
+      "path": "/framework/skills/manifest-dsl",
+      "component": "docs.PageFramework_Skills_ManifestDsl",
+      "meta": {
+        "title": "dsx.json - the property DSL"
+      }
+    },
+    {
+      "path": "/framework/skills/module-content",
+      "component": "docs.PageFramework_Skills_ModuleContent",
+      "meta": {
+        "title": "`content`: bundled content folders (dsx.json) and the `dsx.content` primitive"
+      }
+    },
+    {
+      "path": "/framework/skills/module-frameworks",
+      "component": "docs.PageFramework_Skills_ModuleFrameworks",
+      "meta": {
+        "title": "Module build artifacts: binary dependencies without committing binaries"
+      }
+    },
+    {
+      "path": "/framework/skills/module-permissions",
+      "component": "docs.PageFramework_Skills_ModulePermissions",
+      "meta": {
+        "title": "Permissions: `Config/permissions.json`"
+      }
+    },
+    {
+      "path": "/framework/skills/module-secrets",
+      "component": "docs.PageFramework_Skills_ModuleSecrets",
+      "meta": {
+        "title": "Module secrets: build-time SDK credentials, dynamic across every app"
+      }
+    },
+    {
+      "path": "/framework/skills/module-state",
+      "component": "docs.PageFramework_Skills_ModuleState",
+      "meta": {
+        "title": "Module context: `dsx.module.<scheme>.context.*`"
+      }
+    },
+    {
+      "path": "/framework/skills/module-system",
+      "component": "docs.PageFramework_Skills_ModuleSystem",
+      "meta": {
+        "title": "Module system architecture"
+      }
+    },
+    {
+      "path": "/framework/skills/module-weights",
+      "component": "docs.PageFramework_Skills_ModuleWeights",
+      "meta": {
+        "title": "Module weights: bundling large ML blobs without committing them"
+      }
+    },
+    {
+      "path": "/framework/skills/mounting-components",
+      "component": "docs.PageFramework_Skills_MountingComponents",
+      "meta": {
+        "title": "Mounting components: `dsx.component.mount`"
+      }
+    },
+    {
+      "path": "/framework/skills/native-components",
+      "component": "docs.PageFramework_Skills_NativeComponents",
+      "meta": {
+        "title": "Native components: the custom-coded component primitive"
+      }
+    },
+    {
+      "path": "/framework/skills/native-languages",
+      "component": "docs.PageFramework_Skills_NativeLanguages",
+      "meta": {
+        "title": "Native languages: the polyglot-module primitive (`languages`)"
+      }
+    },
+    {
+      "path": "/framework/skills/offline-best-practices",
+      "component": "docs.PageFramework_Skills_OfflineBestPractices",
+      "meta": {
+        "title": "Offline, caching & UI state: best practices per surface"
+      }
+    },
+    {
+      "path": "/framework/skills/package-as-sdk",
+      "component": "docs.PageFramework_Skills_PackageAsSdk",
+      "meta": {
+        "title": "Authoring a package as an SDK: DSX best practices"
+      }
+    },
+    {
+      "path": "/framework/skills/runtime-api",
+      "component": "docs.PageFramework_Skills_RuntimeApi",
+      "meta": {
+        "title": "Runtime API (native) & web contract"
+      }
+    },
+    {
+      "path": "/framework/skills/security",
+      "component": "docs.PageFramework_Skills_Security",
+      "meta": {
+        "title": "Security model: what JSE/DSX can do, and what holds it"
+      }
+    },
+    {
+      "path": "/framework/skills/storage",
+      "component": "docs.PageFramework_Skills_Storage",
+      "meta": {
+        "title": "Storage (the `cdn` module)"
+      }
+    },
+    {
+      "path": "/framework/skills/style-catalog",
+      "component": "docs.PageFramework_Skills_StyleCatalog",
+      "meta": {
+        "title": "Style catalog: the machine-readable style-panel schema"
+      }
+    },
+    {
+      "path": "/framework/skills/surface-bridges",
+      "component": "docs.PageFramework_Skills_SurfaceBridges",
+      "meta": {
+        "title": "Surface bridges: mounting a RENDER SURFACE on the bus (`dsx.messenger`)"
+      }
+    },
+    {
+      "path": "/framework/skills/web-crypto",
+      "component": "docs.PageFramework_Skills_WebCrypto",
+      "meta": {
+        "title": "Web Crypto in JSE: the standard API, 1:1, no JS engine"
+      }
+    },
+    {
+      "path": "/framework/skills/white-label",
+      "component": "docs.PageFramework_Skills_WhiteLabel",
+      "meta": {
+        "title": "White-labeling: `dsx.global.strings` + `dsx.global.theme` (the platform convention)"
+      }
+    },
+    {
+      "path": "/framework/skills/writing-a-backend",
+      "component": "docs.PageFramework_Skills_WritingABackend",
+      "meta": {
+        "title": "Writing a backend in DSX"
+      }
+    },
+    {
+      "path": "/framework/skills/writing-a-module",
+      "component": "docs.PageFramework_Skills_WritingAModule",
+      "meta": {
+        "title": "Writing a module - DespiaScript"
+      }
+    },
+    {
+      "path": "/framework/skills/writing-a-module-internal",
+      "component": "docs.PageFramework_Skills_WritingAModuleInternal",
+      "meta": {
+        "title": "Writing a module"
+      }
+    },
+    {
+      "path": "/framework/skills/writing-unit-tests",
+      "component": "docs.PageFramework_Skills_WritingUnitTests",
+      "meta": {
+        "title": "Writing unit tests: self-contained actions in `dsx.json`"
+      }
+    }
+  ]
+}
