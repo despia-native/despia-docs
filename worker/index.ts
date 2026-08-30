@@ -14,7 +14,7 @@
 //  routes serve, never a second copy.
 //
 
-import { createWorkersHandler, type WorkersEnv, type WorkersExecutionContext } from "@despia/server/bootloader-workers";
+import { createWorkersHandler, type WorkersEnv, type WorkersExecutionContext } from "@despia-native/server/bootloader-workers";
 
 import registry from "../dist/registry.json";
 import searchIndex from "../public/search-index.json";

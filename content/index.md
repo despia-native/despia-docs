@@ -30,4 +30,4 @@ npx dsx dev
 
 ## This site is the proof
 
-These pages are themselves a DSX application: markdown compiled to DSX documents, server-rendered on Cloudflare Workers by `@despia/server`, searched client-side from a build-time index, and served to agents over the site's own MCP face at `/mcp`. Every page serves its raw markdown under `/md`, and the whole site is summarized at [/llms.txt](/llms.txt).
+These pages are themselves a DSX application: markdown compiled to DSX documents, server-rendered on Cloudflare Workers by `@despia-native/server`, searched client-side from a build-time index, and served to agents over the site's own MCP face at `/mcp`. Every page serves its raw markdown under `/md`, and the whole site is summarized at [/llms.txt](/llms.txt).

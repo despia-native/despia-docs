@@ -8,7 +8,7 @@ stack it documents.
   guides and skills sync in from the front door. `scripts/compile.mjs` turns the tree into
   DSX page components, the route table, the navigation model, a client-side search index,
   raw-markdown siblings for every page, and `llms.txt` + `llms-full.txt`.
-- **Rendering**: `dsx build` compiles the pages; `@despia/server` renders them on Cloudflare
+- **Rendering**: `dsx build` compiles the pages; `@despia-native/server` renders them on Cloudflare
   Workers. The `<markdown>` element paints the block vocabulary server-side, so first paint
   is the content.
 - **Search**: client-side over the build-time index. No server dependency for the basic
