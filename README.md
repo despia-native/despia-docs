@@ -8,6 +8,11 @@ stack it documents.
   guides and skills sync in from the front door. `scripts/compile.mjs` turns the tree into
   DSX page components, the route table, the navigation model, a client-side search index,
   raw-markdown siblings for every page, and `llms.txt` + `llms-full.txt`.
+- **The component reference** under `content/components/` is generated, never hand written:
+  the framework's `ClosedSource/scripts/generate_component_docs.rb` projects it from the
+  element census, the library matrix, the web element ledger and the catalog, one page per
+  element plus the overview, each carrying machine-readable front matter (element, properties
+  with types, actions, platforms, catalog version, ledger commit). Edit a ledger, not a page.
 - **Rendering**: `dsx build` compiles the pages; `@despia/server` renders them on Cloudflare
   Workers. The `<markdown>` element paints the block vocabulary server-side, so first paint
   is the content.
