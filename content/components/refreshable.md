@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"busy","type":"expr","default":null},{"name":"on:refresh","type":"action","default":null}]
 actions: ["refresh"]
 catalog: 0.1.0
-commit: a0939217acc2dea008185a0feb4874bd2765c7a0
+commit: 4a6e08719f45b7be669db8dcc9133241de5191ac
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

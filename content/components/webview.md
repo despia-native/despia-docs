@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"ephemeral","type":"bool","default":"false"},{"name":"name","type":"string","default":null},{"name":"on:commit","type":"action","default":null},{"name":"on:fail","type":"action","default":null},{"name":"on:finish","type":"action","default":null},{"name":"on:message","type":"action","default":null},{"name":"on:start","type":"action","default":null},{"name":"origin","type":"string","default":null},{"name":"path","type":"string","default":"/"},{"name":"src","type":"url","default":null}]
 actions: ["commit","fail","finish","message","start"]
 catalog: 0.1.0
-commit: a0939217acc2dea008185a0feb4874bd2765c7a0
+commit: 4a6e08719f45b7be669db8dcc9133241de5191ac
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

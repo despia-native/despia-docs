@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"collapse","type":"enum","default":"platform","values":["platform","stack","content","none"]},{"name":"compactAt","type":"number","default":"760"},{"name":"contentLabel","type":"string","default":"Content"},{"name":"inspectorIdeal","type":"number","default":"320"},{"name":"inspectorLabel","type":"string","default":"Inspector"},{"name":"inspectorMax","type":"number","default":"420"},{"name":"inspectorMin","type":"number","default":"240"},{"name":"pane","type":"enum","default":"content for an unpinned child without pane","values":["sidebar","content","inspector"]},{"name":"pin","type":"enum","default":null,"values":["top","bottom"]},{"name":"shell","type":"enum","default":"custom","values":["custom","automatic","native"]},{"name":"sidebarIdeal","type":"number","default":"280"},{"name":"sidebarLabel","type":"string","default":"Sidebar"},{"name":"sidebarMax","type":"number","default":"360"},{"name":"sidebarMin","type":"number","default":"220"},{"name":"sidebarTitle","type":"string","default":null},{"name":"title","type":"string","default":null}]
 actions: []
 catalog: 0.1.0
-commit: a0939217acc2dea008185a0feb4874bd2765c7a0
+commit: 4a6e08719f45b7be669db8dcc9133241de5191ac
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

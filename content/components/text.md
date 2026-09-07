@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"bind","type":"expr","default":null},{"name":"color","type":"color","default":"var(--dsx-label)"},{"name":"lineLimit","type":"number","default":null},{"name":"markdown","type":"bool","default":"false"},{"name":"type","type":"enum","default":"body"},{"name":"value","type":"string","default":null}]
 actions: []
 catalog: 0.1.0
-commit: a0939217acc2dea008185a0feb4874bd2765c7a0
+commit: 4a6e08719f45b7be669db8dcc9133241de5191ac
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -87,7 +87,7 @@ The base Web twin renders bound/value/inner content with semantic color and univ
 - A markdown link target is restricted to http/https/mailto/tel and relative URLs; any other scheme renders as plain text rather than a live navigation, and the parse is bounded to 16384 characters, 512 inline nodes and 8 levels of nesting.
 - lineLimit uses the browser line-clamp box, so the ellipsis and the exact break position are engine-owned typography rather than a pinned glyph count.
 
-**Implementation notes.** `markdown` is the same INLINE vocabulary on all three renderers: iOS Text(AttributedString(markdown:)), web packages/dom/src/markdown.ts, Android markdownInlineAnnotated (MarkdownBlocks.parseInline into AnnotatedString). Block intents still collapse on `<text>`; the block-level `<markdown>` element answers OpenSource/Conformance/markdown/blocks.json. WHITESPACE IS `pre-line` ON EVERY RENDERER: runs of spaces and tabs collapse to one space and a newline is a forced break. iOS StackLayoutSeam.preLine, Android StackStyle.preLine, and the web `.dsx-text { white-space: pre-line }` implement it (theme.ts; pinned by dom/test/theme.test.ts). Measured 2026-09-02 before the law was spelled on all three: the phones applied the collapse only when the value carried a newline ("a  ·  b" kept both spaces), and the web collapsed the runs but ignored the newlines.
+**Implementation notes.** `markdown` is the same INLINE vocabulary on all four renderers: iOS Text(AttributedString(markdown:)), web packages/dom/src/markdown.ts, Android markdownInlineAnnotated (MarkdownBlocks.parseInline into AnnotatedString), and Compose Desktop desktopInlineParagraph (DesktopInlineFormatting.kt, pinned by DesktopMarkdownConformanceTest.kt). Block intents still collapse on `<text>`; the block-level `<markdown>` element answers OpenSource/Conformance/markdown/blocks.json. WHITESPACE IS `pre-line` ON EVERY RENDERER: runs of spaces and tabs collapse to one space and a newline is a forced break. iOS StackLayoutSeam.preLine, Android StackStyle.preLine, and the web `.dsx-text { white-space: pre-line }` implement it (theme.ts; pinned by dom/test/theme.test.ts). Measured 2026-09-02 before the law was spelled on all three: the phones applied the collapse only when the value carried a newline ("a  ·  b" kept both spaces), and the web collapsed the runs but ignored the newlines.
 
 Declared platforms: `ios`, `android`.
 
