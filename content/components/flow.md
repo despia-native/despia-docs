@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"bind","type":"expression","default":null},{"name":"key","type":"string","default":"id"},{"name":"lineSpacing","type":"number","default":"8"},{"name":"spacing","type":"number","default":"8"}]
 actions: []
 catalog: 0.1.0
-commit: 4fee8f0f180a24140dc54c148df88454bef5e365
+commit: 4cfb269d9edbd23d395f2e7a0c771b0824e9f0d6
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

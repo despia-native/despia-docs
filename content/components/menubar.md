@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"dark","type":"expr","default":null},{"name":"items","type":"expr","default":null},{"name":"on:select","type":"action","default":null},{"name":"selected","type":"expr","default":null}]
 actions: ["select"]
 catalog: 0.1.0
-commit: 4fee8f0f180a24140dc54c148df88454bef5e365
+commit: 4cfb269d9edbd23d395f2e7a0c771b0824e9f0d6
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

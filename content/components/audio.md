@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"autoplay","type":"bool","default":"true"},{"name":"bind","type":"expr","default":null},{"name":"buffering","type":"state-key","default":null},{"name":"duration","type":"state-key","default":null},{"name":"loop","type":"bool","default":"false"},{"name":"muted","type":"bool","default":"false"},{"name":"nowArtist","type":"string","default":null},{"name":"nowPlaying","type":"bool","default":"false"},{"name":"nowTitle","type":"string","default":null},{"name":"on:ended","type":"action","default":null},{"name":"on:error","type":"action","default":null},{"name":"on:ready","type":"action","default":null},{"name":"on:remoteNext","type":"action","default":null},{"name":"on:remotePrev","type":"action","default":null},{"name":"on:timeupdate","type":"action","default":null},{"name":"paused","type":"expr","default":null},{"name":"reload","type":"number","default":"0"},{"name":"remoteSkip","type":"number","default":"15"},{"name":"scrubbing","type":"expr","default":null},{"name":"session","type":"enum","default":"playback","values":["playback","ambient"]},{"name":"speed","type":"number","default":"1"},{"name":"src","type":"url","default":null},{"name":"start","type":"number","default":"0"},{"name":"time","type":"state-key","default":null}]
 actions: ["ended","error","ready","remoteNext","remotePrev","timeupdate"]
 catalog: 0.1.0
-commit: 4fee8f0f180a24140dc54c148df88454bef5e365
+commit: 4cfb269d9edbd23d395f2e7a0c771b0824e9f0d6
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

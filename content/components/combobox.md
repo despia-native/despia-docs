@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"bind","type":"expr","default":null},{"name":"color","type":"color","default":"var(--dsx-accent)"},{"name":"disabled","type":"bool","default":"false"},{"name":"disabled-if","type":"expr","default":null},{"name":"labelField","type":"string","default":"label"},{"name":"on:select","type":"action","default":null},{"name":"options","type":"csv","default":null},{"name":"optionsKey","type":"expr","default":null},{"name":"placeholder","type":"string","default":null},{"name":"valueField","type":"string","default":"id"}]
 actions: ["select"]
 catalog: 0.1.0
-commit: 4fee8f0f180a24140dc54c148df88454bef5e365
+commit: 4cfb269d9edbd23d395f2e7a0c771b0824e9f0d6
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

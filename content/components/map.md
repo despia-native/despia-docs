@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"circleColor","type":"color","default":"var(--dsx-accent)"},{"name":"interaction","type":"enum","default":"all","values":["all","none"]},{"name":"lat","type":"number","default":"0"},{"name":"lon","type":"number","default":"0"},{"name":"pinColor","type":"color","default":"var(--dsx-accent)"},{"name":"pinGlyph","type":"sf-symbol","default":"mappin.circle.fill"},{"name":"pinLat","type":"string","default":"lat"},{"name":"pinLon","type":"string","default":"lng"},{"name":"pinSubtitle","type":"string","default":"subtitle"},{"name":"pinTitle","type":"string","default":"title"},{"name":"pins","type":"expr","default":null},{"name":"regionColor","type":"color","default":"var(--dsx-accent)"},{"name":"routeColor","type":"color","default":"var(--dsx-accent)"},{"name":"routeLineType","type":"enum","default":"solid","values":["solid","dashed","dotted"]},{"name":"routeOpacity","type":"number","default":"1"},{"name":"routeWidth","type":"number","default":"4"},{"name":"style","type":"enum","default":"standard","values":["standard"]},{"name":"userLocation","type":"bool","default":"false"},{"name":"zoom","type":"number","default":"12"}]
 actions: []
 catalog: 0.1.0
-commit: 4fee8f0f180a24140dc54c148df88454bef5e365
+commit: 4cfb269d9edbd23d395f2e7a0c771b0824e9f0d6
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

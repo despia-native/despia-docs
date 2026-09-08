@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"asset","type":"string","default":null},{"name":"d","type":"path-data","default":null},{"name":"fill","type":"color","default":null},{"name":"height","type":"number","default":null},{"name":"src","type":"string","default":null},{"name":"viewBox","type":"string","default":null},{"name":"width","type":"number","default":null}]
 actions: []
 catalog: 0.1.0
-commit: 4fee8f0f180a24140dc54c148df88454bef5e365
+commit: 4cfb269d9edbd23d395f2e7a0c771b0824e9f0d6
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

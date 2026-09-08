@@ -10,7 +10,7 @@ platforms: web,ios,android,desktop
 properties: [{"name":"as","type":"string","default":"form"},{"name":"on:submit","type":"action","default":null},{"name":"scroll","type":"bool","default":"false"},{"name":"spacing","type":"number","default":"12"},{"name":"submit","type":"string","default":null}]
 actions: ["submit"]
 catalog: 0.1.0
-commit: 4fee8f0f180a24140dc54c148df88454bef5e365
+commit: 4cfb269d9edbd23d395f2e7a0c771b0824e9f0d6
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

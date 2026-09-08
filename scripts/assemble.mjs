@@ -9,6 +9,8 @@ import { cpSync, existsSync, readdirSync, readFileSync, writeFileSync } from "no
 import { join, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { extractSharedStylesheet } from "@despia-native/cli";
+
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(root, "dist");
 const pub = join(root, "public");
@@ -17,6 +19,16 @@ if (!existsSync(dist)) {
   console.error("[docs.assemble] no dist/ — run `dsx build` first");
   process.exit(1);
 }
+
+// The shared system stylesheet: SSR inlines the complete layer stack into every page (right
+// for a single app shell), which on a 90+ route static site means the same ~290KB repeated on
+// every document. extractSharedStylesheet (from @despia-native/cli, the same code the despia
+// package registry site already runs) pulls it into ONE cached site.css and rewrites every
+// page to a <link>, before the public/ artifacts and docs.js are folded in below.
+const cssResult = extractSharedStylesheet(dist);
+console.log(`[docs.assemble] site.css extracted: ${cssResult.cssBytes} byte(s), ` +
+  `${cssResult.blocks} shared block(s), ${cssResult.pages} page(s) relinked`);
+
 for (const name of readdirSync(pub)) {
   cpSync(join(pub, name), join(dist, name), { recursive: true });
 }

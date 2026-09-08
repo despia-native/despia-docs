@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"bind","type":"expr","default":null},{"name":"color","type":"color","default":"var(--dsx-accent)"},{"name":"disabled","type":"bool","default":"false"},{"name":"disabled-if","type":"expr","default":null},{"name":"markColorField","type":"string","default":"color"},{"name":"markDateField","type":"string","default":"date"},{"name":"marks","type":"expr","default":null},{"name":"max","type":"iso-date","default":null},{"name":"min","type":"iso-date","default":null},{"name":"on:month","type":"action","default":null}]
 actions: ["month"]
 catalog: 0.1.0
-commit: 4fee8f0f180a24140dc54c148df88454bef5e365
+commit: 4cfb269d9edbd23d395f2e7a0c771b0824e9f0d6
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"background","type":"color","default":"#000000"},{"name":"mode","type":"enum","default":"3d","values":["3d","2d","ar"]},{"name":"on:ready","type":"action","default":null}]
 actions: ["ready"]
 catalog: 0.1.0
-commit: 4fee8f0f180a24140dc54c148df88454bef5e365
+commit: 4cfb269d9edbd23d395f2e7a0c771b0824e9f0d6
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

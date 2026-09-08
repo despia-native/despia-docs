@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"background","type":"color","default":"white"},{"name":"color","type":"color","default":"black"},{"name":"correction","type":"enum","default":"M","values":["L","M","Q","H"]},{"name":"size","type":"number","default":"200"},{"name":"value","type":"string","default":null}]
 actions: []
 catalog: 0.1.0
-commit: 4fee8f0f180a24140dc54c148df88454bef5e365
+commit: 4cfb269d9edbd23d395f2e7a0c771b0824e9f0d6
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

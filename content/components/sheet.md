@@ -10,7 +10,7 @@ platforms: web,ios,android,desktop
 properties: [{"name":"action","type":"string","default":null},{"name":"actionIcon","type":"sf-symbol","default":null},{"name":"actionSide","type":"enum","default":"trailing","values":["leading","trailing"]},{"name":"background","type":"color","default":"var(--dsx-background)"},{"name":"close","type":"enum","default":"leading","values":["leading","trailing","none"]},{"name":"detents","type":"csv","default":"half,full","values":["content","half","full"]},{"name":"inset","type":"number","default":"14"},{"name":"mode","type":"enum","default":"sheet","values":["sheet","card","cover"]},{"name":"on:action","type":"action","default":null},{"name":"on:dismiss","type":"action","default":null},{"name":"present","type":"expr","default":null},{"name":"systemBackground","type":"bool","default":"false"},{"name":"title","type":"string","default":null}]
 actions: ["action","dismiss"]
 catalog: 0.1.0
-commit: 4fee8f0f180a24140dc54c148df88454bef5e365
+commit: 4cfb269d9edbd23d395f2e7a0c771b0824e9f0d6
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

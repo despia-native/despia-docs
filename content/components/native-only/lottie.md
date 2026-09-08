@@ -10,7 +10,7 @@ platforms: ios,android
 properties: [{"name":"autoplay","type":"bool","default":"true"},{"name":"loop","type":"bool","default":"true"},{"name":"speed","type":"number","default":"1"},{"name":"src","type":"url","default":null}]
 actions: []
 catalog: 0.1.0
-commit: 4fee8f0f180a24140dc54c148df88454bef5e365
+commit: 4cfb269d9edbd23d395f2e7a0c771b0824e9f0d6
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

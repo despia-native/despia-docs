@@ -10,7 +10,7 @@ platforms: web,ios,android,desktop
 properties: [{"name":"bind","type":"expr","default":null},{"name":"color","type":"color","default":"var(--dsx-label)"},{"name":"contentType","type":"enum","default":null},{"name":"disabled","type":"bool","default":"false"},{"name":"disabled-if","type":"expr","default":null},{"name":"keyboard","type":"enum","default":null,"values":["email","number","decimal","phone","url","ascii","twitter","websearch"]},{"name":"on:blur","type":"action","default":null},{"name":"on:change","type":"action","default":null},{"name":"on:focus","type":"action","default":null},{"name":"on:submit","type":"action","default":null},{"name":"placeholder","type":"string","default":null},{"name":"secure","type":"bool","default":"false"}]
 actions: ["blur","change","focus","submit"]
 catalog: 0.1.0
-commit: 4fee8f0f180a24140dc54c148df88454bef5e365
+commit: 4cfb269d9edbd23d395f2e7a0c771b0824e9f0d6
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -66,7 +66,7 @@ Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colo
 | `disabled-if` | `expr` |  | Disabled when this expression is truthy. `disabled=` binds as TEXT, and the string "false" is TRUE - so a bound boolean belongs here, never there. |
 | `keyboard` | `email` \| `number` \| `decimal` \| `phone` \| `url` \| `ascii` \| `twitter` \| `websearch` |  |  |
 | `on:blur` | `action` |  |  |
-| `on:change` | `action` |  | Fires on each edit. |
+| `on:change` | `action` |  | Each edit. The payload names WHAT CAUSED the change beside the value: `inputType`, a member of the closed DOM `InputEvent.inputType` vocabulary, flat in the handler scope. `historyUndo` and `historyRedo` are the FIELD'S own text history and not the document's, so a consumer that commits on a settle, Enter or blur must treat them as local and write nothing. A renderer that cannot name the cause says `unspecified`, which is a member and is never local. The law, with the per renderer table, is OpenSource/Conformance/elements/textfield.json `behavior.changeCause`. |
 | `on:focus` | `action` |  |  |
 | `on:submit` | `action` |  | Return key. |
 | `placeholder` | `string` |  |  |
