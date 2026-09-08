@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"axis","type":"enum","default":"horizontal","values":["horizontal","vertical"]},{"name":"bind","type":"expr","default":null},{"name":"dots","type":"bool","default":"true"},{"name":"key","type":"string","default":"id"},{"name":"on:change","type":"action","default":null},{"name":"value","type":"expr","default":null}]
 actions: ["change"]
 catalog: 0.1.0
-commit: 4a6e08719f45b7be669db8dcc9133241de5191ac
+commit: e6eed2acf3432cb14315295020a6842d9b25b68f
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

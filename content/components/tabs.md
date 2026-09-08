@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"color","type":"color","default":"var(--dsx-accent)"},{"name":"on:change","type":"action","default":null},{"name":"tabBadge","type":"string","default":null},{"name":"tabIcon","type":"sf-symbol","default":null},{"name":"tabTitle","type":"string","default":null},{"name":"value","type":"expr","default":null}]
 actions: ["change"]
 catalog: 0.1.0
-commit: 4a6e08719f45b7be669db8dcc9133241de5191ac
+commit: e6eed2acf3432cb14315295020a6842d9b25b68f
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

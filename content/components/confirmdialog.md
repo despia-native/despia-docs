@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"buttons","type":"expr","default":null},{"name":"message","type":"string","default":null},{"name":"on:dismiss","type":"action","default":null},{"name":"present","type":"expr","default":null},{"name":"title","type":"string","default":null}]
 actions: ["dismiss"]
 catalog: 0.1.0
-commit: 4a6e08719f45b7be669db8dcc9133241de5191ac
+commit: e6eed2acf3432cb14315295020a6842d9b25b68f
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

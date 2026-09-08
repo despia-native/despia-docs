@@ -13,7 +13,7 @@ stack it documents.
   element census, the library matrix, the web element ledger and the catalog, one page per
   element plus the overview, each carrying machine-readable front matter (element, properties
   with types, actions, platforms, catalog version, ledger commit). Edit a ledger, not a page.
-- **Rendering**: `dsx build` compiles the pages; `@despia/server` renders them on Cloudflare
+- **Rendering**: `dsx build` compiles the pages; `@despia-native/server` renders them on Cloudflare
   Workers. The `<markdown>` element paints the block vocabulary server-side, so first paint
   is the content.
 - **Search**: client-side over the build-time index. No server dependency for the basic

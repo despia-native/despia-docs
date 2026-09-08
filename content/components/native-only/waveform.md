@@ -10,7 +10,7 @@ platforms: ios,android
 properties: [{"name":"muted","type":"bool","default":"false"},{"name":"peaks","type":"csv","default":null},{"name":"seed","type":"number","default":"1"},{"name":"selected","type":"bool","default":"false"}]
 actions: []
 catalog: 0.1.0
-commit: 4a6e08719f45b7be669db8dcc9133241de5191ac
+commit: e6eed2acf3432cb14315295020a6842d9b25b68f
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

@@ -14,13 +14,13 @@
     "lint": "npm run compile && dsx lint --strict"
   },
   "dependencies": {
-    "@despia/compiler": "0.1.0",
-    "@despia/dom": "0.1.0",
-    "@despia/kernel": "0.1.0",
-    "@despia/server": "0.1.0"
+    "@despia-native/compiler": "0.1.0",
+    "@despia-native/dom": "0.1.0",
+    "@despia-native/kernel": "0.1.0",
+    "@despia-native/server": "0.1.0"
   },
   "devDependencies": {
-    "@despia/cli": "0.1.0",
+    "@despia-native/cli": "0.1.0",
     "wrangler": "^4.123.0"
   }
 }

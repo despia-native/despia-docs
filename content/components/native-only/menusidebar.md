@@ -10,7 +10,7 @@ platforms: ios,android
 properties: [{"name":"background","type":"color","default":null},{"name":"dark","type":"expr","default":"true"},{"name":"items","type":"expr","default":null},{"name":"on:dismiss","type":"action","default":null},{"name":"on:select","type":"action","default":null},{"name":"selected","type":"expr","default":"0"},{"name":"tint","type":"color","default":null}]
 actions: ["dismiss","select"]
 catalog: 0.1.0
-commit: 4a6e08719f45b7be669db8dcc9133241de5191ac
+commit: e6eed2acf3432cb14315295020a6842d9b25b68f
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

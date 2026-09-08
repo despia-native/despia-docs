@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"axis","type":"enum","default":"vertical","values":["vertical","horizontal"]},{"name":"bind","type":"state-key","default":"none"},{"name":"bounces","type":"bool","default":"platform"},{"name":"contentInset","type":"string","default":"none"},{"name":"direction","type":"enum","default":"vertical","values":["vertical","horizontal"]},{"name":"indicators","type":"bool","default":"true"},{"name":"keyboardDismiss","type":"enum","default":"interactive","values":["none","onDrag","interactive"]},{"name":"maintainPosition","type":"bool","default":"false"},{"name":"on:reachEnd","type":"action","default":"none"},{"name":"on:scroll","type":"action","default":"none"},{"name":"on:scrollEnd","type":"action","default":"none"},{"name":"overscroll","type":"enum","default":"auto","values":["auto","never","always"]},{"name":"paging","type":"bool","default":"false"},{"name":"snap","type":"enum","default":"none","values":["none","start","center","end"]},{"name":"threshold","type":"number","default":"0"}]
 actions: ["reachEnd","scroll","scrollEnd"]
 catalog: 0.1.0
-commit: 4a6e08719f45b7be669db8dcc9133241de5191ac
+commit: e6eed2acf3432cb14315295020a6842d9b25b68f
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

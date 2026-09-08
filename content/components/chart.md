@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"animate","type":"bool","default":"true"},{"name":"areaOpacity","type":"number","default":"0.25"},{"name":"color","type":"color","default":"var(--dsx-accent)"},{"name":"colors","type":"csv","default":null},{"name":"data","type":"expr","default":null},{"name":"interpolation","type":"enum","default":"linear","values":["linear","monotone","step"]},{"name":"legend","type":"enum","default":"bottom with series, else none","values":["bottom","top","leading","trailing","none"]},{"name":"lineWidth","type":"number","default":"2"},{"name":"pointSize","type":"number","default":"40"},{"name":"series","type":"string","default":null},{"name":"showPoints","type":"bool","default":"false"},{"name":"stacked","type":"bool","default":"true for area, else false"},{"name":"type","type":"enum","default":"line","values":["line","bar","area","point"]},{"name":"x","type":"string","default":null},{"name":"xGrid","type":"bool","default":"false"},{"name":"xHide","type":"bool","default":"false"},{"name":"xType","type":"enum","default":"category","values":["category","number","time"]},{"name":"y","type":"string","default":null},{"name":"y2Color","type":"color","default":"#FF9500"},{"name":"y2Key","type":"string","default":null},{"name":"yGrid","type":"bool","default":"true"},{"name":"yHide","type":"bool","default":"false"}]
 actions: []
 catalog: 0.1.0
-commit: 4a6e08719f45b7be669db8dcc9133241de5191ac
+commit: e6eed2acf3432cb14315295020a6842d9b25b68f
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"disabled","type":"bool","default":"false"},{"name":"disabled-if","type":"expr","default":null},{"name":"href","type":"string","default":null},{"name":"on:doubleTap","type":"action","default":null},{"name":"on:longPress","type":"action","default":null},{"name":"on:longPressEnd","type":"action","default":null},{"name":"on:tap","type":"action","default":null}]
 actions: ["doubleTap","longPress","longPressEnd","tap"]
 catalog: 0.1.0
-commit: 4a6e08719f45b7be669db8dcc9133241de5191ac
+commit: e6eed2acf3432cb14315295020a6842d9b25b68f
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
