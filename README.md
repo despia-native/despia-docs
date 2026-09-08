@@ -32,7 +32,7 @@ npx wrangler deploy
 
 CI builds from the public registry, boots the worker with `wrangler dev`, and probes SSR,
 the markdown routes, `llms.txt` and the MCP face on every push; it goes green with the
-0.0.1 registry wave.
+0.1.0 registry wave.
 
 ## Issues and contributions
 
