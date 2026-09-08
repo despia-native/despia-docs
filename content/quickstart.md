@@ -46,6 +46,7 @@ the Despia app runtimes; markup is never platform-forked.
 ## The visual editor
 
 ```sh
+npm install --save-dev @despia-native/canvas-editor
 npx dsx edit
 ```
 
