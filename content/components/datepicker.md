@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"bind","type":"expr","default":null},{"name":"color","type":"color","default":"var(--dsx-accent)"},{"name":"disabled","type":"bool","default":"false"},{"name":"disabled-if","type":"expr","default":null},{"name":"label","type":"string","default":null},{"name":"mode","type":"enum","default":"date","values":["date","time","datetime"]},{"name":"on:change","type":"action","default":null}]
 actions: ["change"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: date input segments, fill+change writes ISO to store (when=2026-09-01), keyboard segment entry - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | System DatePicker (date/time/datetime components) with two-way ISO binding through setBound + W9 disabled grammar (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/DatePicker/swift/DatePicker.swift); system pressed/focus/disabled states; CI-asserted: the compact field opens the calendar surface with month navigation (ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift datepicker activity, DatePicker.Show value January 2026). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: value pills open the REAL M3 DatePickerDialog / M3 TimePicker in an AlertDialog on the unstyled path, the framework android.app dialogs on the legacy path (DateElements.kt header; SelectionControl.rendersSystem gate); pill activation via dsxAccessibleActivation (DateElements.kt:337); disabled= in the contract; ISO-8601 writes through the bind seam. |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -83,6 +84,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The native-control twin uses browser date/time controls with normalized DSX wire values, label, color, disabled state, and write-back.
 
@@ -109,6 +111,7 @@ Web runtime: `native-control`.
 | web | yes | 2026-08-18 | native date input + label association; axe 0 serious/critical on the controls family page light+dark (calendar excluded, filed) |
 | ios | review | 2026-08-18 | System DatePicker semantics (adjustable date parts; the labeled Show control is CI-queried by identifier and value). ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/DatePicker/swift/DatePicker.swift. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: pill activation semantics (dsxAccessibleActivation Role.Button, DateElements.kt:337) + the M3 date/time dialogs' own accessibility. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

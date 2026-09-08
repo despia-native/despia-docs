@@ -10,7 +10,7 @@ platforms: ios,android
 properties: [{"name":"a11yLabel","type":"string","default":null},{"name":"alignment","type":"string","default":"center"},{"name":"animation","type":"string","default":null},{"name":"artboard","type":"string","default":null},{"name":"autoplay","type":"boolean","default":"true"},{"name":"fit","type":"string","default":"contain"},{"name":"inputs","type":"expression","default":null},{"name":"on:error","type":"action","default":null},{"name":"on:event","type":"action","default":null},{"name":"on:load","type":"action","default":null},{"name":"on:stateChange","type":"action","default":null},{"name":"ref","type":"string","default":null},{"name":"speed","type":"number","default":"1"},{"name":"src","type":"url","default":null},{"name":"stateMachine","type":"string","default":null}]
 actions: ["error","event","load","stateChange"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -76,6 +76,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `unsupported` | no renderer and no polyfill; the runtime mounts the labelled placeholder |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `module-facet` | filled by the module facet when that module is registered |
+| desktop | `unavailable` | the desktop build bundles no runtime for it and answers with a typed refusal |
 
 No Rive runtime ships with the web renderer; `<rive>` is a MODULE element, and the Core/Rive web facet fills the tag through the module component loader whenever the module is registered and its pinned @rive-app/canvas player was fetched by the build.
 

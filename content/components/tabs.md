@@ -6,11 +6,11 @@ section: components
 element: tabs
 category: structure
 scope: library
-platforms: web,ios,android
+platforms: web,ios,android,desktop
 properties: [{"name":"color","type":"color","default":"var(--dsx-accent)"},{"name":"on:change","type":"action","default":null},{"name":"tabBadge","type":"string","default":null},{"name":"tabIcon","type":"sf-symbol","default":null},{"name":"tabTitle","type":"string","default":null},{"name":"value","type":"expr","default":null}]
 actions: ["change"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -18,7 +18,7 @@ generator: ClosedSource/scripts/generate_component_docs.rb
 
 The structural twin provides ARIA tabs/tabpanels, bound selection, icons/badges/titles, change events, and keyboard traversal.
 
-<RefMeta platforms="Web,iOS,Android">
+<RefMeta platforms="Web,iOS,Android,Desktop">
 Category: Structure - Also answers to `tabview` - Live specimens: the [System gallery](/system).
 </RefMeta>
 
@@ -57,6 +57,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: active/inactive treatment (accent + pill), click + ArrowDown/ArrowRight switching, tabBadge renders (3), on:change fires - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | Two-way value selection (child index) with mount-echo dedup (on:change only on a real change); per-pane tabTitle/tabIcon/tabBadge (.badge) (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Structure/Tabs/swift/Tabs.swift); selected/pressed tab states are the system bar's own. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: M3 NavigationSuiteScaffold items with platform selected/unselected state layers; selected icon/label carry the authored tint, every other role stays M3 (StackNodeView.kt Tabs, itemColors block); value= two-way index through the seam; badges render M3 Badge. |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -88,6 +89,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `captured` | the desktop capture plane composed and measured this element at both locked widths |
 
 The structural twin provides ARIA tabs/tabpanels, bound selection, icons/badges/titles, change events, and keyboard traversal.
 
@@ -116,6 +118,7 @@ Web runtime: `structural`.
 | web | yes | 2026-08-18 | role=tablist/tab + aria-selected, arrow-key selection, labelled icons; axe clean at 390 - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | System tab bar semantics (titles/icons/badges announced by the OS across bar and sidebar presentations). ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Structure/Tabs/swift/Tabs.swift. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: M3 NavigationBar/NavigationRail item semantics (selected state, labels) are component-owned; icon-less panes render label-only, title-less label Tab N (StackNodeView.kt Tabs). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

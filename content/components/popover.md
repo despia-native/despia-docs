@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"arrow","type":"enum","default":"top","values":["top","bottom","leading","trailing"]},{"name":"on:dismiss","type":"action","default":null},{"name":"present","type":"expr","default":null}]
 actions: ["dismiss"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -56,6 +56,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: anchored open on present bind, outside-click dismiss fires on:dismiss, Escape closes - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | present lifecycle (two-way bool) with on:dismiss on tap-outside or programmatic close (PopoverAnchor dsxOnChange, ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Structure/Popover/swift/Popover.swift); the anchor slot stays inline; arrow edge selectable. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: present= two-way Bool; focusable Popup dismisses on tap-outside/programmatic false with on:dismiss (Menus.kt PopoverElement, PopupProperties(focusable=true)); anchor stays the always-visible default slot. |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -84,6 +85,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The overlay twin provides an anchored, viewport-aware popover with trigger semantics, dismissal, keyboard handling, and focus restoration.
 
@@ -112,6 +114,7 @@ Web runtime: `overlay`.
 | web | yes | 2026-08-18 | panel focus behavior, outside-click + Escape dismiss, isolated axe clean while open - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | System popover semantics: VoiceOver focus moves into the bubble; tap-outside dismissal is system behavior; content is ordinary DSX. ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Structure/Popover/swift/Popover.swift. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: focusable Popup takes input focus while open and dismisses on outside tap; bubble content exposes its own semantics (Menus.kt PopoverElement). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

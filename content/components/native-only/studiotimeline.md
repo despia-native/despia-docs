@@ -10,7 +10,7 @@ platforms: ios,android
 properties: [{"name":"beatsPerBar","type":"number","default":"4"},{"name":"busyTracks","type":"array","default":null},{"name":"drawMode","type":"bool","default":"false"},{"name":"duration","type":"number","default":"16"},{"name":"pendingImports","type":"array","default":null},{"name":"pxPerSecond","type":"number","default":"80"},{"name":"snap","type":"bool","default":"true"},{"name":"tempo","type":"number","default":"120"},{"name":"tracks","type":"array","default":null}]
 actions: []
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -63,6 +63,7 @@ Every element also carries the [universal attributes](/components/attributes): a
 | web | `unsupported` | no renderer and no polyfill; the runtime mounts the labelled placeholder |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `module-facet` | filled by the module facet when that module is registered |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The multi-track Studio timeline/editor has no Web implementation.
 

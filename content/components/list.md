@@ -6,11 +6,11 @@ section: components
 element: list
 category: structure
 scope: library
-platforms: web,ios,android
+platforms: web,ios,android,desktop
 properties: [{"name":"align","type":"enum","default":"leading","values":["leading","center","trailing"]},{"name":"autoscroll","type":"number","default":null},{"name":"axis","type":"enum","default":"vertical","values":["vertical","horizontal"]},{"name":"bind","type":"expr","default":null},{"name":"direction","type":"enum","default":"vertical","values":["vertical","horizontal"]},{"name":"group_by","type":"string","default":null},{"name":"key","type":"string","default":"id"},{"name":"on:move","type":"action","default":null},{"name":"on:reachEnd","type":"action","default":null},{"name":"reorder","type":"bool","default":"false"},{"name":"scroll","type":"bool","default":"true"},{"name":"spacing","type":"number","default":"0"},{"name":"swipeFullLeading","type":"bool","default":"false"},{"name":"swipeFullTrailing","type":"bool","default":"false"},{"name":"swipeLeading","type":"expr","default":null},{"name":"swipeTrailing","type":"expr","default":null}]
 actions: ["move","reachEnd"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -18,7 +18,7 @@ generator: ClosedSource/scripts/generate_component_docs.rb
 
 The structural/binding twin implements the whole fixture contract: semantic rows, keyed identity, write-back scope, spacing/axis/scroll/alignment, reach-end, group_by sections in first-seen order, the swipe-action rails with both firing shapes and per-edge full-swipe commit, drag reorder that writes the moved array back through the bind seam and fires on:move with FINAL indices, and the horizontal autoscroll marquee - under the same construct gating List.swift uses (scroll="false" and a horizontal axis win over all three; a grouped list ignores reorder; an active reorder suppresses swipe) and with an SSR twin that paints the same first frame.
 
-<RefMeta platforms="Web,iOS,Android">
+<RefMeta platforms="Web,iOS,Android,Desktop">
 Category: Structure - Live specimens: the [System gallery](/system).
 </RefMeta>
 
@@ -52,6 +52,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: bound rows render 1:1 with key (3/3), rows accept authored pressables, scroll=false honored - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | System List constructs own the interaction states: swipe-action buttons (destructive slot, full-swipe commit opt-in), drag-reorder edit mode, sections; on:reachEnd fires on last-row appear; a zero-row bind renders empty; the unstyled gate + scroll-ancestor seam pick system vs flat paths at render time (ScrollAwareSystemList/SystemListStyle, ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Structure/List/swift/List.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: bound keyed rows render 1:1 with per-row item scope + write-back (BoundList, StackNodeView); the unstyled vertical scrolling list upgrades to REAL M3 ListItem rows (StackSystemControls.kt SystemList gate - StackSystemControlsTest green, gradle :render:testDebugUnitTest run 2026-08-18: 292 tests, 1 failure (StackButtonsTest#systemButtonsDelegateTheirDefaultPalettesToMaterial3 - a stale source-grep of the pre-W9 disabled literal, not a behavior break)); constructs: group_by sections, swipe rails, drag reorder + on:move (ListElements.kt). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -94,6 +95,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `captured` | the desktop capture plane composed and measured this element at both locked widths |
 
 The structural/binding twin implements the whole fixture contract: semantic rows, keyed identity, write-back scope, spacing/axis/scroll/alignment, reach-end, group_by sections in first-seen order, the swipe-action rails with both firing shapes and per-edge full-swipe commit, drag reorder that writes the moved array back through the bind seam and fires on:move with FINAL indices, and the horizontal autoscroll marquee - under the same construct gating List.swift uses (scroll="false" and a horizontal axis win over all three; a grouped list ignores reorder; an active reorder suppresses swipe) and with an SSR twin that paints the same first frame.
 
@@ -127,6 +129,7 @@ Web runtime: `structural`.
 | web | yes | 2026-08-18 | bound rows as real elements, no fake list roles; axe 0 serious/critical on the data family page light (dark: text link finding filed separately) |
 | ios | review | 2026-08-18 | A real SwiftUI List: rows/sections carry system semantics; swipe actions surface as accessibility actions by the system; reorder rides system edit mode (ReorderEditMode). ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Structure/List/swift/List.swift. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-19 | W12 red sweep 2026-08-19: the list constructs gained non-pointer equivalents - every swipe button (by its label) and, under reorder, localized Move up / Move down are TalkBack/Switch Access customActions on the row (ListElements.kt ConstructList rowActions -> ListRowCell semantics { customActions }; actions fire the same fireSwipe/commitMove seams the gestures use), the iOS .swipeActions-automatic twin. gradle test green. Pending the Android capture lane. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

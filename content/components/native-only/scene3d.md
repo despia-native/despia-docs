@@ -10,7 +10,7 @@ platforms: ios,android
 properties: [{"name":"models","type":"expr","default":null}]
 actions: []
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -55,6 +55,7 @@ Every element also carries the [universal attributes](/components/attributes): a
 | web | `unsupported` | no renderer and no polyfill; the runtime mounts the labelled placeholder |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `ios-only` | present on iOS only today |
+| desktop | `unavailable` | the desktop build bundles no runtime for it and answers with a typed refusal |
 
 The RealityKit scene contract has no WebGL/WebGPU model renderer.
 

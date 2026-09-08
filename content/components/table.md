@@ -6,11 +6,11 @@ section: components
 element: Table
 category: display
 scope: library
-platforms: web,ios,android
+platforms: web,ios,android,desktop
 properties: [{"name":"bind","type":"expr","default":null},{"name":"color","type":"color","default":"var(--dsx-label)"},{"name":"columns","type":"csv","default":null},{"name":"fields","type":"csv","default":null}]
 actions: []
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -18,7 +18,7 @@ generator: ClosedSource/scripts/generate_component_docs.rb
 
 The global Web twin renders the whole native Table contract: a semantic, scroll-contained table from bound rows, declared columns/fields (fields defaulting to the lowercased column labels), semantic tint, header cell traits and one combined accessibility element per row.
 
-<RefMeta platforms="Web,iOS,Android">
+<RefMeta platforms="Web,iOS,Android,Desktop">
 Category: Display - Live specimens: the [System gallery](/system).
 </RefMeta>
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: th scope=col headers + bound td cells (columns/fields grammar), tbody row hover fill, light+dark render - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | Non-interactive rows by design on iOS (rows carry no tap/hover contract; the web row-hover is a web-skin affordance); a zero-row bind renders the header row only; cells render bound text lineLimit(1). ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Core/swift/Table.swift. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | n/a | 2026-08-18 | non-interactive data display on this renderer: static header + rows, no press/focus/disabled axis (Displays.kt Table; the web column's row hover fill is that renderer's own idiom - Android touch has no hover plane and the Table draws none). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -76,6 +77,7 @@ Every element also carries the [universal attributes](/components/attributes): a
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `captured` | the desktop capture plane composed and measured this element at both locked widths |
 
 The global Web twin renders the whole native Table contract: a semantic, scroll-contained table from bound rows, declared columns/fields (fields defaulting to the lowercased column labels), semantic tint, header cell traits and one combined accessibility element per row.
 
@@ -105,6 +107,7 @@ Web runtime: `global`.
 | web | yes | 2026-08-18 | table/th[scope=col]/td semantics probed; axe 0 serious/critical on the data family page light (dark: text link finding filed separately) |
 | ios | review | 2026-08-18 | Header cells carry .isHeader and each data row reads as ONE element (.accessibilityElement(children: .combine)) - the documented row-merge contract (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Core/swift/Table.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: each data row merges into ONE a11y utterance (mergeDescendants - Displays.kt header names this exact Compose twin); header row styled as the 13sp secondary header. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

@@ -10,7 +10,7 @@ platforms: ios,android
 properties: [{"name":"background","type":"color","default":null},{"name":"dark","type":"expr","default":"true"},{"name":"items","type":"expr","default":null},{"name":"on:dismiss","type":"action","default":null},{"name":"on:select","type":"action","default":null},{"name":"selected","type":"expr","default":"0"},{"name":"tint","type":"color","default":null}]
 actions: ["dismiss","select"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -66,6 +66,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `unsupported` | no renderer and no polyfill; the runtime mounts the labelled placeholder |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `module-facet` | filled by the module facet when that module is registered |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The native half of the shared Sidebar.dsx adapter has no Web renderer: the slide-over panel, its scrim and its rows are composed by SwiftUI on Apple and by Material 3 ModalNavigationDrawer on Android, and a web build authors its own navigation in markup instead.
 

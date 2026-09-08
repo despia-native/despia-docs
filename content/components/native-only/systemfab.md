@@ -10,7 +10,7 @@ platforms: ios,android
 properties: [{"name":"a11yLabel","type":"string","default":null},{"name":"icon","type":"sf-symbol","default":"plus"},{"name":"on:tap","type":"action","default":null}]
 actions: ["tap"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -59,6 +59,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `unsupported` | no renderer and no polyfill; the runtime mounts the labelled placeholder |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The native half of the shared FAB.dsx wrapper has no Web renderer, and is not asked for one: FAB.dsx gates this tag off web, Windows and Linux and gives those lanes a pressable composition instead, so the floating action button an author writes as `<FAB>` is a real, styled, accessible control on every renderer while this tag itself stays native.
 

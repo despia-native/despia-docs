@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"axis","type":"enum","default":"horizontal","values":["horizontal","vertical"]},{"name":"bind","type":"expr","default":null},{"name":"dots","type":"bool","default":"true"},{"name":"key","type":"string","default":"id"},{"name":"on:change","type":"action","default":null},{"name":"value","type":"expr","default":null}]
 actions: ["change"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -57,6 +57,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-09-04 | The pager exposes current-page state, clickable dots, bound value writeback, and selected-dot reflection; mount.test.ts and structural-controls.test.ts execute these transitions. |
 | ios | review | 2026-08-18 | Two-way value (page index) with the commit rule: a page commits only when it fully covers the viewport and the offset RESTS on the boundary (~80ms confirm; mid-drag changes nothing), the mount/seed settle is never a change, external writes scroll + fire once (VerticalPagerView, ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Structure/Pager/swift/Pager.swift); CI-asserted: external writes drive page 0-2-0 with exact change counts (ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift testIPadPrivilegedVerticalPagerRespondsToExternalValueWrites). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | n/a | 2026-08-18 | swipe-paged container: no rest/pressed/focus/disabled axis; the page index is two-way data (value=/bind=, StackNodeView Pager branch). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -88,6 +89,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The structural/binding twin renders horizontal/vertical snap paging with two-way current-page binding, keyed bound pages, selection dots, and change events - the full pager.json attribute contract.
 
@@ -117,6 +119,7 @@ Web runtime: `structural`.
 | web | yes | 2026-09-04 | The root is a named carousel, pages are labelled slides, dots expose current state, hidden pages are inert, and axis-aware keyboard arrows select pages (mount.test.ts; structural-controls.test.ts). |
 | ios | review | 2026-08-18 | The horizontal form is the system page-style TabView (system page control); vertical pages remain ordinary content in a ScrollView, assistive-scrollable. ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Structure/Pager/swift/Pager.swift. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: pages expose their own content semantics (each page is a full StackNodeView). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

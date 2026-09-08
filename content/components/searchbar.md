@@ -6,11 +6,11 @@ section: components
 element: searchbar
 category: input
 scope: library
-platforms: web,ios,android
+platforms: web,ios,android,desktop
 properties: [{"name":"bind","type":"expr","default":null},{"name":"color","type":"color","default":"var(--dsx-accent)"},{"name":"disabled","type":"bool","default":"false"},{"name":"disabled-if","type":"expr","default":null},{"name":"on:clear","type":"action","default":null},{"name":"on:submit","type":"action","default":null},{"name":"placeholder","type":"string","default":"Search"}]
 actions: ["clear","submit"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -18,7 +18,7 @@ generator: ClosedSource/scripts/generate_component_docs.rb
 
 The Web twin is the composite search field the native reference draws: a leading magnifier, the real search input with binding, the Search placeholder default and submit, and a trailing clear button that writes the bound path back and fires on:clear.
 
-<RefMeta platforms="Web,iOS,Android">
+<RefMeta platforms="Web,iOS,Android,Desktop">
 Category: Input - Live specimens: the [System gallery](/system).
 </RefMeta>
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: leading icon, typing writes store (q=amp), clear affordance, focus well, hover inner delta - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | Focus-preserving clear flow: the trailing clear appears only while non-empty and clears + fires on:clear without dropping keyboard focus (@FocusState, DSXSearchBar); submitLabel(.search) + on:submit; W9 disabled wrapper (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/SearchBar/swift/SearchBar.swift:22-24). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: bound field in the capsule: trailing clear button appears while non-empty (clears + on:clear), Return fires on:submit, on:change per keystroke through the seam (Forms.kt SEARCHBAR block, SearchBar.swift 1:1); disabled= in the contract. |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -84,6 +85,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `captured` | the desktop capture plane composed and measured this element at both locked widths |
 
 The Web twin is the composite search field the native reference draws: a leading magnifier, the real search input with binding, the Search placeholder default and submit, and a trailing clear button that writes the bound path back and fires on:clear.
 
@@ -113,6 +115,7 @@ Web runtime: `base`.
 | web | yes | 2026-08-18 | labelled search input + labelled clear; axe 0 serious/critical on the controls family page light+dark (calendar excluded, filed) |
 | ios | review | 2026-08-18 | System TextField (placeholder announced, search submit label); the clear control is a real Button carrying the system symbol's label; icons are secondary-tinted (DSXSearchBar, ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/SearchBar/swift/SearchBar.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: the clear affordance is an activation (dsxAccessibleActivation, Forms.kt:606); the field is a real text input with the localized Search placeholder (DSXStrings). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

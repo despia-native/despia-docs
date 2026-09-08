@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"bind","type":"expr","default":null},{"name":"color","type":"color","default":"var(--dsx-accent)"},{"name":"disabled","type":"bool","default":"false"},{"name":"disabled-if","type":"expr","default":null},{"name":"label","type":"string","default":null}]
 actions: []
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: hover border delta (unchecked), Space toggles store, box check animates, focus ring, 44px row - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-19 | W12 red sweep 2026-08-19: the Catalyst arm now renders the PLATFORM control - a real SwiftUI Toggle through the same setBound seam (#if targetEnvironment(macCatalyst), Checkbox.swift CheckboxView) - because the same UITest run measured the kernel `<toggle>` (the platform checkbox) green while the composed .plain Button dropped pointer clicks; iOS/iPadOS keep the composed 44pt button unchanged. Compile-pending (Codemagic); the desktop control-matrix UITest re-measures the fix. Swift compile-pending (rides Codemagic); balance-checked 0/0/0. Verified by review pending the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: unstyled path renders the REAL M3 Checkbox in a toggleable row (ChoiceElements.kt M3 path, SelectionControl.CHECKBOX gate - SelectionSystemTest green, gradle :render:testDebugUnitTest run 2026-08-18: 292 tests, 1 failure (StackButtonsTest#systemButtonsDelegateTheirDefaultPalettesToMaterial3 - a stale source-grep of the pre-W9 disabled literal, not a behavior break)): platform state layer carries rest/pressed/focus/disabled; legacy path: dsxAccessibleToggle + checked/unchecked SF glyphs (ChoiceElements.kt:157); disabled= in the contract (ElementSpec Checkbox). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -77,6 +78,7 @@ Every element also carries the [universal attributes](/components/attributes): a
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The global Web twin uses a real checkbox input with bound state, label, change write-back, and keyboard/focus semantics.
 
@@ -105,6 +107,7 @@ Web runtime: `global`.
 | web | yes | 2026-08-18 | real input semantics + label, Space operates; axe 0 serious/critical on the controls family page light+dark (calendar excluded, filed) |
 | ios | review | 2026-08-18 | Explicit label + value (Checked/Unchecked) + isSelected through distinct subtrees (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Core/swift/Checkbox.swift:56-66); CI-asserted on iPad: value flips and the selected trait refreshes (ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: dsxAccessibleToggle(Role.Checkbox) with ToggleableState + Enter/Space activation on the legacy row (ChoiceElements.kt:157, AccessibilityModifiers.kt); M3 path rides the toggleable row semantics; instrumented on-device: DsxAccessibilityUiTest asserts a checkbox row toggles via semantics (assertIsToggleable/On/Off). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

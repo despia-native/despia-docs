@@ -6,11 +6,11 @@ section: components
 element: progress
 category: display
 scope: library
-platforms: web,ios,android
+platforms: web,ios,android,desktop
 properties: [{"name":"bind","type":"expr","default":null},{"name":"color","type":"color","default":"var(--dsx-accent)"},{"name":"height","type":"number","default":"6"},{"name":"value","type":"number","default":"0"}]
 actions: []
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -18,7 +18,7 @@ generator: ClosedSource/scripts/generate_component_docs.rb
 
 The base Web twin provides an accessible determinate progressbar with clamped bound value and semantic track/fill styling.
 
-<RefMeta platforms="Web,iOS,Android">
+<RefMeta platforms="Web,iOS,Android,Desktop">
 Category: Display - Also answers to `capsuleProgress` - Live specimens: the [System gallery](/system).
 </RefMeta>
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | n/a | 2026-08-18 | Non-interactive display/layout surface: no rest/hover/pressed/focus/disabled axis (value-driven rendering is data, not interaction state; Skeleton IS the loading state). |
 | ios | n/a | 2026-08-18 | Non-interactive display/layout surface: no rest/hover/pressed/focus/disabled axis (value-driven rendering is data, not interaction state; Skeleton IS the loading state). |
 | android | n/a | 2026-08-18 | Non-interactive display/layout surface: no rest/hover/pressed/focus/disabled axis (value-driven rendering is data, not interaction state; Skeleton IS the loading state). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -76,6 +77,7 @@ Every element also carries the [universal attributes](/components/attributes): a
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `captured` | the desktop capture plane composed and measured this element at both locked widths |
 
 The base Web twin provides an accessible determinate progressbar with clamped bound value and semantic track/fill styling.
 
@@ -104,6 +106,7 @@ Web runtime: `base`.
 | web | yes | 2026-08-18 | role=progressbar + aria-valuenow probed; axe 0 serious/critical on the data family page light (dark: text link finding filed separately) |
 | ios | review | 2026-08-19 | W12 red sweep 2026-08-19: progress semantics landed - .accessibilityElement(children: .ignore) + label Progress + value '`<n>` percent' from the 0..1 value (Progress.swift ProgressElement), the web progressbar twin. Swift compile-pending (rides Codemagic); balance-checked 0/0/0. Verified by review pending the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: the unstyled system path renders M3 LinearProgressIndicator, which carries the platform progress semantics (StackSystemControls.kt); CAVEAT named: the legacy authored path (StackInputViews.kt ProgressView) exposes no range semantics - port progressBarRangeInfo when the capture lane audits it. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

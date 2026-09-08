@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"on:close","type":"action","default":null},{"name":"present","type":"expr","default":null}]
 actions: ["close"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -59,6 +59,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | BOTH presentations: modal (opens on present bind, scrim, focus trap in, Escape/scrim/120px-drag each fire one on:close) and standing (pinned open, collapse/expand rail, resizing state, focus-visible on collapse+resizer); light+dark - w9 Chromium probe (compileComponent->instantiate, full skin) scratchpad/w9/probe.mjs + CI oracle packages/dom/oracle/application-controls-browser.ts / overlay-controls-browser.ts, shots/w9-drawer-menubar-* |
 | ios | review | 2026-08-19 | W12 red sweep 2026-08-19: the touch panel now rides the semantic slots (system-defaults.md): surface = secondaryBackground, grabber = fill (both via StackStyle.color, Drawer.swift DrawerView) - the light-scheme half of the states contract renders a real light panel; twins followed reference-first (Conformance/elements/Drawer.json colors panel/handle; Sheets.kt + DesktopExtendedElements.kt). Swift compile-pending (rides Codemagic); balance-checked 0/0/0. Verified by review pending the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: open surface with drag-follow (down only), spring-back under the 120dp threshold, close event past it (Sheets.kt DrawerElement, geometry pinned from Drawer.swift); a11y dismiss action (Sheets.kt:675 dsxAccessibleDismiss); no hover/disabled axis in the contract (census: on:close only). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -86,6 +87,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The application-control Web twin implements BOTH declared presentations: the modal drawer (adaptive geometry, focus containment and restoration, background inerting, Escape and scrim dismissal, bounded content, 120px drag dismissal) and, at the shared desktop step, the standing drawer pinned in flow (collapse-to-rail control, keyboard- and pointer-resizable drag hairline within min/max, honest complementary semantics, no scrim or focus trap).
 
@@ -114,6 +116,7 @@ Web runtime: `application`.
 | web | yes | 2026-08-18 | host span role=group (aria-label legal closed+open - the w8 audit fix); modal role=dialog aria-modal focus trap; standing role=complementary NO aria-modal, collapse aria-expanded/controls, resizer role=separator vertical + valuenow/min/max + arrows/Home/End/Enter; axe serious+critical clean modal+standing, light+dark - w9 Chromium probe (compileComponent->instantiate, full skin) scratchpad/w9/probe.mjs + CI oracle packages/dom/oracle/application-controls-browser.ts / overlay-controls-browser.ts, shots/w9-drawer-menubar-* |
 | ios | review | 2026-08-19 | W12 red sweep 2026-08-19: assistive-tech dismissal landed - .accessibilityAction(.escape) raising the same close event the 120pt drag raises (Drawer.swift touch presentation); the Catalyst inspector keeps its labeled Close button. Swift compile-pending (rides Codemagic); balance-checked 0/0/0. Verified by review pending the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: dsxAccessibleDismiss on the panel raises the standard accessibility dismiss action wired to the close event (Sheets.kt:675, AccessibilityModifiers.kt:223); slot content keeps its own semantics. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

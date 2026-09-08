@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"origin","type":"string","default":null},{"name":"src","type":"url","default":null}]
 actions: []
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | n/a | 2026-08-18 | Non-interactive host embed: no rest/hover/pressed/focus/disabled axis on the host itself; the registry-resolution outcome (dsx-view-unavailable card) is value-driven data, and the mounted screen component's interaction states are audited on that component's own rows (OpenSource/Web/support/element-support.json DSXView row; packages/dom/src/elements.ts dsx-view factory). |
 | ios | review | 2026-08-18 | Screen lifecycle is the state surface: loading/ready/failed/disappear broadcast on the stable dsx-view scheme, offline-first cached render + background revalidate, atomic content generations (never mixed deploys) (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Views/DSXView/swift/DSXView.swift header LIFECYCLE + DSXRemoteCache.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: loading/ready/failed lifecycle broadcast on the stable surface (DSXViewComponent.kt header E1); loading placeholder = the kernel spinner (header: iOS ProgressView twin); failure strings surfaced (e.g. INTEGRITY message, DSXViewComponent.kt:134); offline-first cached render (DSXContent.cachedFile/freshFile). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -74,6 +75,7 @@ Every element also carries the [universal attributes](/components/attributes): a
 | web | `partial` | a renderer exists and is narrower than the reference in the ways listed below |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `module-facet` | filled by the module facet when that module is registered |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The rich Web twin mounts the screen component src names from this build's compiled registry (the web reading of the native rule that a shipped tag of the same name always wins), with reactive src re-resolution, the stable dsx-view lifecycle events, and a labelled unavailable state.
 
@@ -105,6 +107,7 @@ Web runtime: `rich`.
 | web | no, and named | 2026-08-18 | W11 disposition (b), dated decision: the web twin is the documented registry-resolved fallback (OpenSource/Web/support/element-support.json DSXView row keeps status partial); the composed native-surface semantics are native-owned per OpenSource/Documentation/architecture/web-surface-policy.md, so the host's own a11y (labelled role=status unavailable card) is not held to the library axe/keyboard bar on this renderer. Red-by-record. |
 | ios | review | 2026-08-18 | Renders native SwiftUI from the fetched DSX, so standard component semantics apply unchanged (the kernel a11y pass applies on any element (StackStyle.apply, OpenSource/Engine/iOS/Stack.swift:6060-6092: a11yLabel/aria-label, a11yHint, a11yValue, a11yTrait/role, a11yGroup, a11yHidden; on:tap implies .isButton)); the component adds no chrome of its own. ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Views/DSXView/swift/DSXView.swift. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: the rendered remote markup carries its own element semantics (every element renders through the same StackNodeView pipeline); the surface adds no chrome needing labels beyond the kernel spinner placeholder (DSXViewComponent.kt). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

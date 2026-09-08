@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"color","type":"color","default":"var(--dsx-accent)"},{"name":"label","type":"string","default":null},{"name":"lineWidth","type":"number","default":"10"},{"name":"max","type":"number","default":"1"},{"name":"size","type":"number","default":"88"},{"name":"trackColor","type":"color","default":"#2C2C2E"},{"name":"value","type":"number","default":"0"}]
 actions: []
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -49,6 +49,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | n/a | 2026-08-18 | Non-interactive display/layout surface: no rest/hover/pressed/focus/disabled axis (value-driven rendering is data, not interaction state; Skeleton IS the loading state). |
 | ios | n/a | 2026-08-18 | Non-interactive display/layout surface: no rest/hover/pressed/focus/disabled axis (value-driven rendering is data, not interaction state; Skeleton IS the loading state). |
 | android | n/a | 2026-08-18 | Non-interactive display/layout surface: no rest/hover/pressed/focus/disabled axis (value-driven rendering is data, not interaction state; Skeleton IS the loading state). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -77,6 +78,7 @@ Every element also carries the [universal attributes](/components/attributes): a
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The global Web twin renders an accessible SVG progress ring with bound value/max, line width, colors, size, and label.
 
@@ -105,6 +107,7 @@ Web runtime: `global`.
 | web | yes | 2026-08-18 | role=progressbar + aria-valuenow=0.4 probed; axe 0 serious/critical on the data family page light (dark: text link finding filed separately) |
 | ios | review | 2026-08-19 | W12 red sweep 2026-08-19: progress semantics landed - .accessibilityElement(children: .ignore) + label (center label, else Progress) + value '`<n>` percent' from the fraction (ProgressRing.swift ProgressRingView), the web progressbar twin. Swift compile-pending (rides Codemagic); balance-checked 0/0/0. Verified by review pending the iOS capture lane. |
 | android | review | 2026-08-19 | W12 red sweep 2026-08-19: the ring exposes progress semantics - progressBarRangeInfo(fraction, 0..1) + contentDescription (authored label, else localized Progress) on the ring box (Displays.kt ProgressRingElement semantics), the web role=progressbar + aria-valuenow twin. gradle test green. Pending the Android capture lane. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

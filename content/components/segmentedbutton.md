@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"bind","type":"expr","default":null},{"name":"color","type":"color","default":"var(--dsx-accent)"},{"name":"disabled","type":"bool","default":"false"},{"name":"disabled-if","type":"expr","default":null},{"name":"icons","type":"csv","default":null},{"name":"multiple","type":"bool","default":"true"},{"name":"options","type":"csv","default":null}]
 actions: []
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: single-select radiogroup mode, click selects + writes store, item hover rule (data-controls.ts), focus ring, selected state styling - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | Multi/single-select toggle segments: selected fill + on-tint label, isSelected add/remove per segment through distinct subtrees, group disabled, order-stable CSV write-back (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/SegmentedButton/swift/SegmentedButton.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: the Material connected MULTI-select: M3 Multi/SingleChoiceSegmentedButtonRow on the system path (SelectionSystem.kt table; ChoiceElements.kt segmentedButton); legacy custom row byte-identical (SEG_* metrics from SegmentedButton.swift); selection CSV two-way; disabled= in the contract. |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -79,6 +80,7 @@ Every element also carries the [universal attributes](/components/attributes): a
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The data-control twin implements single or multiple segmented selection, labels/icons, binding, keyboard traversal, and accessibility state.
 
@@ -105,6 +107,7 @@ Web runtime: `data`.
 | web | yes | 2026-08-18 | role=radiogroup (single) / group (multiple) + aria-label; axe 0 serious/critical on the controls family page light+dark (calendar excluded, filed) |
 | ios | review | 2026-08-18 | Each segment is a labeled Button with isSelected exposed through distinct subtrees + hover highlight (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/SegmentedButton/swift/SegmentedButton.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: segments ride dsxAccessibleToggle (multiple=true) / dsxAccessibleSelectable (single) with per-segment state (ChoiceElements.kt:379,386). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

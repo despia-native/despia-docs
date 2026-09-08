@@ -6,11 +6,11 @@ section: components
 element: button
 category: input
 scope: library
-platforms: web,ios,android
+platforms: web,ios,android,desktop
 properties: [{"name":"color","type":"color","default":"white"},{"name":"disabled","type":"bool","default":"false"},{"name":"disabled-if","type":"expr","default":null},{"name":"href","type":"string","default":null},{"name":"icon","type":"sf-symbol","default":null},{"name":"iconSize","type":"number","default":"20"},{"name":"label","type":"string","default":null},{"name":"on:tap","type":"action","default":null},{"name":"role","type":"enum","default":null,"values":["destructive","cancel"]},{"name":"variant","type":"enum","default":null,"values":["bordered","prominent"]}]
 actions: ["tap"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -18,7 +18,7 @@ generator: ClosedSource/scripts/generate_component_docs.rb
 
 The base Web twin renders real button/anchor semantics with label, icon, iconSize, bordered/prominent variants, destructive/cancel roles, href navigation, disabled gating, and tap/double-tap activation - the full button.json attribute contract.
 
-<RefMeta platforms="Web,iOS,Android">
+<RefMeta platforms="Web,iOS,Android,Desktop">
 Category: Input - Also answers to `glassButton`, `transport` - Live specimens: the [System gallery](/system).
 </RefMeta>
 
@@ -54,6 +54,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: hover deepens fill, pressed bg+scale(0.97), focus-visible ring on tab, disabled twin opacity 0.5 + button[disabled] inert, Enter activates; dark tokens move (accent 6d8cff) - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | Real system Button styles own rest/pressed/disabled/focus (.borderless default, .bordered/.borderedProminent variants - ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/Button/swift/Button.swift:29,49-64,80); W9 disabled grammar (lines 17,48); role=destructive/cancel map to the system ButtonRole (lines 140-148); the surface gate leaves unauthored foregrounds nil so the OS paints accent/disabled/pressed as one control state (lines 157-179); both schemes via semantic slots. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: unstyled/variant-word path renders the REAL M3 TextButton/FilledTonalButton/Button with enabled=!disabled (StackButtons.kt:203-207) - platform state layer carries rest/pressed/focus/disabled; W9 disabled grammar at the dispatch: JSE.truthy(disabled) \|\| disabled-if (StackNodeView.kt:1785); legacy authored path keeps the press snap 0.92/easeOut 0.12s (StackMotion.PRESS_SNAP, StackNodeView header). Gate pinned by StackButtonsTest (rendersSystem allowlist; gradle :render:testDebugUnitTest run 2026-08-18: 292 tests, 1 failure (StackButtonsTest#systemButtonsDelegateTheirDefaultPalettesToMaterial3 - a stale source-grep of the pre-W9 disabled literal, not a behavior break)). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -89,6 +90,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `captured` | the desktop capture plane composed and measured this element at both locked widths |
 
 The base Web twin renders real button/anchor semantics with label, icon, iconSize, bordered/prominent variants, destructive/cancel roles, href navigation, disabled gating, and tap/double-tap activation - the full button.json attribute contract.
 
@@ -118,6 +120,7 @@ Web runtime: `base`.
 | web | yes | 2026-08-18 | native button element, label text, disabled reflected; tab-reachable with ring; axe 0 serious/critical on the controls family page light+dark (calendar excluded, filed) |
 | ios | review | 2026-08-18 | A real SwiftUI Button: button trait + label from content; ButtonRole announces destructive; the kernel a11y pass applies on any element (StackStyle.apply, OpenSource/Engine/iOS/Stack.swift:6060-6092: a11yLabel/aria-label, a11yHint, a11yValue, a11yTrait/role, a11yGroup, a11yHidden; on:tap implies .isButton) covers icon-only buttons; CI exercises DSX buttons through the accessibility tree across fixtures (ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift app.buttons[label].tap()). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: system path = the real M3 Button semantics; legacy path = dsxAccessibleActivation(Role.Button) beside the raw recognizer with Enter/Space/D-pad activation + focus traversal (StackNodeView.kt:1210, AccessibilityModifiers.kt:39). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

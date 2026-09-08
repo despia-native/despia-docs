@@ -6,11 +6,11 @@ section: components
 element: segmented
 category: input
 scope: library
-platforms: web,ios,android
+platforms: web,ios,android,desktop
 properties: [{"name":"bind","type":"expr","default":null},{"name":"disabled","type":"bool","default":"false"},{"name":"disabled-if","type":"expr","default":null},{"name":"label","type":"string","default":null},{"name":"labelField","type":"string","default":"label"},{"name":"on:change","type":"action","default":null},{"name":"options","type":"csv","default":null},{"name":"optionsKey","type":"expr","default":null},{"name":"valueField","type":"string","default":"id"}]
 actions: ["change"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -18,7 +18,7 @@ generator: ClosedSource/scripts/generate_component_docs.rb
 
 The rich Web twin provides an accessible radiogroup with static/bound options, selection write-back, and arrow/Home/End keyboard behavior.
 
-<RefMeta platforms="Web,iOS,Android">
+<RefMeta platforms="Web,iOS,Android,Desktop">
 Category: Input - Live specimens: the [System gallery](/system).
 </RefMeta>
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: option hover inner delta, pressed bg+transform on option, ArrowRight moves selection, sliding indicator, focus ring - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | The system segmented control (.pickerStyle(.segmented)): selection/pressed states OS-owned; two-way String selection via setBound; W9 disabled grammar (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/Picker/swift/Picker.swift:29,33-34). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: unstyled path = the REAL M3 SingleChoiceSegmentedButtonRow (SelectionSystem.kt gate table; PlainPickerElements.kt `<segmented>`): platform selected/pressed states; legacy segmented platter byte-identical; selection is single-select two-way through the bind seam. |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -85,6 +86,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `captured` | the desktop capture plane composed and measured this element at both locked widths |
 
 The rich Web twin provides an accessible radiogroup with static/bound options, selection write-back, and arrow/Home/End keyboard behavior.
 
@@ -113,6 +115,7 @@ Web runtime: `rich`.
 | web | yes | 2026-08-18 | arrow-key selection, labelled group, focus ring; axe 0 serious/critical on the controls family page light+dark (calendar excluded, filed) |
 | ios | review | 2026-08-18 | System segmented control semantics (segments announced with selection state by the OS). ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/Picker/swift/Picker.swift. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: segments ride dsxAccessibleSelectable with selected state + Enter/Space (PlainPickerElements.kt:187); the M3 row carries its own semantics on the system path. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

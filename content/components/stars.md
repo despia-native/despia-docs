@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"bind","type":"expr","default":null},{"name":"color","type":"color","default":"#FFCC00"},{"name":"count","type":"number","default":"5"},{"name":"disabled","type":"bool","default":"false"},{"name":"disabled-if","type":"expr","default":null},{"name":"readonly","type":"bool","default":"false"},{"name":"size","type":"number","default":"24"}]
 actions: []
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: role=radio star buttons, ArrowRight raises rating to 4, rides .dsx-button hover/press treatment, focus ring - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | Interactive stars are real Buttons (44pt targets, hover highlight, W9 disabled grammar, selected trait via distinct subtrees); readonly renders ONE combined value element; partial fills render via mask (DSXStars, ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/Stars/swift/Stars.swift); CI-asserted: Rating 4 of 5 tap writes 4 + selected refresh (iPad + Catalyst, ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: tap on cell i writes i+1 through the bind seam unless readonly; fractional fills clamp(value-index,0,1) render halves; disabled= in the contract (RatingElements.kt). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -79,6 +80,7 @@ Every element also carries the [universal attributes](/components/attributes): a
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The rich Web twin renders fractional SVG star fills with read-only or radiogroup semantics, binding, and keyboard selection.
 
@@ -107,6 +109,7 @@ Web runtime: `rich`.
 | web | yes | 2026-08-18 | role=radio buttons 'n of 5 stars', arrow keys; axe 0 serious/critical on the controls family page light+dark (calendar excluded, filed) |
 | ios | review | 2026-08-18 | Per-star labels (Rating i of n) + isSelected on the current value; readonly reads as ONE Rating element with accessibilityValue (children .ignore) (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/Stars/swift/Stars.swift); CI drives stars by label. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: dsxAccessibleRange over the whole row: progressBarRangeInfo + setProgress (TalkBack adjustable) + arrow keys (RatingElements.kt:72). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

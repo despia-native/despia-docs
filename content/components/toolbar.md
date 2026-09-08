@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"position","type":"enum","default":"bottom","values":["bottom","top"]},{"name":"spacing","type":"number","default":"12"}]
 actions: []
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -52,6 +52,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | n/a | 2026-08-18 | Non-interactive display/layout surface: no rest/hover/pressed/focus/disabled axis (value-driven rendering is data, not interaction state; Skeleton IS the loading state). |
 | ios | n/a | 2026-08-18 | Non-interactive display/layout surface: no rest/hover/pressed/focus/disabled axis (value-driven rendering is data, not interaction state; Skeleton IS the loading state). |
 | android | n/a | 2026-08-18 | Non-interactive display/layout surface: no rest/hover/pressed/focus/disabled axis (value-driven rendering is data, not interaction state; Skeleton IS the loading state). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -75,6 +76,7 @@ Every element also carries the [universal attributes](/components/attributes): a
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The structural twin provides toolbar semantics, position/spacing, child content, and roving arrow/Home/End focus behavior.
 
@@ -103,6 +105,7 @@ Web runtime: `structural`.
 | web | yes | 2026-09-04 | Toolbar exposes role, name, and horizontal orientation; ArrowLeft, ArrowRight, Home, and End move focus among native controls without activation (structural-controls.ts toolbar; structural-controls.test.ts). |
 | ios | review | 2026-08-18 | Transparent container (children own their semantics); the hairline is a shape (no stray a11y element); the bar material is decorative. ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Structure/Toolbar/swift/Toolbar.swift. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: slot content keeps its own semantics in a centered Row; the bar itself is chrome (Containers.kt ToolbarElement). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

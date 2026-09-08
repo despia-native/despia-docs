@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"bind","type":"expr","default":null},{"name":"color","type":"color","default":"var(--dsx-label)"},{"name":"disabled","type":"bool","default":"false"},{"name":"disabled-if","type":"expr","default":null},{"name":"maxLines","type":"number","default":"8"},{"name":"minLines","type":"number","default":"3"},{"name":"on:blur","type":"action","default":null},{"name":"on:change","type":"action","default":null},{"name":"on:focus","type":"action","default":null},{"name":"on:submit","type":"action","default":null},{"name":"placeholder","type":"string","default":null},{"name":"resize","type":"enum","default":"vertical","values":["vertical","none"]},{"name":"submitOnEnter","type":"bool","default":"false"}]
 actions: ["blur","change","focus","submit"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: multi-line entry writes store (ta=Line), focus well, min/max lines grammar - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | Growing multiline field (iOS16 vertical-axis TextField clamped minLines...maxLines; TextEditor fallback) with on:focus/on:blur via @FocusState; W9 disabled grammar; bounded line counts guard remote input (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/TextArea/swift/TextArea.swift); CI-asserted: focus fires and typed values round-trip (iPad multiline + Catalyst notes, ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: unstyled path = REAL M3 OutlinedTextField multiline (M3TextAreaView, SelectionControl.TEXTAREA): platform focus/state layers; grow-then-scroll minLines/maxLines with the Swift normalization (textAreaLineRange); on:focus/on:blur CHANGE-only on the field modifier, no on:submit for multiline exactly iOS (TextAreaElements.kt). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -92,6 +93,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The base Web twin uses a real textarea with binding, placeholder, input, focus and blur events, and grows between minLines and maxLines exactly like the native lineLimit(min...max) contract.
 
@@ -120,6 +122,7 @@ Web runtime: `base`.
 | web | yes | 2026-08-18 | labelled textarea; axe 0 serious/critical on the controls family page light+dark (calendar excluded, filed) |
 | ios | review | 2026-08-18 | System multiline field semantics (CI queries it as textFields/textViews; placeholder announced; typed value readable back). ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/TextArea/swift/TextArea.swift. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: M3 field semantics + placeholder slot on the system path; the legacy path is a real BasicTextField (editable text semantics); shared m3TextInputColors keeps contrastable role colors. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

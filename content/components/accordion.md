@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"color","type":"color","default":"var(--dsx-accent)"},{"name":"on:toggle","type":"action","default":null},{"name":"open","type":"bool","default":"false"},{"name":"title","type":"string","default":null}]
 actions: ["toggle"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -50,6 +50,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: aria-expanded false->true on header click, body reveals, chevron rotates, header hover/active rules - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | Header is a system Button(.plain) with a full-row contentShape (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Core/swift/Accordion.swift:45-71): rest/pressed OS-owned; open/closed is component @State seeded by open= and every toggle raises the toggle event with {open}; disabled is not in this element's grammar (button-family only, the toggle web:states precedent); title/chevron ride system label + tint slots in both schemes. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: open/closed disclosure with a tappable header: dsxAccessibleActivation(Role.Button) on the header row (Displays.kt:157) + chevron rotation reflects state (Displays.kt:150 accordionChevron); no hover/press indication by the raw-detector rule (AccessibilityModifiers.kt header); no disabled attr in the contract (ElementSpec Accordion). Visual states both schemes pend capture. |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -79,6 +80,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The global Web twin provides accessible disclosure semantics, reactive title/open state, toggle events, and the named header slot that REPLACES the default title + chevron.
 
@@ -108,6 +110,7 @@ Web runtime: `global`.
 | web | yes | 2026-08-18 | header is a button with aria-expanded, keyboard toggles; axe 0 serious/critical on the data family page light (dark: text link finding filed separately) |
 | ios | review | 2026-08-19 | W12 red sweep 2026-08-19: the header Button speaks its disclosure state - .accessibilityValue(Expanded/Collapsed), the web aria-expanded + Android stateDescription twin - and the decorative chevron is .accessibilityHidden(true) (Accordion.swift). Swift compile-pending (rides Codemagic); balance-checked 0/0/0. Verified by review pending the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: header merges into one activation node: dsxAccessibleActivation(Role.Button) with a localized Expanded/Collapsed stateDescription + Enter/Space/D-pad activation and focus (Displays.kt:157-160, AccessibilityModifiers.kt isActivationKey); body content exposes its own semantics. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

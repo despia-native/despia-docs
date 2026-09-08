@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"animate","type":"bool","default":"true"},{"name":"areaOpacity","type":"number","default":"0.25"},{"name":"color","type":"color","default":"var(--dsx-accent)"},{"name":"colors","type":"csv","default":null},{"name":"data","type":"expr","default":null},{"name":"interpolation","type":"enum","default":"linear","values":["linear","monotone","step"]},{"name":"legend","type":"enum","default":"bottom with series, else none","values":["bottom","top","leading","trailing","none"]},{"name":"lineWidth","type":"number","default":"2"},{"name":"pointSize","type":"number","default":"40"},{"name":"series","type":"string","default":null},{"name":"showPoints","type":"bool","default":"false"},{"name":"stacked","type":"bool","default":"true for area, else false"},{"name":"type","type":"enum","default":"line","values":["line","bar","area","point"]},{"name":"x","type":"string","default":null},{"name":"xGrid","type":"bool","default":"false"},{"name":"xHide","type":"bool","default":"false"},{"name":"xType","type":"enum","default":"category","values":["category","number","time"]},{"name":"y","type":"string","default":null},{"name":"y2Color","type":"color","default":"#FF9500"},{"name":"y2Key","type":"string","default":null},{"name":"yGrid","type":"bool","default":"true"},{"name":"yHide","type":"bool","default":"false"}]
 actions: []
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | n/a | 2026-08-18 | Non-interactive display/layout surface: no rest/hover/pressed/focus/disabled axis (value-driven rendering is data, not interaction state; Skeleton IS the loading state). |
 | ios | n/a | 2026-08-18 | Non-interactive display/layout surface: no rest/hover/pressed/focus/disabled axis (value-driven rendering is data, not interaction state; Skeleton IS the loading state). |
 | android | n/a | 2026-08-18 | Non-interactive display/layout surface: no rest/hover/pressed/focus/disabled axis (value-driven rendering is data, not interaction state; Skeleton IS the loading state). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -94,6 +95,7 @@ Every element also carries the [universal attributes](/components/attributes): a
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `module-facet` | filled by the module facet when that module is registered |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The rich Web twin renders accessible SVG line, area, bar and point charts from bound data - multi-series with palette or single color=, stacked= areas and bars (domain from the stack totals, bands closing on the previous layer), legend= at the census positions (a figcaption, so assistive tech reads it as the caption), xType=time positioning by parsed timestamps with the kernel timeTicks ladder, y2Key/y2Color riding a labeled secondary axis, animate= draw-in (reduced-motion instant), interpolation=linear|smooth|monotone|step, grids, and deterministic downsampling.
 
@@ -120,6 +122,7 @@ Web runtime: `rich`.
 | web | yes | 2026-08-18 | accessible SVG with generated summary label ('line chart with 4 points; values range from 0 to 8'); axe 0 serious/critical on the data family page light (dark: text link finding filed separately) |
 | ios | review | 2026-08-18 | The platform charting framework provides per-mark accessibility elements by default for its marks; the kernel a11y pass applies on any element (StackStyle.apply, OpenSource/Engine/iOS/Stack.swift:6060-6092: a11yLabel/aria-label, a11yHint, a11yValue, a11yTrait/role, a11yGroup, a11yHidden; on:tap implies .isButton). ClosedSource/DSX/Modules/Core/Charts/swift/Charts.swift. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-19 | W12 red sweep 2026-08-19: the web-generated summary ported to Compose semantics - contentDescription '`<type>` chart with N points; values range from `<min>` to `<max>`' (empty data reads '`<type>` chart with 0 points') on the chart Canvas (ClosedSource/DSX/Modules/Core/Charts/kotlin/Charts.kt ChartView; the elements.ts figure aria-label twin). :app:assembleDebug green. Pending the Android capture lane. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

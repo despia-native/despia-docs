@@ -6,11 +6,11 @@ section: components
 element: form
 category: forms
 scope: library
-platforms: web,ios,android
+platforms: web,ios,android,desktop
 properties: [{"name":"as","type":"string","default":"form"},{"name":"on:submit","type":"action","default":null},{"name":"scroll","type":"bool","default":"false"},{"name":"spacing","type":"number","default":"12"},{"name":"submit","type":"string","default":null}]
 actions: ["submit"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -18,7 +18,7 @@ generator: ClosedSource/scripts/generate_component_docs.rb
 
 The form twin manages namespace state, child fields, validity, scrolling, and submit actions/events using a real form element.
 
-<RefMeta platforms="Web,iOS,Android">
+<RefMeta platforms="Web,iOS,Android,Desktop">
 Category: Forms - Live specimens: the [System gallery](/system).
 </RefMeta>
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: invalid submit dims Save + marks touched, valid submit fires on:submit exactly once (submits=1) - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | valid gating (submit runs on:submit only when form.valid), an invalid submit marks every field touched + sets form.submitted (markAllTouched), dim-while-invalid submit affordance (opacity 0.5, still tappable to reveal errors) (DSXForm, ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Forms/Form/swift/Form.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: invalid submit dims the button to 50% (FORM_INVALID_OPACITY), marks every registered field touched + sets form.submitted; valid submit blurs then fires on:submit (Forms.kt FORM block, Form.swift 1:1); state namespace injected via CompositionLocal (as=). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -81,6 +82,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `captured` | the desktop capture plane composed and measured this element at both locked widths |
 
 The form twin manages namespace state, child fields, validity, scrolling, and submit actions/events using a real form element.
 
@@ -107,6 +109,7 @@ Web runtime: `form`.
 | web | yes | 2026-08-18 | submit button dims while invalid (aria-disabled), errors revealed on submit; axe 0 serious/critical on the controls family page light+dark (calendar excluded, filed) |
 | ios | review | 2026-08-18 | The system Form path inherits platform form semantics; the submit affordance is a real Button; fields coordinate focus through store state (dsxForm environment); nothing intercepts assistive input (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Forms/Form/swift/Form.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: submit is dsxAccessibleActivation(Role.Button) (Forms.kt:207); errors reveal per field; keyboard walk rides form.fieldOrder/form.focus (Forms.kt accessory bar; pure halves pinned in FormsAccessoryTest - gradle :render:testDebugUnitTest run 2026-08-18: 292 tests, 1 failure (StackButtonsTest#systemButtonsDelegateTheirDefaultPalettesToMaterial3 - a stale source-grep of the pre-W9 disabled literal, not a behavior break)). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

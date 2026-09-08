@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"bind","type":"expr","default":null},{"name":"color","type":"color","default":"var(--dsx-accent)"},{"name":"disabled","type":"bool","default":"false"},{"name":"disabled-if","type":"expr","default":null},{"name":"labelField","type":"string","default":"label"},{"name":"options","type":"csv","default":null},{"name":"optionsKey","type":"expr","default":null},{"name":"valueField","type":"string","default":"id"}]
 actions: []
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: role=radiogroup, ArrowDown moves selection + writes store, .dsx-radio-option:hover fill, focus ring on radio input - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | Per-option system Buttons (.plain) with filled/hollow marks, 44pt targets, group-level W9 disabled grammar (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Core/swift/RadioGroup.swift:60-90); CI-asserted on iPad (Alpha to Beta flip refreshes the native selected state, ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift) and driven on Catalyst (inspector matrix Everything). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: unstyled path renders REAL M3 RadioButton rows in a selectableGroup (ChoiceElements.kt M3 path, SelectionControl.RADIOGROUP - SelectionSystemTest green): platform state layers; legacy path rows via dsxAccessibleSelectable + SF glyphs (ChoiceElements.kt:239); disabled= in the contract. |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -80,6 +81,7 @@ Every element also carries the [universal attributes](/components/attributes): a
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The global data-control twin renders real radio inputs from CSV or bound option data and writes the selected value back.
 
@@ -108,6 +110,7 @@ Web runtime: `global`.
 | web | yes | 2026-08-18 | role=radiogroup + aria-label, roving radios, arrow keys; axe 0 serious/critical on the controls family page light+dark (calendar excluded, filed) |
 | ios | review | 2026-08-18 | Option labels + isSelected add/remove through distinct subtrees (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Core/swift/RadioGroup.swift:80-88); CI-asserted: the selected trait refreshes and the deselected option drops it (ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: selectableGroup column of selectable rows (M3 path) / dsxAccessibleSelectable(Role.RadioButton) with selected state + Enter/Space (legacy, ChoiceElements.kt:239, AccessibilityModifiers.kt:135); on-device: DsxAccessibilityUiTest selects a RadioGroup option via semantics (assertIsSelectable/Selected on the <RadioGroup options="One,Two"/> fixture row). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

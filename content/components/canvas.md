@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"a11yChildren","type":"expression","default":null},{"name":"a11yLabel","type":"string","default":null},{"name":"commands","type":"expression","default":null},{"name":"on:draw","type":"action","default":null},{"name":"on:frame","type":"action","default":null},{"name":"on:layout","type":"action","default":null},{"name":"on:strokeEnd","type":"action","default":null},{"name":"on:strokeStart","type":"action","default":null},{"name":"opaque","type":"boolean","default":"false"},{"name":"scale","type":"string","default":"device"}]
 actions: ["draw","frame","layout","strokeEnd","strokeStart"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | n/a | 2026-09-04 | Canvas is an author-drawn surface: interaction exists only when handlers or ink are authored, so it has no built-in rest, hover, pressed, focus, disabled, loading, error, or empty state axis (canvas.ts; StackCanvas.swift; StackCanvas.kt). |
 | ios | n/a | 2026-09-04 | Canvas is an author-drawn surface: interaction exists only when handlers or ink are authored, so it has no built-in rest, hover, pressed, focus, disabled, loading, error, or empty state axis (canvas.ts; StackCanvas.swift; StackCanvas.kt). |
 | android | n/a | 2026-09-04 | Canvas is an author-drawn surface: interaction exists only when handlers or ink are authored, so it has no built-in rest, hover, pressed, focus, disabled, loading, error, or empty state axis (canvas.ts; StackCanvas.swift; StackCanvas.kt). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -90,6 +91,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The `<canvas>` surface renders the shared display list into an HTML canvas, with the SSR SVG path byte-identical to the native twins. Tier-1 children, the paint set, transforms, gradients and the fill-rule fold all come from the shared CanvasCore, so a shape cannot mean one thing here and another on a phone.
 
@@ -120,6 +122,7 @@ Web runtime: `media`.
 | web | yes | 2026-09-04 | OpenSource/Conformance/canvas/a11y.json is executed by packages/kernel/test/canvas-conformance.test.ts; canvas.ts projects its verdict to role and name plus real ordered semantic-overlay children. |
 | ios | review | 2026-09-04 | Verified by source review: CanvasCore.a11y evaluates the shared accessibility corpus and StackCanvas projects ordered semantic overlay elements with labels, values, traits, and frames (OpenSource/Engine/iOS/StackCanvas.swift). |
 | android | review | 2026-09-04 | Verified by source review: CanvasConformanceTest executes the shared a11y corpus and StackCanvas projects its ordered semantics with labels, values, roles, and bounds (OpenSource/Engine/Android canvas implementation). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

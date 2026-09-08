@@ -6,11 +6,11 @@ section: components
 element: field
 category: forms
 scope: library
-platforms: web,ios,android
+platforms: web,ios,android,desktop
 properties: [{"name":"color","type":"color","default":"var(--dsx-label)"},{"name":"disabled","type":"bool","default":"false"},{"name":"disabled-if","type":"expr","default":null},{"name":"form","type":"string","default":"form (inherited from enclosing <form as=>)"},{"name":"label","type":"string","default":null},{"name":"message","type":"string","default":null},{"name":"name","type":"string","default":null},{"name":"pattern","type":"regex","default":null},{"name":"placeholder","type":"string","default":null},{"name":"secure","type":"bool","default":"false"},{"name":"type","type":"enum","default":"text","values":["text","email","number","phone","url","secure","toggle","picker"]},{"name":"validate","type":"csv","default":null,"values":["required","email","url","phone","minLength:n","maxLength:n","pattern"]}]
 actions: []
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -18,7 +18,7 @@ generator: ClosedSource/scripts/generate_component_docs.rb
 
 The form twin supplies labeled controls, shared form state, touched/dirty/error tracking, validation, secure inputs, and option fields.
 
-<RefMeta platforms="Web,iOS,Android">
+<RefMeta platforms="Web,iOS,Android,Desktop">
 Category: Forms - Live specimens: the [System gallery](/system).
 </RefMeta>
 
@@ -49,6 +49,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: label + focus well, empty required submit reveals error state (aria-invalid + 'Required' message), typed value accepted - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | The full field state machine: touched (focus then blur), dirty, first-failing-error, form.valid recompute, submit-reveal, cross-field focus via form.focus, submitLabel next/done + keyboard accessory prev/next/Done; error text gated on touched/submitted; W9 disabled wrapper (DSXField, ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Forms/Field/swift/Field.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: text entry is the REAL M3 OutlinedTextField with the native error state set by revealed validation; errors reveal once TOUCHED (focused-then-blurred) or on form submit; focus walks form.fieldOrder via the Return key (Forms.kt FIELD block; engine validator builtins through JSE.eval); disabled= in the contract; type= picks text/secure/toggle/picker inputs. |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -82,6 +83,7 @@ Every element also carries the [universal attributes](/components/attributes): a
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `captured` | the desktop capture plane composed and measured this element at both locked widths |
 
 The form twin supplies labeled controls, shared form state, touched/dirty/error tracking, validation, secure inputs, and option fields.
 
@@ -110,6 +112,7 @@ Web runtime: `form`.
 | web | yes | 2026-08-18 | label/message anatomy, aria-invalid on error, error text revealed; axe 0 serious/critical on the controls family page light+dark (calendar excluded, filed) |
 | ios | review | 2026-08-18 | Label + error are real text elements read in order; the input is the system field (placeholder announced, keyboard per type=); the error rides the semantic destructive slot (errorText, ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Forms/Field/swift/Field.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: M3 field semantics + native error state; accessory bar prev/next/Done are dsxAccessibleActivation(Role.Button) (Forms.kt:454,475); type=picker rows ride dsxAccessibleSelectable (Forms.kt:542). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

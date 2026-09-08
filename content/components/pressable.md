@@ -6,11 +6,11 @@ section: components
 element: pressable
 category: input
 scope: library
-platforms: web,ios,android
+platforms: web,ios,android,desktop
 properties: [{"name":"disabled","type":"bool","default":"false"},{"name":"disabled-if","type":"expr","default":null},{"name":"href","type":"string","default":null},{"name":"on:doubleTap","type":"action","default":null},{"name":"on:longPress","type":"action","default":null},{"name":"on:longPressEnd","type":"action","default":null},{"name":"on:tap","type":"action","default":null}]
 actions: ["doubleTap","longPress","longPressEnd","tap"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -18,7 +18,7 @@ generator: ClosedSource/scripts/generate_component_docs.rb
 
 The base Web twin provides whole-area button/anchor semantics with child content and universal tap, double-tap, long-press, and navigation wiring.
 
-<RefMeta platforms="Web,iOS,Android">
+<RefMeta platforms="Web,iOS,Android,Desktop">
 Category: Input - Also answers to `row` - Live specimens: the [System gallery](/system).
 </RefMeta>
 
@@ -52,6 +52,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: hover bg, pressed bg, focus ring, Enter/tap fires on:tap - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | Tap-only renders a real borderless Button (StackButtonStyle press scale 0.92 under the pinned press preset, Stack.swift:4658-4680); the multi-gesture surface keeps a native touch host with slop/cancel handling; hoverEffect(.highlight); focusable + Return/Space on iOS17; W9 disabled grammar disables recognizers and traits (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/Pressable/swift/Pressable.swift); CI-asserted: two immediate primaries + one double on double-tap, long-press begin/end lifecycle (ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift testIPadFoundationPressableStarsAndTextAreaUseNativeSemantics). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: the multi-gesture TikTok contract: instant tap on every tap-up, additional doubleTap, 0.4s balanced long-press lifecycle, slop 12dp, ancestor-consume cancels - the pure machine is JVM-pinned (PressableGestureMachineTest green, gradle :render:testDebugUnitTest run 2026-08-18: 292 tests, 1 failure (StackButtonsTest#systemButtonsDelegateTheirDefaultPalettesToMaterial3 - a stale source-grep of the pre-W9 disabled literal, not a behavior break)); disabled/disabled-if gate the recognizer (StackNodeView.kt:1803); NO press indication by contract (bare container, the web .dsx-pressable twin). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -87,6 +88,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `captured` | the desktop capture plane composed and measured this element at both locked widths |
 
 The base Web twin provides whole-area button/anchor semantics with child content and universal tap, double-tap, long-press, and navigation wiring.
 
@@ -115,6 +117,7 @@ Web runtime: `base`.
 | web | yes | 2026-08-18 | button element + a11yLabel; ring; axe 0 serious/critical on the controls family page light+dark (calendar excluded, filed) |
 | ios | review | 2026-08-18 | One semantic control: children combine, .isButton, a primary accessibilityAction + named custom actions for double/long (the VoiceOver rotor), keyboard activation, the touch host hidden from the tree (PressableNativeActivation/PressableTouchHost, ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/Pressable/swift/Pressable.swift:103-247). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: dsxAccessibleActivation merges one node with primary + long-click actions; the double-tap surfaces in the TalkBack custom-actions rotor with a localizable label (a11yDoubleTapLabel, StackNodeView.kt:1825-1848); Enter/Space/D-pad activation + focus traversal. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

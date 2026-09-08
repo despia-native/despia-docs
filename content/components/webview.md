@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"ephemeral","type":"bool","default":"false"},{"name":"name","type":"string","default":null},{"name":"on:commit","type":"action","default":null},{"name":"on:fail","type":"action","default":null},{"name":"on:finish","type":"action","default":null},{"name":"on:message","type":"action","default":null},{"name":"on:start","type":"action","default":null},{"name":"origin","type":"string","default":null},{"name":"path","type":"string","default":"/"},{"name":"src","type":"url","default":null}]
 actions: ["commit","fail","finish","message","start"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | n/a | 2026-08-18 | Non-interactive host embed (the bare policy-constrained iframe primitive, no bridge by construction): no interaction-state axis on the host; lifecycle events are value-driven data and the embedded document owns its own states (OpenSource/Web/support/element-support.json WebView row; OpenSource/Documentation/architecture/web-surface-policy.md layer 0). |
 | ios | review | 2026-08-18 | Navigation lifecycle is the state surface: on:start/commit/finish/fail with payloads + on:message via the neutral window.app.send channel; node-owned lifetime (created on mount, torn down on unmount via dismantleUIView; per-coordinator load dedup) (ClosedSource/DSX/Modules/Core/Dom/Components/Views/WebView/swift/WebView.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | n/a | 2026-08-18 | bare web canvas BY CONSTRUCTION (WebViewComponent.kt header: events in, injections out, NO bridge): the load lifecycle is events (on:start/commit/finish/fail with payloads), error presentation belongs to the mounting markup; no component chrome or state axis of its own. |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -90,6 +91,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `partial` | a renderer exists and is narrower than the reference in the ways listed below |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `module-facet` | filled by the module facet when that module is registered |
+| desktop | `unavailable` | the desktop build bundles no runtime for it and answers with a typed refusal |
 
 The rich Web twin provides a policy-constrained iframe, lifecycle events, named controls, safe URL schemes, and ephemeral isolation.
 
@@ -121,6 +123,7 @@ Web runtime: `rich`.
 | web | yes | 2026-08-18 | iframe carries title='Web content' + policy sandbox attrs; axe 0 serious/critical on the chrome family page light + dark-390 |
 | ios | review | 2026-08-18 | WKWebView exposes the page's accessibility tree (WebKit-owned); NO bridge by construction is a security posture, not an a11y surface; the component adds no native chrome. ClosedSource/DSX/Modules/Core/Dom/Components/Views/WebView/swift/WebView.swift. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: the platform android.webkit.WebView exposes the loaded page's own web accessibility tree; the component adds no chrome (WebViewComponent.kt - no bridge, no controls by construction). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

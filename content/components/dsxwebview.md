@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"on:commit","type":"action","default":null},{"name":"on:denied","type":"action","default":null},{"name":"on:fail","type":"action","default":null},{"name":"on:finish","type":"action","default":null},{"name":"on:message","type":"action","default":null},{"name":"on:start","type":"action","default":null},{"name":"origin","type":"string","default":null},{"name":"path","type":"string","default":"/"}]
 actions: ["commit","denied","fail","finish","message","start"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | n/a | 2026-08-18 | Non-interactive host embed (the policy-constrained app-surface iframe): no interaction-state axis on the host itself; load/ready lifecycle is value-driven events, and the embedded page owns its own interactive states (OpenSource/Web/support/element-support.json DSXWebView row; packages/dom/src/elements.ts dsx-webview factory). |
 | ios | review | 2026-08-18 | Lifecycle states are first-class: an origin-less mount renders the native DSXWebUnavailable screen WITHOUT instantiating WKWebView (body guard, ClosedSource/DSX/Modules/Core/Dom/Components/Views/DSXWebView/swift/DSXWebView.swift), and screen readiness gates the frame settle on domFinish/domFail (store.hostsWebSurface; Conformance/lifecycle/readiness.json rule 9, record lane); CI-asserted native fallback (ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift testOriginlessDSXWebViewSelectsNativeErrorBeforeCreatingWebView). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: load-failure policy is DomFailurePolicy.kt (Dom module kotlin facet) + the native recoverable system error screen (Try again) asserted by instrumentation: DsxSystemScreenUiTest#compiledFrameworkFailureIsNativeResponsiveAndRecoverable + DomFailurePolicyTest (RuntimeAndroid androidTest); page-level states are the loaded web content's own. |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -89,6 +90,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `partial` | a renderer exists and is narrower than the reference in the ways listed below |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `module-facet` | filled by the module facet when that module is registered |
+| desktop | `unavailable` | the desktop build bundles no runtime for it and answers with a typed refusal |
 
 The rich Web twin mounts the composed app web surface as the same policy-constrained iframe WebView rides, resolving path against this page's own origin (an explicit origin wins) with the shared lifecycle events and the named-surface controls the Dom facet targets.
 
@@ -121,6 +123,7 @@ Web runtime: `rich`.
 | web | no, and named | 2026-08-18 | W11 disposition (b), dated decision: the twin mounts a policy-constrained iframe without the BridgeKit bridge (OpenSource/Web/support/element-support.json DSXWebView row keeps status partial, 'No BridgeKit bridge is faked'); the composed app-surface contract incl. its a11y tree is native-owned per OpenSource/Documentation/architecture/web-surface-policy.md, so the web host is not held to the library axe/keyboard bar. Red-by-record. |
 | ios | review | 2026-08-18 | WKWebView exposes the loaded page's accessibility tree to assistive tech (WebKit-owned); the component adds no native chrome; page-side a11y is the web column's plane. ClosedSource/DSX/Modules/Core/Dom/Components/Views/DSXWebView/swift/DSXWebView.swift. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: the platform android.webkit.WebView exposes the loaded page's own web accessibility tree; the failure screen is native Compose text + button (DsxSystemScreenUiTest asserts it is reachable and clickable). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

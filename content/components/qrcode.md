@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"background","type":"color","default":"white"},{"name":"color","type":"color","default":"black"},{"name":"correction","type":"enum","default":"M","values":["L","M","Q","H"]},{"name":"size","type":"number","default":"200"},{"name":"value","type":"string","default":null}]
 actions: []
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -49,6 +49,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | n/a | 2026-08-18 | Non-interactive display/layout surface: no rest/hover/pressed/focus/disabled axis (value-driven rendering is data, not interaction state; Skeleton IS the loading state). |
 | ios | n/a | 2026-08-18 | Non-interactive display/layout surface: no rest/hover/pressed/focus/disabled axis (value-driven rendering is data, not interaction state; Skeleton IS the loading state). |
 | android | n/a | 2026-08-18 | Non-interactive display/layout surface: no rest/hover/pressed/focus/disabled axis (value-driven rendering is data, not interaction state; Skeleton IS the loading state). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -75,6 +76,7 @@ Every element also carries the [universal attributes](/components/attributes): a
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The rich Web twin generates deterministic SVG QR matrices with size, colors, correction level, accessible labeling, and fail-closed input handling.
 
@@ -101,6 +103,7 @@ Web runtime: `rich`.
 | web | yes | 2026-08-18 | aria-label carries encoded value ('QR for example.com'); axe 0 serious/critical on the data family page light (dark: text link finding filed separately) |
 | ios | review | 2026-08-18 | Reads as an image; the documented contract is an author a11yLabel (the in-file ACCESSIBILITY note: the raw value is often a token that should not be spoken) via the kernel pass (Stack.swift:6084). ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/QRCode/swift/QRCode.swift. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-19 | W12 red sweep 2026-08-19: the QR Canvas speaks its payload - contentDescription 'QR code containing `<value>`' when no a11yLabel is authored (an authored one rides the universal style chain and wins) (QrElements.kt QrCodeView), the web aria-label twin (elements.ts). gradle test green. Pending the Android capture lane. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

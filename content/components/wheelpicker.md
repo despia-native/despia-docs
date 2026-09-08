@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"bind","type":"expr","default":null},{"name":"color","type":"color","default":"var(--dsx-accent)"},{"name":"disabled","type":"bool","default":"false"},{"name":"disabled-if","type":"expr","default":null},{"name":"label","type":"string","default":null},{"name":"labelField","type":"string","default":"label"},{"name":"options","type":"csv","default":null},{"name":"optionsKey","type":"expr","default":null},{"name":"valueField","type":"string","default":"id"}]
 actions: []
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: always-visible select list, selection writes store (wheel=enterprise); browser-owned wheel chrome per element-support.json knownLimits - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | The system wheel picker (.pickerStyle(.wheel)) with two-way selection via setBound + W9 disabled grammar; Catalyst maps to the supported .menu style instead of trapping (documented in-file) (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/WheelPicker/swift/WheelPicker.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: the snapping drum: settled snap writes the VALUE through the bind seam, writing the bound var scrolls the drum; selection band behind the centre row, off-centre rows dim (PickerElements.kt wheelpicker - no gate, M3-token-dressed in every case, divergence pinned: M3 ships no wheel); disabled= in the contract. |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -81,6 +82,7 @@ Every element also carries the [universal attributes](/components/attributes): a
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 A real drum to the shared spec (PickerElements.kt, which carries the UIPickerView metrics): a 216px scroll-snap wheel of 32px rows, the selection band behind the centre row, off-centre rows dimmed, drag/fling/trackpad momentum and snap from the scroller itself, tap-to-centre, arrow/Home/End keys on a listbox role, a settled snap writing through the bind seam once, and bound writes scrolling the drum.
 
@@ -107,6 +109,7 @@ Web runtime: `native-control`.
 | web | yes | 2026-08-18 | native select list + aria-label; axe 0 serious/critical on the controls family page light+dark (calendar excluded, filed) |
 | ios | review | 2026-08-18 | System picker-wheel semantics (adjustable rows announced by the OS); options resolve exactly like `<picker>` (CSV or bound list). ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/WheelPicker/swift/WheelPicker.swift. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-19 | W12 red sweep 2026-08-19: the drum is operable without the wheel gesture - dsxAccessibleRange over the option indices (setProgress -> bind write -> the boundIndex effect spins the drum; arrow keys ride the same seam; stateDescription = the selected option's label) (PickerElements.kt WheelPickerView). gradle test green. Pending the Android capture lane. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

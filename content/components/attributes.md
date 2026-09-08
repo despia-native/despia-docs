@@ -6,11 +6,11 @@ section: components
 element: 
 category: 
 scope: reference
-platforms: web,ios,android
+platforms: web,ios,android,desktop
 properties: [{"name":"a11yGroup","type":"bool","default":null},{"name":"a11yHidden","type":"bool","default":null},{"name":"a11yHint","type":"string","default":null},{"name":"a11yLabel","type":"string","default":null},{"name":"a11yPressed","type":"expr","default":null},{"name":"a11yTrait","type":"csv","default":null,"values":["button","header","image","link","selected","static"]},{"name":"a11yValue","type":"string","default":null},{"name":"anim","type":"enum","default":"easeInOut","values":["spring","easeInOut","easeIn","easeOut","linear"]},{"name":"animDuration","type":"number","default":null},{"name":"chrome","type":"bool","default":"false"},{"name":"class","type":"string","default":null},{"name":"container","type":"bool","default":null},{"name":"dismissEdge","type":"string","default":null},{"name":"dynamicType","type":"bool","default":"false"},{"name":"dynamicTypeMax","type":"number","default":null},{"name":"enter","type":"enum","default":null,"values":["fade","scale","slide-top","slide-bottom","slide-left","slide-right"]},{"name":"exit","type":"enum","default":null,"values":["fade","scale","slide-top","slide-bottom","slide-left","slide-right"]},{"name":"href","type":"string","default":null},{"name":"id","type":"string","default":null},{"name":"keep","type":"bool","default":"false"},{"name":"lockOrientation","type":"string","default":null},{"name":"measure","type":"state-key","default":null},{"name":"on:adjust","type":"action","default":null},{"name":"on:appear","type":"action","default":null},{"name":"on:disappear","type":"action","default":null},{"name":"on:drag","type":"action","default":null},{"name":"on:dragEnd","type":"action","default":null},{"name":"on:longpress","type":"action","default":null},{"name":"on:tap","type":"action","default":null},{"name":"passthrough","type":"bool","default":"false"},{"name":"ref","type":"string","default":null},{"name":"settle","type":"enum","default":"auto","values":["auto","manual"]},{"name":"shared","type":"string","default":null},{"name":"sharedAnim","type":"string","default":null},{"name":"sharedMode","type":"string","default":null},{"name":"sharedOrder","type":"string","default":null},{"name":"style","type":"string","default":null},{"name":"transition","type":"enum","default":null,"values":["fade","scale","slide-top","slide-bottom","slide-left","slide-right"]},{"name":"visible-if","type":"expr","default":null}]
 actions: []
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 

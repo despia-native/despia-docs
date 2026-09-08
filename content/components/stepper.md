@@ -6,11 +6,11 @@ section: components
 element: stepper
 category: input
 scope: library
-platforms: web,ios,android
+platforms: web,ios,android,desktop
 properties: [{"name":"bind","type":"expr","default":null},{"name":"color","type":"color","default":"var(--dsx-accent)"},{"name":"disabled","type":"bool","default":"false"},{"name":"disabled-if","type":"expr","default":null},{"name":"label","type":"string","default":null},{"name":"max","type":"number","default":"100"},{"name":"min","type":"number","default":"0"},{"name":"on:change","type":"action","default":null},{"name":"step","type":"number","default":"1"}]
 actions: ["change"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -18,7 +18,7 @@ generator: ClosedSource/scripts/generate_component_docs.rb
 
 The base Web twin provides the visible label caption, named decrement/value/increment controls, semantic tint, fixture-default bounds, bound numeric updates and press-and-hold acceleration.
 
-<RefMeta platforms="Web,iOS,Android">
+<RefMeta platforms="Web,iOS,Android,Desktop">
 Category: Input - Live specimens: the [System gallery](/system).
 </RefMeta>
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | rest/active/disabled discipline held from w8; the filed fine-pointer hover gap CLOSED: .dsx-stepper-btn hover rides the button family's fill wash (globals.ts), probed live (backgroundColor changes on hover, fine pointer 1680); disabled=/disabled-if force both halves beyond the min/max clamp and release reactively (probed) - w9 Chromium probe (compileComponent->bootDsx, full skin incl. globals/native/data sheets), scratchpad/w9/density-probe.mjs, shots/w9-density-controls.png + -390.png |
 | ios | review | 2026-08-18 | The system Stepper (plus/minus, clamped min...max by step, two-way number via setBound) + W9 disabled grammar (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/Stepper/swift/Stepper.swift); system pressed/repeat states; Catalyst CI asserts presence + bound publishing (inspector matrix; activation asserted only as far as the platform's observed behavior supports, documented there). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: M3 path: two FilledTonalIconButtons with the value between them; a button disables at its clamp edge (StepperElements.kt header; SelectionControl.STEPPER); legacy 94x32 chrome dims the glyph 35% at the edge; disabled= in the contract; range guard mirrors Swift (max(hi, lo+step)). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -85,6 +86,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `captured` | the desktop capture plane composed and measured this element at both locked widths |
 
 The base Web twin provides the visible label caption, named decrement/value/increment controls, semantic tint, fixture-default bounds, bound numeric updates and press-and-hold acceleration.
 
@@ -112,6 +114,7 @@ Web runtime: `base`.
 | web | yes | 2026-08-18 | labelled +/- buttons keyboard-operable, value readout; axe 0 serious/critical on the controls family page light+dark (calendar excluded, filed) |
 | ios | review | 2026-08-18 | System Stepper increment/decrement semantics with the authored label (Text label, ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/Stepper/swift/Stepper.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: increment/decrement are activations (dsxAccessibleActivation, StepperElements.kt:182) that respect the clamp edges; the current value renders as text between them on the M3 path. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

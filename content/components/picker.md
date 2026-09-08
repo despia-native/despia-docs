@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"bind","type":"expr","default":null},{"name":"color","type":"color","default":"var(--dsx-accent)"},{"name":"disabled","type":"bool","default":"false"},{"name":"disabled-if","type":"expr","default":null},{"name":"label","type":"string","default":null},{"name":"labelField","type":"string","default":"label"},{"name":"on:change","type":"action","default":null},{"name":"options","type":"csv","default":null},{"name":"optionsKey","type":"expr","default":null},{"name":"valueField","type":"string","default":"id"}]
 actions: ["change"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: native select with label, hover bg+border, selectOption writes store (plan=pro), focus ring - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | System Picker in the menu style (accent tint) with OS pressed/open states; two-way String selection via setBound; W9 disabled grammar (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/Picker/swift/Picker.swift:29,34-35); CI-asserted open (ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift picker activity: options present + capture ui.ios.surface.picker.open; Catalyst inspector selects High from the system menu). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: unstyled path: tap opens the REAL M3 DropdownMenu with a trailing tint checkmark on the selection (PlainPickerElements.kt `<picker>`; SelectionControl.rendersSystem - SelectionSystemTest green); legacy UIMenu-metric platter byte-identical; trigger shows the selected label + chevron glyph; disabled= gates. |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -86,6 +87,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The native-control twin uses a real select control with static/bound options, labels, disabled state, and value write-back.
 
@@ -114,6 +116,7 @@ Web runtime: `native-control`.
 | web | yes | 2026-08-18 | native select + aria-label; axe 0 serious/critical on the controls family page light+dark (calendar excluded, filed) |
 | ios | review | 2026-08-18 | System Picker semantics (label + current value announced; options are native menu items); CI drives it through the accessibility tree (ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: trigger dsxAccessibleActivation(Role.Button) (PlainPickerElements.kt:221,255); option rows dsxAccessibleSelectable with selected state (PlainPickerElements.kt:280). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"menu","type":"expr","default":null}]
 actions: []
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -50,6 +50,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | right-click opens on fine pointer, CDP/touch long-press opens at 390 (500ms/10px declared parity), Escape walks up submenus then closes, shares the menu keyboard walk + shortcut hints - w9 Chromium probe (compileComponent->instantiate, full skin) scratchpad/w9/probe.mjs + CI oracle packages/dom/oracle/application-controls-browser.ts / overlay-controls-browser.ts, shots/w9-drawer-menubar-* |
 | ios | review | 2026-08-18 | System context menu: long-press platter with open/rest states OS-owned; destructive role tint, separators, indefinite native submenus (menuItems recursion, ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Structure/ContextMenu/swift/ContextMenu.swift); CI-asserted open (press 1.2s opens, item visible, ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift + capture ui.ios.surface.contextmenu.open). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: long-press opens the REAL M3 DropdownMenu (Menus.kt MenuElement(longPress=true)): M3 ripple/surface states on items; destructive rows in the M3 error role (Menus.kt:175); trigger is a truthful single semantics node (clearDescendants, Menus.kt:116). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -72,6 +73,7 @@ Every element also carries the [universal attributes](/components/attributes): a
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The overlay twin supports context-click and long-press opening, nested actions, roles, separators, keyboard traversal and focus restoration, on the same long-press timing the native gesture recognizer uses.
 
@@ -99,6 +101,7 @@ Web runtime: `overlay`.
 | web | yes | 2026-08-18 | same menu semantics (role=menu, keyboard walk, Escape walk-up, aria-keyshortcuts hints); right-click + touch long-press both open; axe serious+critical clean while open - w9 Chromium probe (compileComponent->instantiate, full skin) scratchpad/w9/probe.mjs + CI oracle packages/dom/oracle/application-controls-browser.ts / overlay-controls-browser.ts, shots/w9-drawer-menubar-* |
 | ios | review | 2026-08-18 | Native menu items are accessible system controls (labels from title, destructive voice); the long-press alternative exposure is the system's own. ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Structure/ContextMenu/swift/ContextMenu.swift. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: trigger: dsxAccessibleActivation with onLongClickLabel localized 'Open context menu' + clearDescendants single truthful node (Menus.kt:116); items are M3 DropdownMenuItem semantics; on-device: DsxInteractiveStateUiTest opens it via onNodeWithContentDescription and captures the open state. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

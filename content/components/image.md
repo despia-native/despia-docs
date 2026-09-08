@@ -6,11 +6,11 @@ section: components
 element: image
 category: display
 scope: library
-platforms: web,ios,android
+platforms: web,ios,android,desktop
 properties: [{"name":"a11yLabel","type":"string","default":null},{"name":"allowDownscaling","type":"bool","default":"true"},{"name":"asset","type":"string","default":null},{"name":"blurRadius","type":"number","default":"0"},{"name":"cache","type":"enum","default":"default","values":["default","none"]},{"name":"cachePolicy","type":"enum","default":"memoryDisk","values":["memory","disk","memoryDisk","none"]},{"name":"color","type":"color","default":"var(--dsx-label)"},{"name":"contentFit","type":"enum","default":"cover","values":["cover","contain","fill","none","scaleDown"]},{"name":"contentPosition","type":"string","default":"center"},{"name":"fallback","type":"string","default":"none"},{"name":"fontSize","type":"number","default":"24"},{"name":"icon","type":"sf-symbol","default":null},{"name":"iconSize","type":"number","default":"24"},{"name":"on:error","type":"action","default":"none"},{"name":"on:load","type":"action","default":"none"},{"name":"placeholder","type":"string","default":"none"},{"name":"placeholderFit","type":"string","default":"cover"},{"name":"priority","type":"enum","default":"normal","values":["low","normal","high"]},{"name":"recyclingKey","type":"string","default":"none"},{"name":"src","type":"url","default":null},{"name":"systemImage","type":"sf-symbol","default":null},{"name":"tint","type":"color","default":null}]
 actions: ["error","load"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -18,7 +18,7 @@ generator: ClosedSource/scripts/generate_component_docs.rb
 
 The base Web twin renders remote and relative images, every icon name in the shared cross-runtime sf-map corpus, the fixture's decorative-by-default accessibility contract, iconSize/fontSize geometry, semantic tint and the cache policy.
 
-<RefMeta platforms="Web,iOS,Android">
+<RefMeta platforms="Web,iOS,Android,Desktop">
 Category: Display - Live specimens: the [System gallery](/system).
 </RefMeta>
 
@@ -49,6 +49,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: src loads (naturalWidth>0) with a11yLabel alt, icon mode draws, broken src renders labelled browser fallback at reserved box - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | Remote loads show the placeholder wash, fade in on decode (withAnimation easeIn 0.15) with a stale-URL ticket guard, and keep the placeholder on failure - fail-open (CachedRemoteImage, ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/Image/swift/DSXImageCache.swift:189-227); asset and SF Symbol paths render synchronously; bounded decode policy guards dimensions (safeBundledImage, Image.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: loading/error axis: cold remote load fades in over 0.15s easeIn, warm mount renders first-frame, failure keeps the 6%-white placeholder fail-open; cache tiers memory LRU 200 -> content-plane disk/single-flight (ImageElements.kt header); GIF animates API 28+, static first frame below (pinned). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -97,6 +98,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `captured` | the desktop capture plane composed and measured this element at both locked widths |
 
 The base Web twin renders remote and relative images, every icon name in the shared cross-runtime sf-map corpus, the fixture's decorative-by-default accessibility contract, iconSize/fontSize geometry, semantic tint and the cache policy.
 
@@ -128,6 +130,7 @@ Web runtime: `base`.
 | web | yes | 2026-08-18 | a11yLabel -> alt on img, icon-only images labelled; axe 0 serious/critical on the data family page light (dark: text link finding filed separately) |
 | ios | review | 2026-08-18 | Decorative-unless-labeled convention: without a11yLabel every path is accessibilityHidden(true) (the alt-empty twin, documented in-file); labeled images ride the kernel pass (a11yLabel + a11yTrait=image). ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/Image/swift/Image.swift. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: a11yLabel= announces via the style chain's semantics (step 18); the icon path clears raw PUA glyph text semantics so junk never reads (ImageElements.kt:113-114 clearAndSetSemantics); bitmap paths pass contentDescription=null = decorative Compose convention (ImageElements.kt:32,194). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

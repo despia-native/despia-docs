@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"color","type":"color","default":"var(--dsx-accent)"},{"name":"dots","type":"bool","default":"true"},{"name":"on:change","type":"action","default":null},{"name":"peek","type":"number","default":"0"},{"name":"spacing","type":"number","default":"12"},{"name":"value","type":"expr","default":null}]
 actions: ["change"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -55,6 +55,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-09-04 | The structural carousel exposes current-page state, clickable dots, value writeback, and selected-dot reflection; structural-controls.test.ts and element-support-ledger.test.ts execute those transitions. |
 | ios | review | 2026-08-18 | Two-way value selection (child index) with mount-echo dedup (on:change never fires for the mounted page - the TabView re-assert is documented, ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Structure/Carousel/swift/Carousel.swift); dots toggle via dots=; display-only without value (the OS owns selection). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | n/a | 2026-08-18 | swipe-paged container: no rest/pressed/focus/disabled axis; the page index is two-way data (value= key, Containers.kt CarouselElement) and dots are display-only (header: display-only, like .page's dots). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -86,6 +87,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The structural twin renders accessible slides with two-way current-page binding, snap paging, selection dots, peek and spacing geometry, and change events - the full carousel.json attribute contract.
 
@@ -113,6 +115,7 @@ Web runtime: `structural`.
 | web | yes | 2026-09-04 | The root is a named carousel, pages are labelled slides, dots expose current state, hidden pages are inert, and keyboard arrows select pages (structural-controls.ts paged; structural-controls.test.ts). |
 | ios | review | 2026-08-18 | System page-style TabView exposes its page control to assistive tech; page content carries its own semantics; tint touches the dots only. ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Structure/Carousel/swift/Carousel.swift. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: pages expose their own content semantics; dots are decorative (Containers.kt:479-482 display-only). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

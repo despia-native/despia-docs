@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"color","type":"color","default":"white"},{"name":"images","type":"expr","default":null},{"name":"index","type":"expr","default":null},{"name":"present","type":"expr","default":null},{"name":"srcField","type":"string","default":"src"},{"name":"urls","type":"csv","default":null}]
 actions: []
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -58,6 +58,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: opens over everything with 3-image gallery, ArrowRight pages (idx=1, counter advances), Escape dismisses + on:dismiss - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | present lifecycle (fullScreenCover + on:dismiss on any path), page/counter state, zoomed lock (paging + dismiss-drag disabled while zoomed), drag-to-dismiss past 120pt or a fling with backdrop fade (LightboxViewer/ZoomablePhoto, ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Structure/Lightbox/swift/Lightbox.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: zoom state locks paging + dismiss drag and hides chrome; counter n/m when >1 page; settled swipe writes index back; BACK dismisses (Lightbox.kt header); failed page keeps the shared placeholder instead of a black page (pinned deviation). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -85,6 +86,7 @@ Every element also carries the [universal attributes](/components/attributes): a
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The media Web twin provides a shared-top-layer modal gallery with bounded safe sources, reactive presentation/index, focus containment/restoration, keyboard and RTL paging, pointer swipe, interactive drag dismissal, responsive controls, deterministic SSR, and the native zoom ladder: pinch (pointer pairs and trackpad ctrl+wheel) and double-tap zoom toward the focal point (1..4x), pan while zoomed with the native lock (pager and dismiss-drag disabled, chrome hidden), Escape unwinding zoom before dismissal, per-page zoom reset.
 
@@ -113,6 +115,7 @@ Web runtime: `media`.
 | web | yes | 2026-08-18 | labelled Previous/Next/Close controls, counter, focus containment (activeElement lands on close), Escape restores, axe clean while open - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | The counter announces photo N of M (accessibilityLabel); close is a real Button reachable without gestures (system symbol label); zoom is optional inspection. ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Structure/Lightbox/swift/Lightbox.swift. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: dsxAccessibleDismiss on the surface (Lightbox.kt:154) + close/chrome activations (Lightbox.kt:185,217). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"bind","type":"expr","default":null},{"name":"color","type":"color","default":"var(--dsx-accent)"},{"name":"disabled","type":"bool","default":"false"},{"name":"disabled-if","type":"expr","default":null},{"name":"markColorField","type":"string","default":"color"},{"name":"markDateField","type":"string","default":"date"},{"name":"marks","type":"expr","default":null},{"name":"max","type":"iso-date","default":null},{"name":"min","type":"iso-date","default":null},{"name":"on:month","type":"action","default":null}]
 actions: ["month"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: month grid renders, day click writes store (cal=2026-08-16), selected day fill + today ring, day/page hover rules, prev/next buttons - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | Selection circle + today ring + min/max day dimming with native .disabled + control-level W9 disabled grammar (dayCell, ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/Calendar/swift/Calendar.swift); month paging fires on:month {month}; CI-asserted on iPad: paging both ways, native-disabled days, selection writes yyyy-MM-dd + isSelected (ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift testIPadFoundationCalendarUsesNativeButtonsNavigationAndDisabledState) and Catalyst day tap (inspector matrix). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: day cells are selectable with selected state, min/max out-of-range days dimmed + inert, today ring, selection circle (DateElements.kt calendar grid; dsxAccessibleSelectable on day cells DateElements.kt:475); month chevrons are activations (DateElements.kt:509); disabled= in the contract. |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -86,6 +87,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The data-control twin renders a localized, keyboard-operable month grid with ISO binding, range constraints, marks, and month events.
 
@@ -114,6 +116,7 @@ Web runtime: `data`.
 | web | yes | 2026-08-18 | the filed axe critical (aria-required-children/-parent) CLOSED: the weekday header row and every week now render as role=row children INSIDE the role=grid with aria-rowindex/aria-rowcount (the `<grid>` element's aria-row mechanics); keyboard day-walk unchanged; axe serious/critical = 0 over the probe page incl. an enabled and a disabled calendar - w9 Chromium probe (compileComponent->bootDsx, full skin incl. globals/native/data sheets), scratchpad/w9/density-probe.mjs, shots/w9-density-controls.png + -390.png |
 | ios | review | 2026-08-18 | Each day announces its full date (accessibilityLabel(Text(date, style: .date))) + isSelected; chevrons labeled Previous/Next month; the month title carries .isHeader; the one-letter weekday row is deliberately hidden as noise (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/Calendar/swift/Calendar.swift); CI-asserted labeled days + native disabled + selected (ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: day cells ride dsxAccessibleSelectable (role + selected + Enter/Space, DateElements.kt:475); chevrons dsxAccessibleActivation(Role.Button) (DateElements.kt:509); marks are decorative dots. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

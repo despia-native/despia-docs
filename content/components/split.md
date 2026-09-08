@@ -6,11 +6,11 @@ section: components
 element: split
 category: structure
 scope: library
-platforms: web,ios,android
+platforms: web,ios,android,desktop
 properties: [{"name":"collapseAt","type":"number","default":"760"},{"name":"contentIdeal","type":"number","default":"340"},{"name":"contentMax","type":"number","default":"480"},{"name":"contentMin","type":"number","default":"280"},{"name":"detailMin","type":"number","default":"360"},{"name":"expandAt","type":"number","default":"1104"},{"name":"on:change","type":"action","default":null},{"name":"paneRole","type":"enum","default":null,"values":["sidebar","content","detail"]},{"name":"panes","type":"number","default":null},{"name":"resizable","type":"bool","default":"true"},{"name":"sidebarIdeal","type":"number","default":"280"},{"name":"sidebarMax","type":"number","default":"360"},{"name":"sidebarMin","type":"number","default":"220"},{"name":"value","type":"expr","default":null}]
 actions: ["change"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -18,7 +18,7 @@ generator: ClosedSource/scripts/generate_component_docs.rb
 
 The structural twin provides the two/three-pane plan (paneRole resolution, collapseAt/expandAt width classes), the phone stack push with a back pop, the overlay sidebar, ARIA window-splitter dividers with drag and keyboard resize, and value/on:change detail routing.
 
-<RefMeta platforms="Web,iOS,Android">
+<RefMeta platforms="Web,iOS,Android,Desktop">
 Category: Structure - Live specimens: the [System gallery](/system).
 </RefMeta>
 
@@ -58,6 +58,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | rest/hover washes on kernel chrome (toggle fill, divider hover + dragging accent), focus-visible rings on divider/toggle/back, selection states: detail push active/inactive (data-dsx-detail-active), overlay open/closed (aria-expanded + scrim), resizable=false disarms the divider (tabindex -1, keys inert); light+dark - w9 Chromium probe (compileComponent->instantiate, full skin) scratchpad/split-probe.ts (32 checks green), shots/w9-split.png (390/1024/1680) + w9-split-dark.png |
 | ios | review | 2026-08-18 | Selection bridges value= to the compact column: a non-empty selection prefers the detail column, the platform Back pop clears it and fires on:change once, mount selection is not a change (compactColumn Binding, ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Structure/Split/swift/Split.swift:99-117); the fold is pinned in SplitPlan + OpenSource/Conformance/split/split.json and verified through the real Swift planner by SplitConformance on the record lane. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: value= two-way detail selection: compact = the host pane with the selected detail covering it (the stack-push idiom), medium = pinned pair + scrimmed sidebar overlay with a labelled 40dp toggle, expanded = all panes pinned (Containers.kt SplitElement); selectionActive from the shared planner. |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -97,6 +98,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `captured` | the desktop capture plane composed and measured this element at both locked widths |
 
 The structural twin provides the two/three-pane plan (paneRole resolution, collapseAt/expandAt width classes), the phone stack push with a back pop, the overlay sidebar, ARIA window-splitter dividers with drag and keyboard resize, and value/on:change detail routing.
 
@@ -125,6 +127,7 @@ Web runtime: `structural`.
 | web | yes | 2026-08-18 | role=group host + named panes, dividers role=separator aria-orientation/valuemin/valuemax/valuenow with the ARIA window-splitter keyboard contract (Arrows/Home/End, probed), toggle aria-expanded + focus handoff into the overlay, Escape closes, back pop returns focus to the host, covered panes inert + aria-hidden; axe clean on stack/overlay/columns, light+dark - w9 Chromium probe (compileComponent->instantiate, full skin) scratchpad/split-probe.ts (32 checks green), shots/w9-split.png (390/1024/1680) + w9-split-dark.png |
 | ios | review | 2026-08-18 | System NavigationSplitView semantics (columns + Back); panes stamp the sidebar seam for context-resolved lists (dsxInSidebarColumn, pane()). ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Structure/Split/swift/Split.swift. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: every pane is a labelled semantics node (testTag dsx.split.`<role>` + contentDescription, Containers.kt:306-307); the sidebar toggle carries Show/Hide sidebar content descriptions (Containers.kt scrim/toggle block); the scrim is tappable to close. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"bind","type":"expr","default":null},{"name":"color","type":"color","default":"var(--dsx-accent)"},{"name":"disabled","type":"bool","default":"false"},{"name":"disabled-if","type":"expr","default":null},{"name":"labelField","type":"string","default":"label"},{"name":"on:select","type":"action","default":null},{"name":"options","type":"csv","default":null},{"name":"optionsKey","type":"expr","default":null},{"name":"placeholder","type":"string","default":null},{"name":"valueField","type":"string","default":"id"}]
 actions: ["select"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: role=combobox, hover bg+border, type-ahead + ArrowDown + Enter writes 'Berlin', on:select once, listbox popup - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | Focus-driven results card: opens only while focused AND the query is non-empty AND matches exist, typing reopens after a pick, blur closes; on:select fires and focus resigns on pick; W9 disabled wrapper (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/Combobox/swift/Combobox.swift:34-36 + DSXCombobox); CI-asserted open state (ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift combobox activity + capture ui.ios.surface.combobox.open). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: unstyled path = REAL M3 ExposedDropdownMenuBox + editable M3 TextField anchor (PickerElements.kt combobox; SelectionControl.rendersSystem gate - SelectionSystemTest green): platform field focus/state layers; legacy card path byte-identical; disabled= in the contract; keystrokes write bind, row tap writes VALUE + on:select. |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -86,6 +87,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The native-control twin implements an editable ARIA combobox/listbox with filtering, keyboard navigation, option binding, selection, and disabled state.
 
@@ -112,6 +114,7 @@ Web runtime: `native-control`.
 | web | yes | 2026-08-18 | role=combobox + listbox options, full keyboard select; axe 0 serious/critical on the controls family page light+dark (calendar excluded, filed) |
 | ios | review | 2026-08-18 | System TextField (placeholder announced) + result rows as real Buttons with text labels (resultsCard); operable end to end; CI drives the open card through the accessibility tree (app.buttons[Berlin], ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: M3 field + menu semantics on the system path; legacy result rows ride dsxAccessibleSelectable(Role.RadioButton) with selected state + Enter/Space (PickerElements.kt:292). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

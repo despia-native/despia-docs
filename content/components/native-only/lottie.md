@@ -10,7 +10,7 @@ platforms: ios,android
 properties: [{"name":"autoplay","type":"bool","default":"true"},{"name":"loop","type":"bool","default":"true"},{"name":"speed","type":"number","default":"1"},{"name":"src","type":"url","default":null}]
 actions: []
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -58,6 +58,7 @@ Every element also carries the [universal attributes](/components/attributes): a
 | web | `unsupported` | no renderer and no polyfill; the runtime mounts the labelled placeholder |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `module-facet` | filled by the module facet when that module is registered |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 No built-in Lottie player ships with the runtime; `<lottie>` is a MODULE element, and the Core/Lottie web facet (the vendored lottie-web light player, MIT, pinned) fills the tag through the module component loader whenever the module is registered.
 

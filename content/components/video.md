@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"active","type":"bool","default":"true"},{"name":"audio","type":"enum","default":"ambient","values":["playback","ambient"]},{"name":"autoplay","type":"bool","default":"true"},{"name":"bind","type":"expr","default":null},{"name":"buffering","type":"state-key","default":null},{"name":"cue","type":"state-key","default":null},{"name":"duration","type":"state-key","default":null},{"name":"gravity","type":"enum","default":"fill","values":["fill","fit"]},{"name":"loop","type":"bool","default":"false"},{"name":"muted","type":"bool","default":"false"},{"name":"nowArtist","type":"string","default":null},{"name":"nowPlaying","type":"bool","default":"false"},{"name":"nowTitle","type":"string","default":null},{"name":"on:ended","type":"action","default":null},{"name":"on:error","type":"action","default":null},{"name":"on:ready","type":"action","default":null},{"name":"on:remoteNext","type":"action","default":null},{"name":"on:remotePrev","type":"action","default":null},{"name":"on:timeupdate","type":"action","default":null},{"name":"paused","type":"expr","default":null},{"name":"pip","type":"bool","default":"false"},{"name":"preview","type":"state-key","default":null},{"name":"quality","type":"string","default":"auto"},{"name":"reload","type":"number","default":"0"},{"name":"remoteSkip","type":"number","default":"5"},{"name":"resolution","type":"state-key","default":null},{"name":"scrubbing","type":"expr","default":null},{"name":"speed","type":"number","default":"1"},{"name":"src","type":"url","default":null},{"name":"start","type":"number","default":"0"},{"name":"subtitle","type":"string","default":null},{"name":"subtitles","type":"bool","default":"false"},{"name":"time","type":"state-key","default":null},{"name":"tracks","type":"state-key","default":null},{"name":"variants","type":"state-key","default":null}]
 actions: ["ended","error","ready","remoteNext","remotePrev","timeupdate"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | Real-engine media-surfaces oracle (run green this audit in Chromium): active/inactive page-ownership handoff (an inactive preload never clobbers shared transport), scrubbing seek + isolated target-frame preview, unsafe-src rejection, ready/buffering/error lifecycle, teardown, and the audio= category reflected (data-dsx-session, ambient default) - loading/error/empty covered; no hover/pressed axis exists on the chrome-less surface. |
 | ios | review | 2026-08-18 | State-driven playback: two-way paused/bind, buffering/time/duration readouts, scrubbing no-jump-back + one frame-precise commit, preview thumbnails while scrubbing, active gating for multi-video layouts, ready/ended/timeupdate/error events, subtitles legible-track selection (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Media/Video/swift/Video.swift header contract + AVPlayer observers). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: loading/error axis is the reactive contract: buffering (Bool key) + on:ready/on:ended/on:error events; scrubbing no-jump-back; paused/bind two-way state, no imperative calls (MediaElements.kt header, Video.swift behavior-for-behavior on ExoPlayer). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -116,6 +117,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The media Web twin implements the fixture's full contract: native HTML video rendering, active-page ownership, reactive transport/scrubbing/readout bindings, subtitles, bounded load/error state, accurate isolated target-frame previews, best-effort Media Session commands, the audio= playback/ambient category via the page-scoped Audio Session API where present, accessibility, and deterministic SSR.
 
@@ -146,6 +148,7 @@ Web runtime: `media`.
 | web | yes | 2026-08-18 | Default accessible name 'Video' and authored a11yLabel both asserted in the oracle this audit; controls=false keeps the page's own accessible transport authoritative; subtitles= drives text-track modes (language-preferred); the audio twin stays aria-hidden; demo sweeps 0 serious/critical. |
 | ios | review | 2026-08-18 | Chrome-less by contract (controls are authored DSX and carry the control a11y); embedded captions via subtitles= legible-track selection; the system remote transport (MPNowPlayingInfo) is itself an assistive surface. ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Media/Video/swift/Video.swift. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: no controller chrome BY CONTRACT (MediaElements.kt: PlayerView, no controller - controls are authored markup, which carries its own semantics); the surface itself is content. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

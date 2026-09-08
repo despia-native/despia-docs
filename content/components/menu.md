@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"menu","type":"expr","default":null}]
 actions: []
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -50,6 +50,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | trigger opens role=menu, ArrowDown walk, submenu ArrowRight/ArrowLeft walk, Escape walks UP one submenu level before closing (w9), item hover/focus fill, shortcut hints render on leaves - w9 Chromium probe (compileComponent->instantiate, full skin) scratchpad/w9/probe.mjs + CI oracle packages/dom/oracle/application-controls-browser.ts / overlay-controls-browser.ts, shots/w9-drawer-menubar-* |
 | ios | review | 2026-08-18 | System tap-to-open menu on the slot trigger: open/rest states OS-owned, destructive item tint, separators, indefinite native submenus (shared ContextMenuElement.menuItems, ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Structure/Menu/swift/Menu.swift); Catalyst gets the desktop button menu style (menuStyle(.button) + borderless + fixedSize); CI-asserted open (ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift menu activity: trigger tap shows Edit + capture ui.ios.surface.menu.open). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: tap opens the REAL M3 DropdownMenu (Menus.kt MenuElement(longPress=false)): M3 item ripple/states; destructive rows in the M3 error role (Menus.kt:175); leaf rows dispatch then close. |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -72,6 +73,7 @@ Every element also carries the [universal attributes](/components/attributes): a
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The overlay twin provides anchored nested menus with normalized actions, roles, separators, focus management, and keyboard traversal.
 
@@ -98,6 +100,7 @@ Web runtime: `overlay`.
 | web | yes | 2026-08-18 | role=menu/menuitem, ArrowDown walk, submenu ArrowRight, Escape walk-up then close, aria-keyshortcuts + aria-hidden hints on shortcut leaves; axe serious+critical clean while open - w9 Chromium probe (compileComponent->instantiate, full skin) scratchpad/w9/probe.mjs + CI oracle packages/dom/oracle/application-controls-browser.ts / overlay-controls-browser.ts, shots/w9-drawer-menubar-* |
 | ios | review | 2026-08-18 | Native menu items are system controls (labels, destructive voice); the trigger slot is the button; CI drives it through the accessibility tree (ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: trigger dsxAccessibleActivation with localized onClickLabel 'Open menu' + clearDescendants truthful single node (Menus.kt:116); M3 item semantics; on-device DsxInteractiveStateUiTest opens via content description. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

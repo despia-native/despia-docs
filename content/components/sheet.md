@@ -6,11 +6,11 @@ section: components
 element: sheet
 category: overlay
 scope: library
-platforms: web,ios,android
+platforms: web,ios,android,desktop
 properties: [{"name":"action","type":"string","default":null},{"name":"actionIcon","type":"sf-symbol","default":null},{"name":"actionSide","type":"enum","default":"trailing","values":["leading","trailing"]},{"name":"background","type":"color","default":"var(--dsx-background)"},{"name":"close","type":"enum","default":"leading","values":["leading","trailing","none"]},{"name":"detents","type":"csv","default":"half,full","values":["content","half","full"]},{"name":"inset","type":"number","default":"14"},{"name":"mode","type":"enum","default":"sheet","values":["sheet","card","cover"]},{"name":"on:action","type":"action","default":null},{"name":"on:dismiss","type":"action","default":null},{"name":"present","type":"expr","default":null},{"name":"systemBackground","type":"bool","default":"false"},{"name":"title","type":"string","default":null}]
 actions: ["action","dismiss"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -18,7 +18,7 @@ generator: ClosedSource/scripts/generate_component_docs.rb
 
 The overlay twin implements modal sheet/inset/full modes, normalized detents, title/close/action chrome, focus containment/restoration, and dismissal.
 
-<RefMeta platforms="Web,iOS,Android">
+<RefMeta platforms="Web,iOS,Android,Desktop">
 Category: Overlay - Live specimens: the [System gallery](/system).
 </RefMeta>
 
@@ -55,6 +55,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: opens on present bind, scrim shown, focus moves in + Tab trapped, Escape fires on:dismiss, action/close chrome renders - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | present lifecycle (two-way bool; on:dismiss on swipe or programmatic close), detent selection incl. the measured content detent, standard chrome states (close/action raise events), drawer vs floating card vs cover modes (SheetAnchor, ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Structure/Sheet/swift/Sheet.swift); CI-asserted: the content detent presents through the REAL platform sheet at measured height (ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift testLiteralEntityRendersOnceInsideMeasuredNativeSheet). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: present= two-way; standard half/full + full-only contracts ride the REAL M3 ModalBottomSheet (system scrim, drag handle, predictive BACK - Sheets.kt:358-383); content detents + card/cover ride the custom compositor with detent snapping/fling projection JVM-pinned (SheetMath - SheetMathTest green) + presentation-policy split pinned (AndroidSheetPresentationPolicyTest green, gradle :render:testDebugUnitTest run 2026-08-18: 292 tests, 1 failure (StackButtonsTest#systemButtonsDelegateTheirDefaultPalettesToMaterial3 - a stale source-grep of the pre-W9 disabled literal, not a behavior break)); scroll-expands-sheet nested-scroll seam; chrome close/action buttons. |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -94,6 +95,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `captured` | the desktop capture plane composed and measured this element at both locked widths |
 
 The overlay twin implements modal sheet/inset/full modes, normalized detents, title/close/action chrome, focus containment/restoration, and dismissal.
 
@@ -122,6 +124,7 @@ Web runtime: `overlay`.
 | web | yes | 2026-08-18 | grabber restructured to role=slider (vertical, valuenow/min/max/text legal - clears the w8 axe critical aria-allowed-attr) with unchanged click/ArrowUp/Down/Home/End detents; role=dialog aria-modal, labelled by title, Tab trapped, Escape dismisses; axe serious+critical clean open, light+dark - w9 Chromium probe (compileComponent->instantiate, full skin) scratchpad/w9/probe.mjs + CI oracle packages/dom/oracle/application-controls-browser.ts / overlay-controls-browser.ts, shots/w9-drawer-menubar-* |
 | ios | review | 2026-08-18 | System sheet semantics + labeled chrome (Close accessibilityLabel, Sheet.swift:123,186); the content surface is exposed under dsx.sheet.content (CI queries it); assistive dismissal is the system sheet's own. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: M3 ModalBottomSheet accessibility semantics + system BACK on the standard path (Sheets.kt header); the custom compositor carries dsxAccessibleDismiss (Sheets.kt:515,675) and chrome activations (Sheets.kt:627,647); on-device: DsxInteractiveStateUiTest opens a measured-detent sheet and asserts its native text surface. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

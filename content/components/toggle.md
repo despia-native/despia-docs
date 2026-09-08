@@ -6,11 +6,11 @@ section: components
 element: toggle
 category: input
 scope: library
-platforms: web,ios,android
+platforms: web,ios,android,desktop
 properties: [{"name":"bind","type":"expr","default":null},{"name":"color","type":"color","default":"var(--dsx-accent)"},{"name":"disabled","type":"bool","default":"false"},{"name":"disabled-if","type":"expr","default":null},{"name":"on:change","type":"action","default":null}]
 actions: ["change"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -18,7 +18,7 @@ generator: ClosedSource/scripts/generate_component_docs.rb
 
 The base Web twin uses a real checkbox input with switch semantics, bound state, change write-back, and accessible focus handling.
 
-<RefMeta platforms="Web,iOS,Android">
+<RefMeta platforms="Web,iOS,Android,Desktop">
 Category: Input - Also answers to `switch` - Live specimens: the [System gallery](/system).
 </RefMeta>
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: role=switch input, Space flips bound store, knob track/thumb restyle, hover inner delta, focus ring; disabled= not in any renderer's grammar (button-family only) - filed as trinity grammar decision - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | The system switch (SwiftUI Toggle, labelsHidden, accent tint) owns on/off/pressed states; two-way bool via setBound; W9 disabled grammar (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/Toggle/swift/Toggle.swift:14-20); CI-asserted on Catalyst: the desktop checkbox rendering flips the bound value (ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift inspector matrix Toggle activity). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: unstyled path = the REAL M3 Switch (StackSystemControls.kt SystemControl gate - StackSystemControlsTest green): platform thumb/track state layers incl. disabled; legacy capsule dims 0.5 + gates gestures under disabled/disabled-if (StackInputViews.kt:180-197); on-device: DsxAccessibilityUiTest toggles it via semantics (assertIsOff -> performClick -> assertIsOn). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -81,6 +82,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `captured` | the desktop capture plane composed and measured this element at both locked widths |
 
 The base Web twin uses a real checkbox input with switch semantics, bound state, change write-back, and accessible focus handling.
 
@@ -109,6 +111,7 @@ Web runtime: `base`.
 | web | yes | 2026-08-18 | input role=switch, a11yLabel, parts aria-hidden; Space operates; axe 0 serious/critical on the controls family page light+dark (calendar excluded, filed) |
 | ios | review | 2026-08-18 | System switch semantics (on/off value + toggle action announced by the OS); the label is markup's job by contract (labelsHidden); CI flips it through the accessibility tree on Catalyst (ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: dsxAccessibleToggle(Role.Switch) with ToggleableState + Enter/Space + focusable on the legacy capsule (StackInputViews.kt:188); the M3 Switch carries its own toggleable semantics; DsxAccessibilityUiTest asserts both toggle rows on-device. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

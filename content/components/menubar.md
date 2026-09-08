@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"dark","type":"expr","default":null},{"name":"items","type":"expr","default":null},{"name":"on:select","type":"action","default":null},{"name":"selected","type":"expr","default":null}]
 actions: ["select"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -53,6 +53,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | dock: selection pill, hover/active washes, disabled skipped (w8-pinned oracle phases kept green); bar: root hover fill, open-root fill (aria-expanded), flyout item focus wash, destructive voice; light+dark - w9 Chromium probe (compileComponent->instantiate, full skin) scratchpad/w9/probe.mjs + CI oracle packages/dom/oracle/application-controls-browser.ts / overlay-controls-browser.ts, shots/w9-drawer-menubar-* |
 | ios | review | 2026-08-18 | Selection pill adopts the active cell (single-source matchedGeometryEffect, ClosedSource/DSX/Modules/Mandatory/MenuBar/swift/MenuBarComponent.swift:150-176), inactive items dim to 0.55, two-way selected binding through the documented seed chain; scheme rides the dark attr (default dark - the cross-platform builder contract, light via dark=false); Catalyst renders the system segmented Picker with OS states. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: the bar renders REAL M3 NavigationBar + NavigationBarItem (MenuBar.kt:419-447) - selected indicator, state layers, touch states are the platform component's (MenuBar.kt header: M3 owns state animation); selected= drives the item state; sidebar = M3 drawer surface (MenuBar.kt:459-462 header: M3 owns rows/selection/scrim/back). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -82,6 +83,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `module-facet` | filled by the module facet when that module is registered |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The application-control Web twin implements bounded keyed items, canonical selection state and write-back, selection events, radio-menu semantics, keyboard and RTL navigation, the compact pill dock, and, at the shared desktop step, the WAI-ARIA menubar presentation: roving roots, per-root shadow-3 flyouts from nested items, submenu keyboard walk with Escape walking up, and right-aligned shortcut hints from the shortcut token grammar.
 
@@ -112,6 +114,7 @@ Web runtime: `application`.
 | web | yes | 2026-08-18 | role=menubar with roving tabindex; plain roots menuitemradio + aria-checked/current + write-back, submenu roots menuitem + aria-haspopup/expanded/controls; Left/Right/Home/End rove, Down/Up open first/last, Escape walks up then closes to root, Tab closes; leaf hints aria-hidden + aria-keyshortcuts (Meta/Control per platform); axe serious+critical clean - w9 Chromium probe (compileComponent->instantiate, full skin) scratchpad/w9/probe.mjs + CI oracle packages/dom/oracle/application-controls-browser.ts / overlay-controls-browser.ts, shots/w9-drawer-menubar-* |
 | ios | review | 2026-08-19 | W12 red sweep 2026-08-19: each touch-bar item is ONE spoken element with real semantics - .accessibilityElement(children: .ignore) + label(name) + .isButton, and .isSelected on the active item (MenuBarComponent.swift item cells), the MenuSidebar selected-trait precedent. Swift compile-pending (rides Codemagic); balance-checked 0/0/0. Verified by review pending the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: M3 NavigationBar/NavigationBarItem semantics are component-owned (MenuBar.kt header: 'accessibility semantics' listed among what M3 owns; sidebar block 459-462 repeats it for the drawer); item icons resolve through the shared sf-map ladder (StackIcons.kt). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"collapse","type":"enum","default":"platform","values":["platform","stack","content","none"]},{"name":"compactAt","type":"number","default":"760"},{"name":"contentLabel","type":"string","default":"Content"},{"name":"inspectorIdeal","type":"number","default":"320"},{"name":"inspectorLabel","type":"string","default":"Inspector"},{"name":"inspectorMax","type":"number","default":"420"},{"name":"inspectorMin","type":"number","default":"240"},{"name":"pane","type":"enum","default":"content for an unpinned child without pane","values":["sidebar","content","inspector"]},{"name":"pin","type":"enum","default":null,"values":["top","bottom"]},{"name":"shell","type":"enum","default":"custom","values":["custom","automatic","native"]},{"name":"sidebarIdeal","type":"number","default":"280"},{"name":"sidebarLabel","type":"string","default":"Sidebar"},{"name":"sidebarMax","type":"number","default":"360"},{"name":"sidebarMin","type":"number","default":"220"},{"name":"sidebarTitle","type":"string","default":null},{"name":"title","type":"string","default":null}]
 actions: []
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -55,6 +55,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | n/a | 2026-08-18 | Non-interactive display/layout surface: no rest/hover/pressed/focus/disabled axis (value-driven rendering is data, not interaction state; Skeleton IS the loading state). |
 | ios | n/a | 2026-08-18 | Non-interactive display/layout surface: no rest/hover/pressed/focus/disabled axis (value-driven rendering is data, not interaction state; Skeleton IS the loading state). |
 | android | n/a | 2026-08-18 | Non-interactive display/layout surface: no rest/hover/pressed/focus/disabled axis (value-driven rendering is data, not interaction state; Skeleton IS the loading state). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -92,6 +93,7 @@ Every element also carries the [universal attributes](/components/attributes): a
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The base Web twin provides an accessible adaptive split/stack shell with sidebar/content/inspector panes, authored widths, collapse policy, and labels.
 
@@ -120,6 +122,7 @@ Web runtime: `base`.
 | web | yes | 2026-08-18 | nav/main/aside panes with sidebarLabel/contentLabel/inspectorLabel; a11y-demo.ts: 0 serious/critical over /system gallery, all 4 sections, light+dark (the /system gallery rides scaffold) |
 | ios | review | 2026-08-18 | Panes are accessibility containers (.accessibilityElement(children: .contain), Scaffold.swift pane) inside the system split view; pinned bars stay reachable (CI asserts pinned survives the adaptive split). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: every pane is a labelled semantics node: testTag dsx.scaffold.`<role>` + contentDescription Sidebar/Content/Inspector (Containers.kt Pane, SCAFFOLD_*_LABEL); bars stay inside safe insets so content is never occluded. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

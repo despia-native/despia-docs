@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"autoplay","type":"bool","default":"true"},{"name":"bind","type":"expr","default":null},{"name":"buffering","type":"state-key","default":null},{"name":"duration","type":"state-key","default":null},{"name":"loop","type":"bool","default":"false"},{"name":"muted","type":"bool","default":"false"},{"name":"nowArtist","type":"string","default":null},{"name":"nowPlaying","type":"bool","default":"false"},{"name":"nowTitle","type":"string","default":null},{"name":"on:ended","type":"action","default":null},{"name":"on:error","type":"action","default":null},{"name":"on:ready","type":"action","default":null},{"name":"on:remoteNext","type":"action","default":null},{"name":"on:remotePrev","type":"action","default":null},{"name":"on:timeupdate","type":"action","default":null},{"name":"paused","type":"expr","default":null},{"name":"reload","type":"number","default":"0"},{"name":"remoteSkip","type":"number","default":"15"},{"name":"scrubbing","type":"expr","default":null},{"name":"session","type":"enum","default":"playback","values":["playback","ambient"]},{"name":"speed","type":"number","default":"1"},{"name":"src","type":"url","default":null},{"name":"start","type":"number","default":"0"},{"name":"time","type":"state-key","default":null}]
 actions: ["ended","error","ready","remoteNext","remotePrev","timeupdate"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | Real-engine media-surfaces oracle (packages/dom/oracle/media-surfaces-browser.ts, run green this audit in Chromium): ready/time/duration/buffering readouts, paused two-way, ended + error events (bad source and load-deadline timeout), teardown inertness, and the session= category reflected (data-dsx-session, playback default; page-scoped Audio Session API applied while playing) - the full loading/error/empty axis of a headless transport; no rest/hover/pressed axis exists (aria-hidden headless element). |
 | ios | review | 2026-08-18 | The headless state contract IS the states surface: two-way paused + bind position, buffering/time/duration readouts (published on change; time per whole second), scrubbing no-jump-back with one frame-precise seek on release, ready/ended/timeupdate/error events off real AVPlayer item observers (ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Media/Audio/swift/AudioElement.swift header + AVPlayerItemDidPlayToEndTime/FailedToPlayToEndTime handlers). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | n/a | 2026-08-18 | headless playback element: renders no UI surface (MediaElements.kt - 'the headless `<audio>` twin'); playback state is two-way bound DATA (paused/bind/buffering keys) + on:error/on:ended events, not visual states. |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -105,6 +106,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The media Web twin implements the fixture's full transport/readout contract: headless HTMLMediaElement playback, reactive transport/scrubbing bindings, bounded ready/time/buffering/error events, a 15-second load deadline, teardown, feature-detected Media Session commands, and the session= playback/ambient category applied through the page-scoped Audio Session API where the engine has one.
 
@@ -133,6 +135,7 @@ Web runtime: `media`.
 | web | n/a | 2026-08-18 | Headless playback element: renders no UI surface (element-support.json: headless HTMLMediaElement); nothing to expose beyond the page it lives in. |
 | ios | n/a | 2026-08-18 | Headless playback element: renders no UI surface (element-support.json: headless HTMLMediaElement); nothing to expose beyond the page it lives in. |
 | android | n/a | 2026-08-18 | Headless playback element: renders no UI surface (element-support.json: headless HTMLMediaElement); nothing to expose beyond the page it lives in. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

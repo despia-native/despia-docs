@@ -6,11 +6,11 @@ section: components
 element: slider
 category: input
 scope: library
-platforms: web,ios,android
+platforms: web,ios,android,desktop
 properties: [{"name":"bind","type":"expr","default":null},{"name":"color","type":"color","default":"var(--dsx-accent)"},{"name":"disabled","type":"bool","default":"false"},{"name":"disabled-if","type":"expr","default":null},{"name":"max","type":"number","default":"1"},{"name":"min","type":"number","default":"0"},{"name":"on:change","type":"action","default":null}]
 actions: ["change"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -18,7 +18,7 @@ generator: ClosedSource/scripts/generate_component_docs.rb
 
 The base Web twin uses a real range input with binding, min/max, input write-back, and semantic tint styling.
 
-<RefMeta platforms="Web,iOS,Android">
+<RefMeta platforms="Web,iOS,Android,Desktop">
 Category: Input - Live specimens: the [System gallery](/system).
 </RefMeta>
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | yes | 2026-08-18 | probe: ArrowRight/End write bound store, :focus-visible thumb ring pixel-verified, hover/active thumb rules in skin - w8 Chromium probe (compileComponent->bootDsx, full skin), scratchpad/w8/*.mjs, shots/w8-audit-* |
 | ios | review | 2026-08-18 | The system Slider with local-thumb drag + throttled bound writes + a final commit on release (BoundSlider, ClosedSource/DSX/Modules/Mandatory/Foundation/Components/Basics/Slider/swift/Slider.swift); W9 disabled grammar; system pressed/focus states; Catalyst CI-asserted (adjust writes the bound value, ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift inspector matrix). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: unstyled path = the REAL M3 Slider (StackSystemControls.kt SystemControl gate - StackSystemControlsTest green): platform thumb/track states incl. disabled; legacy track dims 0.5 + gates gestures under disabled/disabled-if (StackInputViews.kt:352-380). |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -83,6 +84,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `captured` | the desktop capture plane composed and measured this element at both locked widths |
 
 The base Web twin uses a real range input with binding, min/max, input write-back, and semantic tint styling.
 
@@ -111,6 +113,7 @@ Web runtime: `base`.
 | web | yes | 2026-08-18 | range input with a11yLabel, keyboard steps, focus-visible thumb ring; axe 0 serious/critical on the controls family page light+dark (calendar excluded, filed) |
 | ios | review | 2026-08-18 | System Slider adjustable semantics (VoiceOver increment/decrement; the Catalyst CI test adjusts through the accessibility API and the bound value changes, ClosedSource/RuntimeUITests/RuntimeLaunchUITests.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | review | 2026-08-18 | VERIFIED-BY-REVIEW: dsxAccessibleRange: progressBarRangeInfo + setProgress + arrow-key adjustment + focusable (StackInputViews.kt:364, AccessibilityModifiers.kt:178); on-device DsxAccessibilityUiTest asserts the range semantics (ProgressBarRangeInfo import + Legacy slider node). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

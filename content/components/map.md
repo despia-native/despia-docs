@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"circleColor","type":"color","default":"var(--dsx-accent)"},{"name":"interaction","type":"enum","default":"all","values":["all","none"]},{"name":"lat","type":"number","default":"0"},{"name":"lon","type":"number","default":"0"},{"name":"pinColor","type":"color","default":"var(--dsx-accent)"},{"name":"pinGlyph","type":"sf-symbol","default":"mappin.circle.fill"},{"name":"pinLat","type":"string","default":"lat"},{"name":"pinLon","type":"string","default":"lng"},{"name":"pinSubtitle","type":"string","default":"subtitle"},{"name":"pinTitle","type":"string","default":"title"},{"name":"pins","type":"expr","default":null},{"name":"regionColor","type":"color","default":"var(--dsx-accent)"},{"name":"routeColor","type":"color","default":"var(--dsx-accent)"},{"name":"routeLineType","type":"enum","default":"solid","values":["solid","dashed","dotted"]},{"name":"routeOpacity","type":"number","default":"1"},{"name":"routeWidth","type":"number","default":"4"},{"name":"style","type":"enum","default":"standard","values":["standard"]},{"name":"userLocation","type":"bool","default":"false"},{"name":"zoom","type":"number","default":"12"}]
 actions: []
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -50,6 +50,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | no, and named | 2026-08-18 | W11 disposition (b), dated decision: map is the maps module's tag (census module: maps); the web twin is the documented offline coordinate plane (OpenSource/Web/support/element-support.json map row keeps status partial: no tiles/routes/regions/user location), so its pin/pan interaction states are functional but not held to the library per-state bar; the full map presentation follows the maps module roadmap. Red-by-record. |
 | ios | review | 2026-08-18 | Selection state rides the Map selection binding: on:select/on:pinTap fire with pin payloads, on:tap converts to {lat, lon}; interaction= gates pan/zoom modes; iOS<17 renders empty by decision, fail-open (ClosedSource/DSX/Modules/Core/Maps/swift/Maps.swift). Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | n/a | 2026-08-18 | the surface is the platform map control (Google Maps Compose, Maps.kt): interaction= gates gestures (all/none/pan/zoom), pins/camera/route are bound DATA; no component state axis of its own. |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -90,6 +91,7 @@ Every element also carries the [universal attributes](/components/attributes): a
 | web | `partial` | a renderer exists and is narrower than the reference in the ways listed below |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `module-facet` | filled by the module facet when that module is registered |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The rich Web twin renders a REAL basemap when tiles= names a source - a self-hosted Protomaps .pmtiles archive (range-read, MVT-decoded, canvas-painted in the Despia neutral language with archive-metadata attribution) or a raster {z}/{x}/{y} template - plus accessible pins and pointer/keyboard pan/zoom; without tiles= it is the honest offline coordinate plane.
 
@@ -117,6 +119,7 @@ Web runtime: `rich`.
 | web | yes | 2026-08-18 | role=application, focusable plane, labelled zoom controls, accessible pins (element-support.json); axe 0 serious/critical on the data family page light (dark: text link finding filed separately) |
 | ios | review | 2026-08-18 | The system SwiftUI Map exposes the platform map accessibility (controls + markers announced by the OS); pin titles feed marker labels. ClosedSource/DSX/Modules/Core/Maps/swift/Maps.swift. Verified-by-review; the visual capture awaits the iOS capture lane. |
 | android | no, and named | 2026-08-19 | AUDITED-RED (dated 2026-08-19, W12 red sweep disposition): unchanged by the sweep, and out of reach in this environment - accessibility rides the Google Maps view's OWN tree (no repo-side semantics to add without occluding it, Maps.kt), so the honest verification is a DEVICE audit naming what TalkBack actually reaches; that needs a real device/emulator with Play services, which this environment does not have. Stays red until the device audit runs; the web column's role=application + labelled controls remain the reference bar. |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 

@@ -10,7 +10,7 @@ platforms: web,ios,android
 properties: [{"name":"baseline","type":"bool","default":"true"},{"name":"bind","type":"expression","default":null},{"name":"color","type":"color","default":"var(--dsx-label)"},{"name":"height","type":"number","default":"180"},{"name":"on:begin","type":"action","default":null},{"name":"on:change","type":"action","default":null},{"name":"on:end","type":"action","default":null},{"name":"placeholder","type":"string","default":null},{"name":"radius","type":"number","default":"12"},{"name":"readOnly","type":"bool","default":"false"},{"name":"strokeWidth","type":"number","default":"3"}]
 actions: ["begin","change","end"]
 catalog: 0.1.0
-commit: e6eed2acf3432cb14315295020a6842d9b25b68f
+commit: 4fee8f0f180a24140dc54c148df88454bef5e365
 generator: ClosedSource/scripts/generate_component_docs.rb
 ---
 
@@ -51,6 +51,7 @@ Every component in the library is authored at four rungs in the catalog (default
 | web | no, and named | 2026-09-04 | Audited-red 2026-09-04: readOnly gates pointer capture, but the web factory has no focus or hover presentation and does not fold universal disabled or disabled-if into readOnly (OpenSource/Web/packages/dom/src/globals.ts signature). The complete control-state contract therefore does not hold. |
 | ios | review | 2026-09-04 | Verified by source review: readOnly, disabled, and disabled-if gate DragGesture capture; empty or signed and live or committed ink are explicit states and scheme colors use semantic tokens (Signature.swift SignatureView). Visual state review remains in the owner shot ledger. |
 | android | review | 2026-09-04 | Verified by source review: readOnly, disabled, and disabled-if prevent pointerInput capture; empty or signed and live or committed ink are explicit states and scheme colors use semantic tokens (SignatureElement.kt). Visual state review remains in the owner shot ledger. |
+| desktop | unaudited | unaudited | none recorded |
 
 Rest, hover on a fine pointer, pressed, focus visible and disabled, in both colour schemes, plus loading, error and empty where the component has them.
 
@@ -89,6 +90,7 @@ A payload arrives FLAT in the handler scope, so a declared action names the key 
 | web | `supported` | the built in renderer implements this element |
 | ios | `reference` | the reference renderer this element is specified against |
 | android | `enforced` | implemented and pinned by the element parity test |
+| desktop | `uncaptured` | no desktop capture has measured it, which claims nothing in either direction |
 
 The global Web twin is a real pointer-driven ink pad: a devicePixelRatio-scaled 2D canvas drawing the SHARED ink law (@despia-native/kernel signature-core: clamp, round-at-capture, midpoint quadratic curve), one bound write per stroke on pointer-up, and a server twin that renders the committed strokes as an inline SVG in the same normalized space, so a signed document has real first paint before the pad mounts.
 
@@ -118,6 +120,7 @@ Web runtime: `global`.
 | web | no, and named | 2026-09-04 | Audited-red 2026-09-04: the pad exposes role=img plus a localized Empty or Signed name but has no keyboard or switch-control operation. OpenSource/Conformance/elements/Signature.json names this pointer-only limitation explicitly. |
 | ios | no, and named | 2026-09-04 | Audited-red 2026-09-04: Signature.swift exposes one accessibility element with a label and Empty or Signed value, but the documented pointer-drawn pad has no keyboard or switch-control action (OpenSource/Conformance/elements/Signature.json). |
 | android | no, and named | 2026-09-04 | Audited-red 2026-09-04: SignatureElement.kt exposes a content description and Empty or Signed state, but the documented pointer-drawn pad has no TalkBack action (OpenSource/Conformance/elements/Signature.json). |
+| desktop | unaudited | unaudited | none recorded |
 
 Every element carries `a11yLabel`, `a11yHint`, `a11yValue`, `a11yTrait`, `a11yGroup` and `a11yHidden`. A control that draws an icon beside text is one group with one label, never two announcements; see the [universal attributes](/components/attributes).
 
